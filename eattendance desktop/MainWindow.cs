@@ -15,6 +15,5 @@ namespace eattendance_desktop
         {
             InitializeComponent();
         }
-
     }
 }
