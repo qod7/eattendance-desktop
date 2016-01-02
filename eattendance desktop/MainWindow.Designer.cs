@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.attendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAttendancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualAttendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,19 +49,24 @@
             this.websiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.btnSync = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnManual = new System.Windows.Forms.Button();
+            this.btnAttendances = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.btnDevices = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnTimetable = new System.Windows.Forms.Button();
+            this.btnUsers = new System.Windows.Forms.Button();
+            this.btnUserGroups = new System.Windows.Forms.Button();
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceStatus = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DeviceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridDevices = new System.Windows.Forms.DataGridView();
             this.attendancesGroupBox = new System.Windows.Forms.GroupBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.dataGridAttendances = new System.Windows.Forms.DataGridView();
             this.AttendanceUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceAccountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceAccountType = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,18 +74,14 @@
             this.AttendanceTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceDevice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceEntryMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.menuStrip1.SuspendLayout();
+            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblInfoStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip.SuspendLayout();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
@@ -88,24 +89,25 @@
             this.tablesSplitContainer.Panel2.SuspendLayout();
             this.tablesSplitContainer.SuspendLayout();
             this.devicesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDevices)).BeginInit();
             this.attendancesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAttendances)).BeginInit();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.attendanceToolStripMenuItem,
             this.usersToolStripMenuItem,
             this.deviceToolStripMenuItem,
             this.accountToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip.TabIndex = 0;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // attendanceToolStripMenuItem
             // 
@@ -237,6 +239,7 @@
             // 
             this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.mainSplitContainer.IsSplitterFixed = true;
             this.mainSplitContainer.Location = new System.Drawing.Point(0, 24);
             this.mainSplitContainer.Name = "mainSplitContainer";
             this.mainSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -244,18 +247,18 @@
             // mainSplitContainer.Panel1
             // 
             this.mainSplitContainer.Panel1.BackColor = System.Drawing.SystemColors.Menu;
-            this.mainSplitContainer.Panel1.Controls.Add(this.button9);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button8);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnLogout);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnSync);
             this.mainSplitContainer.Panel1.Controls.Add(this.label3);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button7);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button6);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnManual);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnAttendances);
             this.mainSplitContainer.Panel1.Controls.Add(this.label2);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button5);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button4);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnConnect);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnDevices);
             this.mainSplitContainer.Panel1.Controls.Add(this.label1);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button3);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button2);
-            this.mainSplitContainer.Panel1.Controls.Add(this.button1);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnTimetable);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnUsers);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnUserGroups);
             this.mainSplitContainer.Panel1MinSize = 80;
             // 
             // mainSplitContainer.Panel2
@@ -263,9 +266,122 @@
             this.mainSplitContainer.Panel2.BackColor = System.Drawing.SystemColors.Info;
             this.mainSplitContainer.Panel2.Controls.Add(this.tablesSplitContainer);
             this.mainSplitContainer.Panel2MinSize = 100;
-            this.mainSplitContainer.Size = new System.Drawing.Size(784, 537);
+            this.mainSplitContainer.Size = new System.Drawing.Size(784, 587);
             this.mainSplitContainer.SplitterDistance = 80;
             this.mainSplitContainer.TabIndex = 1;
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Image = global::eattendance_desktop.Properties.Resources.logout;
+            this.btnLogout.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnLogout.Location = new System.Drawing.Point(651, 3);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnLogout.Size = new System.Drawing.Size(75, 74);
+            this.btnLogout.TabIndex = 11;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnLogout.UseVisualStyleBackColor = true;
+            // 
+            // btnSync
+            // 
+            this.btnSync.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSync.FlatAppearance.BorderSize = 0;
+            this.btnSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSync.Image = global::eattendance_desktop.Properties.Resources.sync;
+            this.btnSync.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSync.Location = new System.Drawing.Point(573, 3);
+            this.btnSync.Name = "btnSync";
+            this.btnSync.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnSync.Size = new System.Drawing.Size(75, 74);
+            this.btnSync.TabIndex = 10;
+            this.btnSync.Text = "Sync";
+            this.btnSync.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSync.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.DarkGray;
+            this.label3.Location = new System.Drawing.Point(568, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(2, 65);
+            this.label3.TabIndex = 9;
+            // 
+            // btnManual
+            // 
+            this.btnManual.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnManual.FlatAppearance.BorderSize = 0;
+            this.btnManual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManual.Image = global::eattendance_desktop.Properties.Resources.manual_attendance;
+            this.btnManual.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnManual.Location = new System.Drawing.Point(490, 3);
+            this.btnManual.Name = "btnManual";
+            this.btnManual.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnManual.Size = new System.Drawing.Size(75, 74);
+            this.btnManual.TabIndex = 8;
+            this.btnManual.Text = "Manual";
+            this.btnManual.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnManual.UseVisualStyleBackColor = true;
+            // 
+            // btnAttendances
+            // 
+            this.btnAttendances.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAttendances.FlatAppearance.BorderSize = 0;
+            this.btnAttendances.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAttendances.Image = global::eattendance_desktop.Properties.Resources.attendances;
+            this.btnAttendances.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAttendances.Location = new System.Drawing.Point(412, 3);
+            this.btnAttendances.Name = "btnAttendances";
+            this.btnAttendances.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnAttendances.Size = new System.Drawing.Size(75, 74);
+            this.btnAttendances.TabIndex = 7;
+            this.btnAttendances.Text = "Attendances";
+            this.btnAttendances.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAttendances.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.DarkGray;
+            this.label2.Location = new System.Drawing.Point(407, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(2, 65);
+            this.label2.TabIndex = 6;
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnConnect.FlatAppearance.BorderSize = 0;
+            this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConnect.Image = global::eattendance_desktop.Properties.Resources.connect;
+            this.btnConnect.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnConnect.Location = new System.Drawing.Point(329, 3);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnConnect.Size = new System.Drawing.Size(75, 74);
+            this.btnConnect.TabIndex = 5;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // btnDevices
+            // 
+            this.btnDevices.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnDevices.FlatAppearance.BorderSize = 0;
+            this.btnDevices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDevices.Image = global::eattendance_desktop.Properties.Resources.Device;
+            this.btnDevices.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnDevices.Location = new System.Drawing.Point(251, 3);
+            this.btnDevices.Name = "btnDevices";
+            this.btnDevices.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnDevices.Size = new System.Drawing.Size(75, 74);
+            this.btnDevices.TabIndex = 4;
+            this.btnDevices.Text = "Devices";
+            this.btnDevices.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDevices.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -275,8 +391,57 @@
             this.label1.Size = new System.Drawing.Size(2, 65);
             this.label1.TabIndex = 3;
             // 
+            // btnTimetable
+            // 
+            this.btnTimetable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnTimetable.FlatAppearance.BorderSize = 0;
+            this.btnTimetable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTimetable.Image = global::eattendance_desktop.Properties.Resources.timetables;
+            this.btnTimetable.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnTimetable.Location = new System.Drawing.Point(168, 3);
+            this.btnTimetable.Name = "btnTimetable";
+            this.btnTimetable.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnTimetable.Size = new System.Drawing.Size(75, 74);
+            this.btnTimetable.TabIndex = 2;
+            this.btnTimetable.Text = "Timetable";
+            this.btnTimetable.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnTimetable.UseVisualStyleBackColor = true;
+            // 
+            // btnUsers
+            // 
+            this.btnUsers.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnUsers.FlatAppearance.BorderSize = 0;
+            this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsers.Image = global::eattendance_desktop.Properties.Resources.user;
+            this.btnUsers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnUsers.Location = new System.Drawing.Point(90, 3);
+            this.btnUsers.Name = "btnUsers";
+            this.btnUsers.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnUsers.Size = new System.Drawing.Size(75, 74);
+            this.btnUsers.TabIndex = 1;
+            this.btnUsers.Text = "Users";
+            this.btnUsers.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnUsers.UseVisualStyleBackColor = true;
+            // 
+            // btnUserGroups
+            // 
+            this.btnUserGroups.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnUserGroups.FlatAppearance.BorderSize = 0;
+            this.btnUserGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUserGroups.Image = global::eattendance_desktop.Properties.Resources.usergroup;
+            this.btnUserGroups.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnUserGroups.Location = new System.Drawing.Point(12, 3);
+            this.btnUserGroups.Name = "btnUserGroups";
+            this.btnUserGroups.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnUserGroups.Size = new System.Drawing.Size(75, 74);
+            this.btnUserGroups.TabIndex = 0;
+            this.btnUserGroups.Text = "User Groups";
+            this.btnUserGroups.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnUserGroups.UseVisualStyleBackColor = true;
+            // 
             // tablesSplitContainer
             // 
+            this.tablesSplitContainer.BackColor = System.Drawing.SystemColors.Control;
             this.tablesSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tablesSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.tablesSplitContainer.Margin = new System.Windows.Forms.Padding(3, 105, 3, 3);
@@ -293,103 +458,86 @@
             this.tablesSplitContainer.Panel2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tablesSplitContainer.Panel2.Controls.Add(this.attendancesGroupBox);
             this.tablesSplitContainer.Panel2MinSize = 100;
-            this.tablesSplitContainer.Size = new System.Drawing.Size(784, 453);
-            this.tablesSplitContainer.SplitterDistance = 196;
+            this.tablesSplitContainer.Size = new System.Drawing.Size(784, 503);
+            this.tablesSplitContainer.SplitterDistance = 217;
             this.tablesSplitContainer.TabIndex = 3;
             // 
             // devicesGroupBox
             // 
             this.devicesGroupBox.BackColor = System.Drawing.SystemColors.Control;
-            this.devicesGroupBox.Controls.Add(this.dataGridView1);
+            this.devicesGroupBox.Controls.Add(this.dataGridDevices);
             this.devicesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.devicesGroupBox.Location = new System.Drawing.Point(0, 0);
             this.devicesGroupBox.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
             this.devicesGroupBox.Name = "devicesGroupBox";
-            this.devicesGroupBox.Size = new System.Drawing.Size(784, 196);
+            this.devicesGroupBox.Size = new System.Drawing.Size(784, 217);
             this.devicesGroupBox.TabIndex = 0;
             this.devicesGroupBox.TabStop = false;
             this.devicesGroupBox.Text = "Devices";
             // 
-            // dataGridView1
+            // dataGridDevices
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridDevices.AllowUserToAddRows = false;
+            this.dataGridDevices.AllowUserToDeleteRows = false;
+            this.dataGridDevices.AllowUserToOrderColumns = true;
+            this.dataGridDevices.AllowUserToResizeRows = false;
+            this.dataGridDevices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridDevices.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridDevices.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridDevices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridDevices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DeviceName,
             this.DeviceStatus,
             this.DeviceNumber,
             this.DeviceIPAddress,
             this.DevicePort,
             this.DeviceRemark});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(778, 177);
-            this.dataGridView1.TabIndex = 1;
-            // 
-            // DeviceName
-            // 
-            this.DeviceName.HeaderText = "Name";
-            this.DeviceName.Name = "DeviceName";
-            // 
-            // DeviceStatus
-            // 
-            this.DeviceStatus.HeaderText = "Status";
-            this.DeviceStatus.Name = "DeviceStatus";
-            this.DeviceStatus.ReadOnly = true;
-            // 
-            // DeviceNumber
-            // 
-            this.DeviceNumber.HeaderText = "Number";
-            this.DeviceNumber.Name = "DeviceNumber";
-            this.DeviceNumber.ReadOnly = true;
-            // 
-            // DeviceIPAddress
-            // 
-            this.DeviceIPAddress.HeaderText = "IPAddress";
-            this.DeviceIPAddress.Name = "DeviceIPAddress";
-            this.DeviceIPAddress.ReadOnly = true;
-            // 
-            // DevicePort
-            // 
-            this.DevicePort.HeaderText = "Port";
-            this.DevicePort.Name = "DevicePort";
-            this.DevicePort.ReadOnly = true;
-            // 
-            // DeviceRemark
-            // 
-            this.DeviceRemark.HeaderText = "Remarks";
-            this.DeviceRemark.Name = "DeviceRemark";
-            this.DeviceRemark.ReadOnly = true;
-            this.DeviceRemark.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridDevices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridDevices.Location = new System.Drawing.Point(3, 16);
+            this.dataGridDevices.MultiSelect = false;
+            this.dataGridDevices.Name = "dataGridDevices";
+            this.dataGridDevices.ReadOnly = true;
+            this.dataGridDevices.RowTemplate.ReadOnly = true;
+            this.dataGridDevices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridDevices.ShowEditingIcon = false;
+            this.dataGridDevices.Size = new System.Drawing.Size(778, 198);
+            this.dataGridDevices.TabIndex = 1;
             // 
             // attendancesGroupBox
             // 
             this.attendancesGroupBox.BackColor = System.Drawing.SystemColors.Control;
-            this.attendancesGroupBox.Controls.Add(this.statusStrip1);
-            this.attendancesGroupBox.Controls.Add(this.dataGridView2);
+            this.attendancesGroupBox.Controls.Add(this.statusStrip);
+            this.attendancesGroupBox.Controls.Add(this.dataGridAttendances);
             this.attendancesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.attendancesGroupBox.Location = new System.Drawing.Point(0, 0);
             this.attendancesGroupBox.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
             this.attendancesGroupBox.Name = "attendancesGroupBox";
-            this.attendancesGroupBox.Size = new System.Drawing.Size(784, 253);
+            this.attendancesGroupBox.Size = new System.Drawing.Size(784, 282);
             this.attendancesGroupBox.TabIndex = 1;
             this.attendancesGroupBox.TabStop = false;
             this.attendancesGroupBox.Text = "Attendance Entries";
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(3, 228);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(778, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblInfoStatusStrip});
+            this.statusStrip.Location = new System.Drawing.Point(3, 257);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(778, 22);
+            this.statusStrip.TabIndex = 2;
+            this.statusStrip.Text = "StatusStrip";
             // 
-            // dataGridView2
+            // dataGridAttendances
             // 
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridAttendances.AllowUserToAddRows = false;
+            this.dataGridAttendances.AllowUserToDeleteRows = false;
+            this.dataGridAttendances.AllowUserToOrderColumns = true;
+            this.dataGridAttendances.AllowUserToResizeRows = false;
+            this.dataGridAttendances.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridAttendances.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridAttendances.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridAttendances.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridAttendances.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AttendanceUserID,
             this.AttendanceAccountNumber,
             this.AttendanceAccountType,
@@ -397,11 +545,11 @@
             this.AttendanceTime,
             this.AttendanceDevice,
             this.AttendanceEntryMethod});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(778, 234);
-            this.dataGridView2.TabIndex = 1;
+            this.dataGridAttendances.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridAttendances.Location = new System.Drawing.Point(3, 16);
+            this.dataGridAttendances.Name = "dataGridAttendances";
+            this.dataGridAttendances.Size = new System.Drawing.Size(778, 263);
+            this.dataGridAttendances.TabIndex = 1;
             // 
             // AttendanceUserID
             // 
@@ -446,180 +594,65 @@
             this.AttendanceEntryMethod.HeaderText = "Entry Method";
             this.AttendanceEntryMethod.Name = "AttendanceEntryMethod";
             // 
-            // button4
+            // DeviceName
             // 
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button4.Location = new System.Drawing.Point(251, 3);
-            this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button4.Size = new System.Drawing.Size(75, 74);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Devices";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button4.UseVisualStyleBackColor = true;
+            this.DeviceName.HeaderText = "Name";
+            this.DeviceName.Name = "DeviceName";
+            this.DeviceName.ReadOnly = true;
             // 
-            // button3
+            // DeviceStatus
             // 
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Image = global::eattendance_desktop.Properties.Resources.timetables;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.Location = new System.Drawing.Point(168, 3);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button3.Size = new System.Drawing.Size(75, 74);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Timetable";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button3.UseVisualStyleBackColor = true;
+            this.DeviceStatus.HeaderText = "Status";
+            this.DeviceStatus.Name = "DeviceStatus";
+            this.DeviceStatus.ReadOnly = true;
+            this.DeviceStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DeviceStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // button2
+            // DeviceNumber
             // 
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::eattendance_desktop.Properties.Resources.user;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button2.Location = new System.Drawing.Point(90, 3);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button2.Size = new System.Drawing.Size(75, 74);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Users";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button2.UseVisualStyleBackColor = true;
+            this.DeviceNumber.HeaderText = "Device Number";
+            this.DeviceNumber.Name = "DeviceNumber";
+            this.DeviceNumber.ReadOnly = true;
             // 
-            // button1
+            // DeviceIPAddress
             // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.Location = new System.Drawing.Point(12, 3);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button1.Size = new System.Drawing.Size(75, 74);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "User Groups";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.UseVisualStyleBackColor = true;
+            this.DeviceIPAddress.HeaderText = "IPAddress";
+            this.DeviceIPAddress.Name = "DeviceIPAddress";
+            this.DeviceIPAddress.ReadOnly = true;
             // 
-            // button5
+            // DevicePort
             // 
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Image = global::eattendance_desktop.Properties.Resources.connect;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button5.Location = new System.Drawing.Point(329, 3);
-            this.button5.Name = "button5";
-            this.button5.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button5.Size = new System.Drawing.Size(75, 74);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Connect";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button5.UseVisualStyleBackColor = true;
+            this.DevicePort.HeaderText = "Port";
+            this.DevicePort.Name = "DevicePort";
+            this.DevicePort.ReadOnly = true;
             // 
-            // label2
+            // DeviceRemark
             // 
-            this.label2.BackColor = System.Drawing.Color.DarkGray;
-            this.label2.Location = new System.Drawing.Point(407, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(2, 65);
-            this.label2.TabIndex = 6;
+            this.DeviceRemark.HeaderText = "Remarks";
+            this.DeviceRemark.Name = "DeviceRemark";
+            this.DeviceRemark.ReadOnly = true;
+            this.DeviceRemark.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // button6
+            // lblInfoStatusStrip
             // 
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Image = global::eattendance_desktop.Properties.Resources.attendances;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button6.Location = new System.Drawing.Point(412, 3);
-            this.button6.Name = "button6";
-            this.button6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button6.Size = new System.Drawing.Size(75, 74);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Attendances";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Image = global::eattendance_desktop.Properties.Resources.manual_attendance;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button7.Location = new System.Drawing.Point(490, 3);
-            this.button7.Name = "button7";
-            this.button7.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button7.Size = new System.Drawing.Size(75, 74);
-            this.button7.TabIndex = 8;
-            this.button7.Text = "Manual";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.DarkGray;
-            this.label3.Location = new System.Drawing.Point(568, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(2, 65);
-            this.label3.TabIndex = 9;
-            // 
-            // button8
-            // 
-            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Image = global::eattendance_desktop.Properties.Resources.sync;
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button8.Location = new System.Drawing.Point(573, 3);
-            this.button8.Name = "button8";
-            this.button8.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button8.Size = new System.Drawing.Size(75, 74);
-            this.button8.TabIndex = 10;
-            this.button8.Text = "Sync";
-            this.button8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            this.button9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Image = global::eattendance_desktop.Properties.Resources.logout;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button9.Location = new System.Drawing.Point(651, 3);
-            this.button9.Name = "button9";
-            this.button9.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.button9.Size = new System.Drawing.Size(75, 74);
-            this.button9.TabIndex = 11;
-            this.button9.Text = "Logout";
-            this.button9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button9.UseVisualStyleBackColor = true;
+            this.lblInfoStatusStrip.Name = "lblInfoStatusStrip";
+            this.lblInfoStatusStrip.Size = new System.Drawing.Size(0, 17);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 611);
             this.Controls.Add(this.mainSplitContainer);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MainMenuStrip = this.menuStrip;
+            this.MinimumSize = new System.Drawing.Size(800, 650);
             this.Name = "MainWindow";
             this.Text = "E Attendance Desktop";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             this.mainSplitContainer.ResumeLayout(false);
@@ -627,10 +660,12 @@
             this.tablesSplitContainer.Panel2.ResumeLayout(false);
             this.tablesSplitContainer.ResumeLayout(false);
             this.devicesGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDevices)).EndInit();
             this.attendancesGroupBox.ResumeLayout(false);
             this.attendancesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAttendances)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -638,7 +673,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem attendanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewAttendancesToolStripMenuItem;
@@ -656,15 +691,9 @@
         private System.Windows.Forms.SplitContainer mainSplitContainer;
         private System.Windows.Forms.SplitContainer tablesSplitContainer;
         private System.Windows.Forms.GroupBox devicesGroupBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
-        private System.Windows.Forms.DataGridViewButtonColumn DeviceStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
+        private System.Windows.Forms.DataGridView dataGridDevices;
         private System.Windows.Forms.GroupBox attendancesGroupBox;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dataGridAttendances;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceUserID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceAccountNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceAccountType;
@@ -672,23 +701,30 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDevice;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceEntryMethod;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Button btnUserGroups;
+        private System.Windows.Forms.Button btnTimetable;
+        private System.Windows.Forms.Button btnUsers;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem accountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem syncDatabaseToolStripMenuItem;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnDevices;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnSync;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnManual;
+        private System.Windows.Forms.Button btnAttendances;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
+        private System.Windows.Forms.ToolStripStatusLabel lblInfoStatusStrip;
     }
 }
 
