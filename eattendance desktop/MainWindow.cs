@@ -38,8 +38,10 @@ namespace eattendance_desktop
             }
 
             // now use the data to fill up the table
-            Common.OnlineStyle.BackColor = Color.LimeGreen;
+            Common.OnlineStyle.BackColor = Color.LightGreen;
+            Common.OnlineStyle.SelectionBackColor = Color.LightGreen;
             Common.OfflineStyle.BackColor = Color.LightSlateGray;
+            Common.OfflineStyle.SelectionBackColor = Color.LightSlateGray;
             int rowcount = 0;
             foreach (Device device in Common.Devices)
             {

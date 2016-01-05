@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.attendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +67,7 @@
             this.dataGridDevices = new System.Windows.Forms.DataGridView();
             this.attendancesGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lblInfoStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridAttendances = new System.Windows.Forms.DataGridView();
             this.AttendanceUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceAccountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +82,6 @@
             this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeviceRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblInfoStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -492,6 +493,14 @@
             this.DeviceIPAddress,
             this.DevicePort,
             this.DeviceRemark});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridDevices.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridDevices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridDevices.Location = new System.Drawing.Point(3, 16);
             this.dataGridDevices.MultiSelect = false;
@@ -526,6 +535,11 @@
             this.statusStrip.Size = new System.Drawing.Size(778, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
+            // 
+            // lblInfoStatusStrip
+            // 
+            this.lblInfoStatusStrip.Name = "lblInfoStatusStrip";
+            this.lblInfoStatusStrip.Size = new System.Drawing.Size(0, 17);
             // 
             // dataGridAttendances
             // 
@@ -596,47 +610,55 @@
             // 
             // DeviceName
             // 
+            this.DeviceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DeviceName.FillWeight = 80F;
+            this.DeviceName.Frozen = true;
             this.DeviceName.HeaderText = "Name";
             this.DeviceName.Name = "DeviceName";
             this.DeviceName.ReadOnly = true;
+            this.DeviceName.Width = 168;
             // 
             // DeviceStatus
             // 
+            this.DeviceStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DeviceStatus.FillWeight = 50F;
             this.DeviceStatus.HeaderText = "Status";
             this.DeviceStatus.Name = "DeviceStatus";
             this.DeviceStatus.ReadOnly = true;
             this.DeviceStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.DeviceStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DeviceStatus.Width = 105;
             // 
             // DeviceNumber
             // 
+            this.DeviceNumber.FillWeight = 50F;
             this.DeviceNumber.HeaderText = "Device Number";
             this.DeviceNumber.Name = "DeviceNumber";
             this.DeviceNumber.ReadOnly = true;
+            this.DeviceNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // DeviceIPAddress
             // 
+            this.DeviceIPAddress.FillWeight = 50F;
             this.DeviceIPAddress.HeaderText = "IPAddress";
             this.DeviceIPAddress.Name = "DeviceIPAddress";
             this.DeviceIPAddress.ReadOnly = true;
+            this.DeviceIPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // DevicePort
             // 
+            this.DevicePort.FillWeight = 30F;
             this.DevicePort.HeaderText = "Port";
             this.DevicePort.Name = "DevicePort";
             this.DevicePort.ReadOnly = true;
+            this.DevicePort.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // DeviceRemark
             // 
+            this.DeviceRemark.FillWeight = 80F;
             this.DeviceRemark.HeaderText = "Remarks";
             this.DeviceRemark.Name = "DeviceRemark";
             this.DeviceRemark.ReadOnly = true;
-            this.DeviceRemark.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // lblInfoStatusStrip
-            // 
-            this.lblInfoStatusStrip.Name = "lblInfoStatusStrip";
-            this.lblInfoStatusStrip.Size = new System.Drawing.Size(0, 17);
             // 
             // MainWindow
             // 
@@ -718,13 +740,13 @@
         private System.Windows.Forms.Button btnAttendances;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.ToolStripStatusLabel lblInfoStatusStrip;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
-        private System.Windows.Forms.ToolStripStatusLabel lblInfoStatusStrip;
     }
 }
 
