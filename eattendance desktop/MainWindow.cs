@@ -18,11 +18,21 @@ namespace eattendance_desktop
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            initializeCommonElements();
             populateDevices();
             // register device selection changed event
             this.dataGridDevices.SelectionChanged += new System.EventHandler(this.dataGridDevices_SelectionChangedClick);
             this.dataGridDevices_SelectionChangedClick(null, null);
             InitializeStatusStripTimer();
+        }
+
+        private void initializeCommonElements()
+        {
+            Common.OnlineStyle.BackColor = Color.LightGreen;
+            Common.OnlineStyle.SelectionBackColor = Color.LightGreen;
+            Common.OfflineStyle.BackColor = Color.LightSlateGray;
+            Common.OfflineStyle.SelectionBackColor = Color.LightSlateGray;
+            Common.BoldCellStyle.Font = new Font(this.dataGridDevices.Font, FontStyle.Bold);
         }
 
         private void populateDevices()
@@ -38,10 +48,6 @@ namespace eattendance_desktop
             }
 
             // now use the data to fill up the table
-            Common.OnlineStyle.BackColor = Color.LightGreen;
-            Common.OnlineStyle.SelectionBackColor = Color.LightGreen;
-            Common.OfflineStyle.BackColor = Color.LightSlateGray;
-            Common.OfflineStyle.SelectionBackColor = Color.LightSlateGray;
             int rowcount = 0;
             foreach (Device device in Common.Devices)
             {
@@ -87,14 +93,15 @@ namespace eattendance_desktop
         {
             int deviceNumber = Convert.ToInt32(dataGridDevices.SelectedRows[0].Cells[2].Value);
             Device selectedDevice = null;
-            foreach (Device device in Common.Devices)
-            {
-                if (device.deviceNumber == deviceNumber) {
-                    selectedDevice = device;
-                    break;
-                }
-            }
-
+            //foreach (Device device in Common.Devices)
+            //{
+            //    if (device.deviceNumber == deviceNumber) {
+            //        selectedDevice = device;
+            //        break;
+            //    }
+            //}
+            selectedDevice = Common.Devices.Find(x => x.deviceNumber == deviceNumber); 
+            
             if (selectedDevice == null) return;
             if (selectedDevice.IP == "" || selectedDevice.port == "")
             {
@@ -159,6 +166,11 @@ namespace eattendance_desktop
         {
             this.lblInfoStatusStrip.Text = "";
             statusStripTimer.Stop();
+        }
+
+        private void btnDevices_Click(object sender, EventArgs e)
+        {
+            (new DevicesWindow()).ShowDialog();
         }
     }
 }

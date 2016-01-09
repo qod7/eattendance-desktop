@@ -65,6 +65,12 @@
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridDevices = new System.Windows.Forms.DataGridView();
+            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.attendancesGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblInfoStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
@@ -76,12 +82,6 @@
             this.AttendanceTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceDevice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceEntryMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -383,6 +383,7 @@
             this.btnDevices.Text = "Devices";
             this.btnDevices.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDevices.UseVisualStyleBackColor = true;
+            this.btnDevices.Click += new System.EventHandler(this.btnDevices_Click);
             // 
             // label1
             // 
@@ -512,6 +513,58 @@
             this.dataGridDevices.Size = new System.Drawing.Size(778, 198);
             this.dataGridDevices.TabIndex = 1;
             // 
+            // DeviceName
+            // 
+            this.DeviceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DeviceName.FillWeight = 80F;
+            this.DeviceName.Frozen = true;
+            this.DeviceName.HeaderText = "Name";
+            this.DeviceName.Name = "DeviceName";
+            this.DeviceName.ReadOnly = true;
+            this.DeviceName.Width = 168;
+            // 
+            // DeviceStatus
+            // 
+            this.DeviceStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DeviceStatus.FillWeight = 50F;
+            this.DeviceStatus.HeaderText = "Status";
+            this.DeviceStatus.Name = "DeviceStatus";
+            this.DeviceStatus.ReadOnly = true;
+            this.DeviceStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DeviceStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DeviceStatus.Width = 105;
+            // 
+            // DeviceNumber
+            // 
+            this.DeviceNumber.FillWeight = 50F;
+            this.DeviceNumber.HeaderText = "Device Number";
+            this.DeviceNumber.Name = "DeviceNumber";
+            this.DeviceNumber.ReadOnly = true;
+            this.DeviceNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // DeviceIPAddress
+            // 
+            this.DeviceIPAddress.FillWeight = 50F;
+            this.DeviceIPAddress.HeaderText = "IPAddress";
+            this.DeviceIPAddress.Name = "DeviceIPAddress";
+            this.DeviceIPAddress.ReadOnly = true;
+            this.DeviceIPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // DevicePort
+            // 
+            this.DevicePort.FillWeight = 30F;
+            this.DevicePort.HeaderText = "Port";
+            this.DevicePort.Name = "DevicePort";
+            this.DevicePort.ReadOnly = true;
+            this.DevicePort.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // DeviceRemark
+            // 
+            this.DeviceRemark.FillWeight = 80F;
+            this.DeviceRemark.HeaderText = "Remarks";
+            this.DeviceRemark.Name = "DeviceRemark";
+            this.DeviceRemark.ReadOnly = true;
+            // 
             // attendancesGroupBox
             // 
             this.attendancesGroupBox.BackColor = System.Drawing.SystemColors.Control;
@@ -607,58 +660,6 @@
             // 
             this.AttendanceEntryMethod.HeaderText = "Entry Method";
             this.AttendanceEntryMethod.Name = "AttendanceEntryMethod";
-            // 
-            // DeviceName
-            // 
-            this.DeviceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DeviceName.FillWeight = 80F;
-            this.DeviceName.Frozen = true;
-            this.DeviceName.HeaderText = "Name";
-            this.DeviceName.Name = "DeviceName";
-            this.DeviceName.ReadOnly = true;
-            this.DeviceName.Width = 168;
-            // 
-            // DeviceStatus
-            // 
-            this.DeviceStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DeviceStatus.FillWeight = 50F;
-            this.DeviceStatus.HeaderText = "Status";
-            this.DeviceStatus.Name = "DeviceStatus";
-            this.DeviceStatus.ReadOnly = true;
-            this.DeviceStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DeviceStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.DeviceStatus.Width = 105;
-            // 
-            // DeviceNumber
-            // 
-            this.DeviceNumber.FillWeight = 50F;
-            this.DeviceNumber.HeaderText = "Device Number";
-            this.DeviceNumber.Name = "DeviceNumber";
-            this.DeviceNumber.ReadOnly = true;
-            this.DeviceNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // DeviceIPAddress
-            // 
-            this.DeviceIPAddress.FillWeight = 50F;
-            this.DeviceIPAddress.HeaderText = "IPAddress";
-            this.DeviceIPAddress.Name = "DeviceIPAddress";
-            this.DeviceIPAddress.ReadOnly = true;
-            this.DeviceIPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // DevicePort
-            // 
-            this.DevicePort.FillWeight = 30F;
-            this.DevicePort.HeaderText = "Port";
-            this.DevicePort.Name = "DevicePort";
-            this.DevicePort.ReadOnly = true;
-            this.DevicePort.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // DeviceRemark
-            // 
-            this.DeviceRemark.FillWeight = 80F;
-            this.DeviceRemark.HeaderText = "Remarks";
-            this.DeviceRemark.Name = "DeviceRemark";
-            this.DeviceRemark.ReadOnly = true;
             // 
             // MainWindow
             // 
