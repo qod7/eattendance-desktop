@@ -22,7 +22,7 @@ namespace eattendance_desktop
             populateTable();
             // now register for grid change events
             this.dataGridDevices.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDevices_CellValueChanged);
-            this.dataGridDevices.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridDevices_CellValidating);
+            //this.dataGridDevices.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridDevices_CellValidating);
             //this.dataGridDevices.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridDevices_RowsAdded);
         }
 
@@ -73,8 +73,8 @@ namespace eattendance_desktop
         {
             try {
                 DataGridViewRow selectedRow = dataGridDevices.Rows[dataGridDevices.SelectedCells[0].RowIndex];
-                switch (MessageBox.Show("Are you sure you want to delete " + selectedRow.Cells[1].Value + "?",
-                    "Confirm Delete", MessageBoxButtons.YesNo))
+                switch (MessageBox.Show("Are you sure you want to delete " + selectedRow.Cells[1].Value + 
+                    "? You cannot undo this action.", "Confirm Delete", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes: 
                         // Delete the device from database
@@ -107,35 +107,69 @@ namespace eattendance_desktop
             dataGridDevices.BeginEdit(true);
         }
 
-        private void dataGridDevices_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void btnDiscard_Click(object sender, EventArgs e)
         {
-            string headerText = dataGridDevices.Columns[e.ColumnIndex].HeaderText;
+            this.Close();
+        }
 
-            // Confirm that the cell is not empty.
-            switch (e.ColumnIndex)
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (validateDeviceData())
             {
-                case 0:
-                    break;
-                case 1:
-                    if (string.IsNullOrEmpty(e.FormattedValue.ToString()))
+                // TODO save changes to database
+                // update Common.devices
+                foreach (DataGridViewRow thisRow in dataGridDevices.Rows)
+                {
+                    int deviceNumber = Convert.ToInt32(thisRow.Cells[0].Value);
+                    Device selectedDevice = Common.Devices.Find(x => x.deviceNumber == deviceNumber);
+                    selectedDevice.name = thisRow.Cells[1].FormattedValue.ToString().Trim();
+                    selectedDevice.remarks = thisRow.Cells[4].FormattedValue.ToString().Trim();
+                    if (selectedDevice.isConnected)
                     {
-                        dataGridDevices.Rows[e.RowIndex].ErrorText = "Device Name cannot be empty.";
-                        e.Cancel = true;
+                        if (! (selectedDevice.IP.Equals(thisRow.Cells[2].FormattedValue.ToString().Trim()) ||
+                            selectedDevice.port.Equals(thisRow.Cells[3].FormattedValue.ToString().Trim()) ) )
+                        {
+                            MessageBox.Show("You cannot edit IP and/or port for a device that is currently connected. " +
+                            "Please disconnect first. The changes will be ignored.", "Cannot Edit IP or Port.");
+                        }
                     }
-                    break;
-                case 2:
-                    Match match = Common.ipRegex.Match(e.FormattedValue.ToString());
-                    if (match == null)
+                    else
                     {
-                        dataGridDevices.Rows[e.RowIndex].ErrorText = "Please enter a proper IPv4 address.";
-                        e.Cancel = true;
+                        selectedDevice.IP = thisRow.Cells[2].FormattedValue.ToString().Trim();
+                        selectedDevice.port = thisRow.Cells[3].FormattedValue.ToString().Trim();
                     }
-                    break;
-                case 3:
-
-                    break;
+                }
+                this.Close();
             }
         }
 
+        private bool validateDeviceData()
+        {
+            bool flag = true;
+            foreach (DataGridViewRow thisRow in dataGridDevices.Rows)
+            {
+                thisRow.ErrorText = string.Empty;
+                int val;
+                if (int.TryParse(thisRow.Cells[3].Value.ToString().Trim(), out val)
+                    && !val.ToString().Equals(thisRow.Cells[3].Value.ToString().Trim()))
+                    thisRow.Cells[3].Value = Convert.ToInt32(val);
+                if (string.IsNullOrEmpty(thisRow.Cells[1].FormattedValue.ToString().Trim()))
+                {
+                    thisRow.ErrorText = "Device Name cannot be empty.";
+                    flag = false;
+                }
+                else if (Common.ipRegex.Match(thisRow.Cells[2].FormattedValue.ToString().Trim()).Length == 0)
+                {
+                    thisRow.ErrorText = "Please enter a valid IPv4 address.";
+                    flag = false;
+                }
+                else if (Common.portRegex.Match(thisRow.Cells[3].FormattedValue.ToString().Trim()).Length == 0)
+                {
+                    thisRow.ErrorText = "Please enter a valid port number.";
+                    flag = false;
+                }
+            }
+            return flag;
+        }
     }
 }

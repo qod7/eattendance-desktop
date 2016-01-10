@@ -48,6 +48,13 @@ namespace eattendance_desktop
             }
 
             // now use the data to fill up the table
+            fillDevices();
+        }
+
+        private void fillDevices()
+        {
+            // First clear the dataGridView
+            dataGridDevices.Rows.Clear();
             int rowcount = 0;
             foreach (Device device in Common.Devices)
             {
@@ -66,27 +73,29 @@ namespace eattendance_desktop
 
         private void dataGridDevices_SelectionChangedClick(object sender, EventArgs e)
         {
-            // String ip = (String)dataGridDevices.SelectedRows[0].Cells[3].Value;
-            // MessageBox.Show(ip);
-            String status = (String)dataGridDevices.SelectedRows[0].Cells[1].Value;
-            if (status == null)
+            try
             {
-                btnConnect.Enabled = true;
-                btnConnect.Enabled = false;
+                String status = (String)dataGridDevices.SelectedRows[0].Cells[1].Value;
+                if (status == null)
+                {
+                    btnConnect.Enabled = true;
+                    btnConnect.Enabled = false;
+                }
+                else if (status.ToLower().Equals("online"))
+                {
+                    btnConnect.Enabled = true;
+                    btnConnect.Text = "Disconnect";
+                }
+                else if (status.ToLower().Equals("offline"))
+                {
+                    btnConnect.Text = "Connect";
+                }
+                else
+                {
+                    btnConnect.Enabled = false;
+                }
             }
-            else if (status.ToLower().Equals("online"))
-            {
-                btnConnect.Enabled = true;
-                btnConnect.Text = "Disconnect";
-            }
-            else if (status.ToLower().Equals("offline"))
-            {
-                btnConnect.Text = "Connect";
-            }
-            else
-            {
-                btnConnect.Enabled = false;
-            }
+            catch { }
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -170,7 +179,14 @@ namespace eattendance_desktop
 
         private void btnDevices_Click(object sender, EventArgs e)
         {
-            (new DevicesWindow()).ShowDialog();
+            DevicesWindow devicesWindow = new DevicesWindow();
+            devicesWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed);
+            (devicesWindow).ShowDialog();
+        }
+
+        private void devicesWindowClosed(object sender, FormClosedEventArgs e)
+        {
+            this.fillDevices();
         }
     }
 }

@@ -180,6 +180,7 @@
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Save Edits";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDiscard
             // 
@@ -190,6 +191,7 @@
             this.btnDiscard.TabIndex = 7;
             this.btnDiscard.Text = "Discard Edits";
             this.btnDiscard.UseVisualStyleBackColor = true;
+            this.btnDiscard.Click += new System.EventHandler(this.btnDiscard_Click);
             // 
             // DevicesWindow
             // 
