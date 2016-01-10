@@ -78,7 +78,6 @@ namespace eattendance_desktop
                 String status = (String)dataGridDevices.SelectedRows[0].Cells[1].Value;
                 if (status == null)
                 {
-                    btnConnect.Enabled = true;
                     btnConnect.Enabled = false;
                 }
                 else if (status.ToLower().Equals("online"))
@@ -88,6 +87,7 @@ namespace eattendance_desktop
                 }
                 else if (status.ToLower().Equals("offline"))
                 {
+                    btnConnect.Enabled = true;
                     btnConnect.Text = "Connect";
                 }
                 else
@@ -187,6 +187,7 @@ namespace eattendance_desktop
         private void devicesWindowClosed(object sender, FormClosedEventArgs e)
         {
             this.fillDevices();
+            this.dataGridDevices_SelectionChangedClick(null, null);
         }
     }
 }
