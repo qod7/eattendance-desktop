@@ -20,5 +20,10 @@ namespace eattendance_desktop
         {
             //((TextBox)sender).Text
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("you mean accept?");
+        }
     }
 }

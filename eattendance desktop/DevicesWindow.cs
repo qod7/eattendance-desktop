@@ -93,7 +93,8 @@ namespace eattendance_desktop
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Device newDevice = new Device("New Device " + (Common.iMaxDeviceNumber + 1).ToString(), ++Common.iMaxDeviceNumber, "192.168.1.100", "4370", "");
+            Device newDevice = new Device("New Device " + (Common.iMaxDeviceNumber + 1).ToString(), 
+                ++Common.iMaxDeviceNumber, "192.168.1.100", "4370", "");
             Common.Devices.Add(newDevice);
             dataGridDevices.Rows.Add();
             int rowIndex = dataGridDevices.Rows.Count - 1;
