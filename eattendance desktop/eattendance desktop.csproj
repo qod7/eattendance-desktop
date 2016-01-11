@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IPAddressControlLib">
+      <HintPath>lib\IPAddressControlLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDeviceWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDeviceWindow.Designer.cs">
+      <DependentUpon>AddDeviceWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="DevicesWindow.cs">
@@ -59,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddDeviceWindow.resx">
+      <DependentUpon>AddDeviceWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DevicesWindow.resx">
       <DependentUpon>DevicesWindow.cs</DependentUpon>
     </EmbeddedResource>

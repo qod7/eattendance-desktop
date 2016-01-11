@@ -202,7 +202,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 350);
             this.Name = "DevicesWindow";
-            this.Text = "DevicesWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Manage Devices";
             this.Load += new System.EventHandler(this.DevicesWindow_Load);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);

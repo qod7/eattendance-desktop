@@ -75,6 +75,7 @@ namespace eattendance_desktop
         {
             try
             {
+                btnConnect.Enabled = false;
                 String status = (String)dataGridDevices.SelectedRows[0].Cells[1].Value;
                 if (status == null)
                 {
@@ -89,10 +90,6 @@ namespace eattendance_desktop
                 {
                     btnConnect.Enabled = true;
                     btnConnect.Text = "Connect";
-                }
-                else
-                {
-                    btnConnect.Enabled = false;
                 }
             }
             catch { }
@@ -181,13 +178,25 @@ namespace eattendance_desktop
         {
             DevicesWindow devicesWindow = new DevicesWindow();
             devicesWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed);
-            (devicesWindow).ShowDialog();
+            devicesWindow.ShowDialog();
         }
 
         private void devicesWindowClosed(object sender, FormClosedEventArgs e)
         {
             this.fillDevices();
             this.dataGridDevices_SelectionChangedClick(null, null);
+        }
+
+        private void manageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.btnDevices_Click(null, null);
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
+            addDeviceWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed); // same handler function does fine here
+            addDeviceWindow.ShowDialog();
         }
     }
 }
