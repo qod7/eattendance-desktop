@@ -79,6 +79,8 @@ namespace eattendance_desktop
                     case DialogResult.Yes: 
                         // Delete the device from database
                         // Delete the device from Common.Devices
+                        Common.Devices.Remove(
+                            Common.Devices.Find(x => x.deviceNumber == Convert.ToInt32(selectedRow.Cells[0].Value)));
                         // Remove all rows and call populateTable()
                         // OR
                         dataGridDevices.Rows.Remove(selectedRow);

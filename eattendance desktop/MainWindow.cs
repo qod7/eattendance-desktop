@@ -149,7 +149,7 @@ namespace eattendance_desktop
             else
             {
                 selectedDevice.device.GetLastError(ref idwErrorCode);
-                MessageBox.Show("Unable to connect the device, ErrorCode=" + idwErrorCode.ToString(), "Error");
+                MessageBox.Show("Unable to connect the device, ErrorCode " + idwErrorCode.ToString(), "Error");
                 this.lblInfoStatusStrip.Text = "Connection Failed.";
                 clearStatusStripInfoLabel();
             }

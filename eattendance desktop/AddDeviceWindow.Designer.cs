@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDeviceWindow));
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtDevicePort = new System.Windows.Forms.NumericUpDown();
@@ -43,8 +44,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtDeviceName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDevicePort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -103,7 +106,7 @@
             // lblDeviceStatus
             // 
             this.lblDeviceStatus.AutoSize = true;
-            this.lblDeviceStatus.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblDeviceStatus.ForeColor = System.Drawing.Color.DarkGray;
             this.lblDeviceStatus.Location = new System.Drawing.Point(94, 125);
             this.lblDeviceStatus.Name = "lblDeviceStatus";
             this.lblDeviceStatus.Size = new System.Drawing.Size(79, 13);
@@ -147,6 +150,7 @@
             this.btnConnect.TabIndex = 5;
             this.btnConnect.Text = "Attempt Connection";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // txtDeviceRemarks
             // 
@@ -188,7 +192,6 @@
             this.txtDeviceName.Name = "txtDeviceName";
             this.txtDeviceName.Size = new System.Drawing.Size(196, 20);
             this.txtDeviceName.TabIndex = 1;
-            this.txtDeviceName.Validating += new System.ComponentModel.CancelEventHandler(this.txtDeviceName_Validating);
             // 
             // label1
             // 
@@ -198,6 +201,10 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // AddDeviceWindow
             // 
@@ -214,9 +221,11 @@
             this.Name = "AddDeviceWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add New Device";
+            this.Load += new System.EventHandler(this.AddDeviceWindow_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDevicePort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -237,5 +246,6 @@
         private System.Windows.Forms.Label label1;
         private IPAddressControlLib.IPAddressControl txtDeviceIP;
         private System.Windows.Forms.NumericUpDown txtDevicePort;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

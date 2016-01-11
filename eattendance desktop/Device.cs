@@ -76,5 +76,17 @@ namespace eattendance_desktop
             this.sPort = port;
             this.sRemarks = remarks;
         }
+
+        public Device(zkemkeeper.CZKEMClass device, bool isConnected, string name, int deviceNumber, string ip, string port, string remarks)
+        {
+            this.axCZKEM = device;
+            this.bIsConnected = isConnected;
+            this.iDeviceNumber = deviceNumber;
+            this.sName = name;
+            this.sStatus = isConnected?"Online":"Offline";
+            this.sIP = ip;
+            this.sPort = port;
+            this.sRemarks = remarks;
+        }
     }
 }
