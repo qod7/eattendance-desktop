@@ -83,9 +83,11 @@
             this.AttendanceDevice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceEntryMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
             this.tablesSplitContainer.SuspendLayout();
@@ -144,19 +146,19 @@
             // userGroupsToolStripMenuItem
             // 
             this.userGroupsToolStripMenuItem.Name = "userGroupsToolStripMenuItem";
-            this.userGroupsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.userGroupsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.userGroupsToolStripMenuItem.Text = "User Groups";
             // 
             // manageUsersToolStripMenuItem
             // 
             this.manageUsersToolStripMenuItem.Name = "manageUsersToolStripMenuItem";
-            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.manageUsersToolStripMenuItem.Text = "Manage Users";
             // 
             // timetableToolStripMenuItem
             // 
             this.timetableToolStripMenuItem.Name = "timetableToolStripMenuItem";
-            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.timetableToolStripMenuItem.Text = "Timetable";
             // 
             // deviceToolStripMenuItem
@@ -171,14 +173,14 @@
             // addNewToolStripMenuItem
             // 
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.addNewToolStripMenuItem.Text = "Add New";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
             // 
             // manageToolStripMenuItem
             // 
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            this.manageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.manageToolStripMenuItem.Text = "Manage";
             this.manageToolStripMenuItem.Click += new System.EventHandler(this.manageToolStripMenuItem_Click);
             // 
@@ -195,19 +197,19 @@
             // syncDatabaseToolStripMenuItem
             // 
             this.syncDatabaseToolStripMenuItem.Name = "syncDatabaseToolStripMenuItem";
-            this.syncDatabaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.syncDatabaseToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.syncDatabaseToolStripMenuItem.Text = "Sync Database";
             // 
             // informationToolStripMenuItem
             // 
             this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
-            this.informationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.informationToolStripMenuItem.Text = "Information";
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             // 
             // helpToolStripMenuItem
@@ -674,15 +676,18 @@
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(800, 650);
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "E Attendance Desktop";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
             this.tablesSplitContainer.Panel1.ResumeLayout(false);
             this.tablesSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).EndInit();
             this.tablesSplitContainer.ResumeLayout(false);
             this.devicesGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDevices)).EndInit();

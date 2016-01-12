@@ -15,7 +15,7 @@ namespace eattendance_desktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            Application.Run(new LoginWindow());
         }
     }
 }

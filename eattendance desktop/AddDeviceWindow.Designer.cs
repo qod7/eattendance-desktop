@@ -82,6 +82,7 @@
             this.txtDevicePort.Name = "txtDevicePort";
             this.txtDevicePort.Size = new System.Drawing.Size(196, 20);
             this.txtDevicePort.TabIndex = 3;
+            this.txtDevicePort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDevicePort.Value = new decimal(new int[] {
             4370,
             0,
