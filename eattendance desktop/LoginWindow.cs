@@ -58,9 +58,21 @@ namespace eattendance_desktop
         private void login()
         {
             this.Hide();
-            var mainWindow = new MainWindow();
-            mainWindow.Closed += (s, args) => this.Close();
-            mainWindow.Show();
+
+            using (var mainWindow = new MainWindow())
+            {
+                mainWindow.ShowDialog();
+                ExitIntent returnedValue = mainWindow.exitIntent;
+                switch (returnedValue)
+                {
+                    case ExitIntent.CLOSE:
+                        this.Close();
+                        break;
+                    case ExitIntent.LOGOUT:
+                        this.Show();
+                        break;
+                }
+            }
         }
 
         private void btnAbort_Click(object sender, EventArgs e)

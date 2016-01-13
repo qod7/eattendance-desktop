@@ -11,6 +11,7 @@ namespace eattendance_desktop
 {
     public partial class MainWindow : Form
     {
+        public ExitIntent exitIntent = ExitIntent.CLOSE;
         public MainWindow()
         {
             InitializeComponent();
@@ -197,6 +198,14 @@ namespace eattendance_desktop
             AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
             addDeviceWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed); // same handler function does fine here
             addDeviceWindow.ShowDialog();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            // TODO Delete the token in the local database
+            // now close this form
+            this.exitIntent = ExitIntent.LOGOUT;
+            this.Close();
         }
     }
 }
