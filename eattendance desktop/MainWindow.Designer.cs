@@ -182,7 +182,7 @@
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
             this.manageToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.manageToolStripMenuItem.Text = "Manage";
-            this.manageToolStripMenuItem.Click += new System.EventHandler(this.manageToolStripMenuItem_Click);
+            this.manageToolStripMenuItem.Click += new System.EventHandler(this.btnDevices_Click);
             // 
             // accountToolStripMenuItem
             // 
@@ -197,20 +197,21 @@
             // syncDatabaseToolStripMenuItem
             // 
             this.syncDatabaseToolStripMenuItem.Name = "syncDatabaseToolStripMenuItem";
-            this.syncDatabaseToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.syncDatabaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.syncDatabaseToolStripMenuItem.Text = "Sync Database";
             // 
             // informationToolStripMenuItem
             // 
             this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
-            this.informationToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.informationToolStripMenuItem.Text = "Information";
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // helpToolStripMenuItem
             // 

@@ -11,7 +11,6 @@ namespace eattendance_desktop
 {
     public partial class MainWindow : Form
     {
-        public ExitIntent exitIntent = ExitIntent.CLOSE;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +35,7 @@ namespace eattendance_desktop
             Common.BoldCellStyle.Font = new Font(this.dataGridDevices.Font, FontStyle.Bold);
         }
 
+        #region Devices Table
         private void populateDevices()
         {
             // TODO Replace following code to get data from database.
@@ -95,6 +95,7 @@ namespace eattendance_desktop
             }
             catch { }
         }
+        #endregion
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
@@ -157,24 +158,7 @@ namespace eattendance_desktop
             Cursor = Cursors.Default;
         }
 
-
-        Timer statusStripTimer = new Timer();
-        private void InitializeStatusStripTimer()
-        {
-            statusStripTimer.Interval = 2500;
-            statusStripTimer.Tick += emptyStatusStripInfoLabel;
-        }
-        private void clearStatusStripInfoLabel()
-        {
-            statusStripTimer.Start();
-        }
-
-        void emptyStatusStripInfoLabel(object sender, EventArgs e)
-        {
-            this.lblInfoStatusStrip.Text = "";
-            statusStripTimer.Stop();
-        }
-
+        #region Device Management
         private void btnDevices_Click(object sender, EventArgs e)
         {
             DevicesWindow devicesWindow = new DevicesWindow();
@@ -188,18 +172,16 @@ namespace eattendance_desktop
             this.dataGridDevices_SelectionChangedClick(null, null);
         }
 
-        private void manageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.btnDevices_Click(null, null);
-        }
-
         private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
             addDeviceWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed); // same handler function does fine here
             addDeviceWindow.ShowDialog();
         }
+        #endregion
 
+        #region logout
+        public ExitIntent exitIntent = ExitIntent.CLOSE;
         private void btnLogout_Click(object sender, EventArgs e)
         {
             // TODO Delete the token in the local database
@@ -207,5 +189,26 @@ namespace eattendance_desktop
             this.exitIntent = ExitIntent.LOGOUT;
             this.Close();
         }
+        #endregion
+
+        #region statusStrip
+        Timer statusStripTimer = new Timer();
+        private void InitializeStatusStripTimer()
+        {
+            statusStripTimer.Interval = 2500;
+            statusStripTimer.Tick += emptyStatusStripInfoLabel;
+        }
+
+        private void clearStatusStripInfoLabel()
+        {
+            statusStripTimer.Start();
+        }
+
+        void emptyStatusStripInfoLabel(object sender, EventArgs e)
+        {
+            this.lblInfoStatusStrip.Text = "";
+            statusStripTimer.Stop();
+        }
+        #endregion
     }
 }
