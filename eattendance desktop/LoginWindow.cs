@@ -55,12 +55,21 @@ namespace eattendance_desktop
             String hash = password; // TODO do something here
             
             // now save credentials and token to database
+            saveLoginInfoToMDB(username, token, hash);
+
+
+            // now allow login
+            Cursor = Cursors.Default;
+            login();
+        }
+
+        private void saveLoginInfoToMDB(String username, String token, String hash) {
             String DBPath = Application.StartupPath + "\\data\\eattendance.mdb";
             if (!File.Exists(DBPath))
             {
-                if (! Directory.Exists(Application.StartupPath + "\\data"))
+                if (!Directory.Exists(Application.StartupPath + "\\data"))
                     Directory.CreateDirectory(Application.StartupPath + "\\data");
-                ADOX.Catalog cat = new ADOX.Catalog();  
+                ADOX.Catalog cat = new ADOX.Catalog();
                 cat.Create("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DBPath);
                 cat = null;
             }
@@ -74,7 +83,8 @@ namespace eattendance_desktop
                              "Hash varchar(64) not null);";
                 (new OleDbCommand(sql, conn)).ExecuteNonQuery();
             }
-            catch (OleDbException ex) {
+            catch (OleDbException ex)
+            {
                 // table already created. ignore.
             }
 
@@ -82,12 +92,8 @@ namespace eattendance_desktop
             (new OleDbCommand(sql, conn)).ExecuteNonQuery();
             sql = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, token, hash);
             (new OleDbCommand(sql, conn)).ExecuteNonQuery();
-            
-            conn.Close();
 
-            // now allow login
-            Cursor = Cursors.Default;
-            login();
+            conn.Close();
         }
 
         private void login()
