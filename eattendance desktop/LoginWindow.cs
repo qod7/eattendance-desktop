@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,7 +23,7 @@ namespace eattendance_desktop
         {
             // TODO: Check local database for credentials and tokens
             // if token exists
-            login();
+            //login();
             // Additional: if certain amount of days have past since last server communication,
             // delete token. Force login again.
             // Since no data in the server can be updated without a valid token, 
@@ -46,10 +48,43 @@ namespace eattendance_desktop
                 errorProvider1.SetError(txtPassword, "Password field cannot be empty.");
                 return;
             }
-            // Validate with Server
             Cursor = Cursors.WaitCursor;
+            // Validate with Server
                 // TODO run some api calls with handlers
-                // TODO save credentials and token to database
+            String token = "some goddamn token";
+            String hash = password; // TODO do something here
+            
+            // now save credentials and token to database
+            String DBPath = Application.StartupPath + "\\data\\eattendance.mdb";
+            if (!File.Exists(DBPath))
+            {
+                if (! Directory.Exists(Application.StartupPath + "\\data"))
+                    Directory.CreateDirectory(Application.StartupPath + "\\data");
+                ADOX.Catalog cat = new ADOX.Catalog();  
+                cat.Create("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DBPath);
+                cat = null;
+            }
+            string sql;
+            String connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DBPath;
+            OleDbConnection conn = new OleDbConnection(connString);
+            conn.Open();
+            try
+            {
+                sql = "create table loginCredentials (Name varchar(64) not null, Token varchar(64) not null," +
+                             "Hash varchar(64) not null);";
+                (new OleDbCommand(sql, conn)).ExecuteNonQuery();
+            }
+            catch (OleDbException ex) {
+                // table already created. ignore.
+            }
+
+            sql = "delete * from loginCredentials";
+            (new OleDbCommand(sql, conn)).ExecuteNonQuery();
+            sql = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, token, hash);
+            (new OleDbCommand(sql, conn)).ExecuteNonQuery();
+            
+            conn.Close();
+
             // now allow login
             Cursor = Cursors.Default;
             login();
