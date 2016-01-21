@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+using System.Reflection;
+using System.Data.SQLite;
+
 namespace eattendance_desktop
 {
     public partial class LoginWindow : Form
@@ -53,14 +56,77 @@ namespace eattendance_desktop
                 // TODO run some api calls with handlers
             String token = "some goddamn token";
             String hash = password; // TODO do something here
-            
+
             // now save credentials and token to database
-            saveLoginInfoToMDB(username, token, hash);
+            try
+            {
+                saveLoginInfoToSqliteDB(username, token, hash);
+                // now allow login, if no exception was thrown
+                login();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
 
+        private void saveLoginInfoToSqliteDB(String username, String token, String hash) {
+            String DBPath = Application.StartupPath + "\\data\\eattendance.sqlite";
+            SQLiteConnection dbConn = null;
+            try
+            {
+                if (!Directory.Exists(Application.StartupPath + "\\data"))
+                    Directory.CreateDirectory(Application.StartupPath + "\\data");
+                SQLiteConnection.CreateFile(DBPath);
+                dbConn = new SQLiteConnection("Data Source=" + DBPath);
+                dbConn.Open();
 
-            // now allow login
-            Cursor = Cursors.Default;
-            login();
+                String sqlCreateTable = "create table loginCredentials (Name varchar(64) not null, Token varchar(64) not null, Hash varchar(64) not null);";
+                String sqlEmptyTable = "delete from loginCredentials";
+                String sqlInsertData = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, token, hash);
+                
+                SQLiteCommand cmdCreateTable = new SQLiteCommand(sqlCreateTable, dbConn);
+                cmdCreateTable.ExecuteNonQuery();
+                cmdCreateTable.Dispose();
+
+                SQLiteCommand cmdEmptyTable = new SQLiteCommand(sqlEmptyTable, dbConn);
+                cmdEmptyTable.ExecuteNonQuery();
+                cmdEmptyTable.Dispose();
+
+                SQLiteCommand cmdInsertData = new SQLiteCommand(sqlInsertData, dbConn);
+                cmdInsertData.ExecuteNonQuery();
+                cmdInsertData.Dispose();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "Error accessing local database");
+                throw ex;
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show(ex.Message, "Database has been tampered with");
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Some error occurred");
+                throw ex;
+            }
+            finally
+            {
+                if (dbConn != null && dbConn.State != ConnectionState.Closed)
+                    dbConn.Close();
+            }
+        }
+
+        static void DbConnection_SqlListeners(string sql)
+        {
+            Console.WriteLine("SQL: " + sql);
+            Console.WriteLine("");
         }
 
         private void saveLoginInfoToMDB(String username, String token, String hash) {
