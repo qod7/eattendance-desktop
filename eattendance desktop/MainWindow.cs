@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -184,7 +185,34 @@ namespace eattendance_desktop
         public ExitIntent exitIntent = ExitIntent.CLOSE;
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            // TODO Delete the token in the local database
+            // Delete the token in the local database
+            String DBPath = Application.StartupPath + "\\data\\eattendance.sqlite";
+            SQLiteConnection dbConn = null;
+            try
+            {
+                dbConn = new SQLiteConnection("Data Source=" + DBPath);
+                dbConn.Open();
+
+                String sqlEmptyTable = "delete from loginCredentials";
+                SQLiteCommand cmdEmptyTable = new SQLiteCommand(sqlEmptyTable, dbConn);
+                cmdEmptyTable.ExecuteNonQuery();
+                cmdEmptyTable.Dispose();
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show(ex.Message, "Database has been tampered with");
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Some error occurred");
+                throw ex;
+            }
+            finally
+            {
+                if (dbConn != null && dbConn.State != ConnectionState.Closed)
+                    dbConn.Close();
+            }
             // now close this form
             this.exitIntent = ExitIntent.LOGOUT;
             this.Close();

@@ -121,13 +121,7 @@ namespace eattendance_desktop
                     dbConn.Close();
             }
         }
-
-        static void DbConnection_SqlListeners(string sql)
-        {
-            Console.WriteLine("SQL: " + sql);
-            Console.WriteLine("");
-        }
-
+        
         private void saveLoginInfoToMDB(String username, String token, String hash) {
             String DBPath = Application.StartupPath + "\\data\\eattendance.mdb";
             if (!File.Exists(DBPath))
