@@ -24,6 +24,9 @@ namespace eattendance_desktop
             this.dataGridDevices.SelectionChanged += new System.EventHandler(this.dataGridDevices_SelectionChangedClick);
             this.dataGridDevices_SelectionChangedClick(null, null);
             InitializeStatusStripTimer();
+
+            // logged in message
+            showStatusMessage("Logged in as " + Common.username);
         }
 
         private void initializeCommonElements()
@@ -130,8 +133,7 @@ namespace eattendance_desktop
                 dataGridDevices.SelectedRows[0].Cells[1].Value = "Offline";
                 dataGridDevices.SelectedRows[0].Cells[1].Style = Common.OfflineStyle;
                 Cursor = Cursors.Default;
-                this.lblInfoStatusStrip.Text = "Successfully disconnected.";
-                clearStatusStripInfoLabel();
+                showStatusMessage("Successfully disconnected.");
                 return;
             }
 
@@ -143,8 +145,7 @@ namespace eattendance_desktop
                 selectedDevice.status = "Online";
                 dataGridDevices.SelectedRows[0].Cells[1].Value = "Online";
                 dataGridDevices.SelectedRows[0].Cells[1].Style = Common.OnlineStyle;
-                this.lblInfoStatusStrip.Text = "Connection Successful.";
-                clearStatusStripInfoLabel();
+                showStatusMessage("Connection Successful.");
 
                 selectedDevice.device.RegEvent(selectedDevice.deviceNumber, 65535);
             }
@@ -152,8 +153,7 @@ namespace eattendance_desktop
             {
                 selectedDevice.device.GetLastError(ref idwErrorCode);
                 MessageBox.Show("Unable to connect the device, ErrorCode " + idwErrorCode.ToString(), "Error");
-                this.lblInfoStatusStrip.Text = "Connection Failed.";
-                clearStatusStripInfoLabel();
+                showStatusMessage("Connection Failed.");
             }
             Cursor = Cursors.Default;
         }
@@ -199,8 +199,15 @@ namespace eattendance_desktop
             statusStripTimer.Tick += emptyStatusStripInfoLabel;
         }
 
-        private void clearStatusStripInfoLabel()
+        private void showStatusMessage(String msg, int interval=2500)
         {
+            this.lblInfoStatusStrip.Text = msg;
+            clearStatusStripInfoLabel(interval);
+        }
+
+        private void clearStatusStripInfoLabel(int interval)
+        {
+            statusStripTimer.Interval = interval;
             statusStripTimer.Start();
         }
 

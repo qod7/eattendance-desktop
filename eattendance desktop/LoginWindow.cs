@@ -24,9 +24,7 @@ namespace eattendance_desktop
 
         private void LoginWindow_Shown(object sender, EventArgs e)
         {
-            // TODO: Check local database for credentials and tokens
-            // if token exists
-            //login();
+            attemptLogin();
             // Additional: if certain amount of days have past since last server communication,
             // delete token. Force login again.
             // Since no data in the server can be updated without a valid token, 
@@ -62,10 +60,11 @@ namespace eattendance_desktop
             {
                 saveLoginInfoToSqliteDB(username, token, hash);
                 // now allow login, if no exception was thrown
-                login();
+                attemptLogin();
             }
-            catch (Exception ex)
+            catch
             {
+                // Exception messages have already been shown. Just smile and ignore. 
                 return;
             }
             finally
@@ -85,7 +84,7 @@ namespace eattendance_desktop
                 dbConn = new SQLiteConnection("Data Source=" + DBPath);
                 dbConn.Open();
 
-                String sqlCreateTable = "create table loginCredentials (Name varchar(64) not null, Token varchar(64) not null, Hash varchar(64) not null);";
+                String sqlCreateTable = "create table loginCredentials (name varchar(64) not null, token varchar(64) not null, hash varchar(64) not null);";
                 String sqlEmptyTable = "delete from loginCredentials";
                 String sqlInsertData = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, token, hash);
                 
@@ -160,6 +159,45 @@ namespace eattendance_desktop
             (new OleDbCommand(sql, conn)).ExecuteNonQuery();
 
             conn.Close();
+        }
+
+        private void attemptLogin()
+        {
+            Cursor = Cursors.WaitCursor;
+            // TODO: Check local database for credentials and tokens
+            String DBPath = Application.StartupPath + "\\data\\eattendance.sqlite";
+            SQLiteConnection dbConn = null;
+            try
+            {
+                dbConn = new SQLiteConnection("Data Source=" + DBPath);
+                dbConn.Open();
+
+                String sqlGetData = "select * from loginCredentials;";
+
+                SQLiteCommand cmdGetData = new SQLiteCommand(sqlGetData, dbConn);
+                SQLiteDataReader reader = cmdGetData.ExecuteReader();
+                // save credentials // validate if necessary TODO?
+                reader.Read();
+                Common.username = reader["name"].ToString();
+                Common.token = reader["token"].ToString();
+                //System.Diagnostics.Debug.Write("Name: " + Common.username + "\tToken: " + Common.token);
+
+                cmdGetData.Dispose();
+                reader.Dispose();
+                // finally allow login()
+                login();
+            }
+            catch
+            {
+                // No database file present, no table present, or no data in table, or database corrupted.
+                // In any case, no need to log in
+            }
+            finally
+            {
+                if (dbConn != null && dbConn.State != ConnectionState.Closed)
+                    dbConn.Close();
+                Cursor = Cursors.Default;
+            }
         }
 
         private void login()

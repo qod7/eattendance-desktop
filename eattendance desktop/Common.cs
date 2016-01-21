@@ -10,6 +10,9 @@ namespace eattendance_desktop
 {
     class Common
     {
+        public static String username;
+        public static String token;
+
         public static List<Device> Devices = new List<Device>();
         public static int iMaxDeviceNumber = 0;
         public static DataGridViewCellStyle OnlineStyle = new DataGridViewCellStyle();
