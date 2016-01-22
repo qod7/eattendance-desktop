@@ -64,7 +64,7 @@ namespace eattendance_desktop
             set { sRemarks = value; }
         }
 
-        // Constructor
+        #region constructors
         public Device(string name, int deviceNumber, string ip, string port, string remarks)
         {
             this.axCZKEM = new zkemkeeper.CZKEMClass();
@@ -88,5 +88,6 @@ namespace eattendance_desktop
             this.sPort = port;
             this.sRemarks = remarks;
         }
+        #endregion
     }
 }

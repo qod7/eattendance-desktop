@@ -75,7 +75,7 @@
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
-    <Compile Include="Device.cs" />
+    <Compile Include="Models\Device.cs" />
     <Compile Include="DevicesWindow.cs">
       <SubType>Form</SubType>
     </Compile>

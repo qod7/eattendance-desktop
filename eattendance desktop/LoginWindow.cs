@@ -51,7 +51,7 @@ namespace eattendance_desktop
             }
             Cursor = Cursors.WaitCursor;
             // Validate with Server
-                // TODO run some api calls with handlers
+            // TODO run some api calls with handlers
             String token = "some goddamn token";
             String hash = password; // TODO do something here
 
@@ -73,24 +73,17 @@ namespace eattendance_desktop
             }
         }
 
-        private void saveLoginInfoToSqliteDB(String username, String token, String hash) {
+        private void saveLoginInfoToSqliteDB(String username, String token, String hash)
+        {
             String DBPath = Application.StartupPath + "\\data\\eattendance.sqlite";
             SQLiteConnection dbConn = null;
             try
             {
-                if (!Directory.Exists(Application.StartupPath + "\\data"))
-                    Directory.CreateDirectory(Application.StartupPath + "\\data");
-                SQLiteConnection.CreateFile(DBPath);
-                dbConn = new SQLiteConnection("Data Source=" + DBPath);
+                dbConn = new SQLiteConnection(String.Format("Data Source={0};Password={1};", DBPath, Common.dbPass));
                 dbConn.Open();
 
-                String sqlCreateTable = "create table loginCredentials (name varchar(64) not null, token varchar(64) not null, hash varchar(64) not null);";
                 String sqlEmptyTable = "delete from loginCredentials";
                 String sqlInsertData = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, token, hash);
-                
-                SQLiteCommand cmdCreateTable = new SQLiteCommand(sqlCreateTable, dbConn);
-                cmdCreateTable.ExecuteNonQuery();
-                cmdCreateTable.Dispose();
 
                 SQLiteCommand cmdEmptyTable = new SQLiteCommand(sqlEmptyTable, dbConn);
                 cmdEmptyTable.ExecuteNonQuery();
@@ -121,49 +114,44 @@ namespace eattendance_desktop
                     dbConn.Close();
             }
         }
-        
-        private void saveLoginInfoToMDB(String username, String token, String hash) {
-            String DBPath = Application.StartupPath + "\\data\\eattendance.mdb";
-            if (!File.Exists(DBPath))
-            {
-                if (!Directory.Exists(Application.StartupPath + "\\data"))
-                    Directory.CreateDirectory(Application.StartupPath + "\\data");
-                ADOX.Catalog cat = new ADOX.Catalog();
-                cat.Create("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DBPath);
-                cat = null;
-            }
-            string sql;
-            String connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DBPath;
-            OleDbConnection conn = new OleDbConnection(connString);
-            conn.Open();
-            try
-            {
-                sql = "create table loginCredentials (Name varchar(64) not null, Token varchar(64) not null," +
-                             "Hash varchar(64) not null);";
-                (new OleDbCommand(sql, conn)).ExecuteNonQuery();
-            }
-            catch (OleDbException ex)
-            {
-                // table already created. ignore.
-            }
 
-            sql = "delete * from loginCredentials";
-            (new OleDbCommand(sql, conn)).ExecuteNonQuery();
-            sql = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, token, hash);
-            (new OleDbCommand(sql, conn)).ExecuteNonQuery();
+        private void initializeDatabase(String DBPath)
+        {
+            // this is only executed right after the database file is created.
 
-            conn.Close();
+            SQLiteConnection dbConn = new SQLiteConnection("Data Source=" + DBPath);
+            dbConn.Open();
+
+            // first set the password
+            dbConn.ChangePassword(Common.dbPass);
+
+            // now create tables
+            String sqlCreateTable = "create table loginCredentials (name varchar(64) not null, token varchar(64) not null, hash varchar(64) not null);";
+            SQLiteCommand cmdCreateTable = new SQLiteCommand(sqlCreateTable, dbConn);
+            cmdCreateTable.ExecuteNonQuery();
+            cmdCreateTable.Dispose();
+
+            dbConn.Close();
+
         }
 
         private void attemptLogin()
         {
             Cursor = Cursors.WaitCursor;
-            // TODO: Check local database for credentials and tokens
+            // Check if local database exists
             String DBPath = Application.StartupPath + "\\data\\eattendance.sqlite";
+            if (!Directory.Exists(Application.StartupPath + "\\data"))
+                Directory.CreateDirectory(Application.StartupPath + "\\data");
+            if (!File.Exists(DBPath))
+            {
+                SQLiteConnection.CreateFile(DBPath);
+                initializeDatabase(DBPath);
+            }
+            // Check local database for credentials and tokens
             SQLiteConnection dbConn = null;
             try
             {
-                dbConn = new SQLiteConnection("Data Source=" + DBPath);
+                dbConn = new SQLiteConnection(String.Format("Data Source={0};Password={1};", DBPath, Common.dbPass));
                 dbConn.Open();
 
                 String sqlGetData = "select * from loginCredentials;";
