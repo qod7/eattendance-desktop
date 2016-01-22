@@ -22,7 +22,7 @@ namespace eattendance_desktop
         public static Regex ipRegex = new Regex(@"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
         public static Regex portRegex = new Regex(@"^0*(?:6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[1-9][0-9]{1,3}|[0-9])$");
 
-        public static String dbPass = "57IitGfMx4(93Nl(10ga~Y13YB4W]QmTJKE>(=98z7wd|T8k1_1s+/1f8Gyq[UJ";
+        public static String dbPass = "";
     }
 
     public enum ExitIntent { CLOSE, LOGOUT }
