@@ -128,6 +128,9 @@ namespace eattendance_desktop
             if (btnConnect.Text == "Disconnect")
             {
                 selectedDevice.device.Disconnect();
+                selectedDevice.device.OnAttTransactionEx -= new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(
+                    (sEnrollNumber, iIsInValid, iAttState, iVerifyMethod, iYear, iMonth, iDay, iHour, iMinute, iSecond, iWorkCode) => OnAttTransactionEx(
+                        selectedDevice, sEnrollNumber, iIsInValid, iAttState, iVerifyMethod, iYear, iMonth, iDay, iHour, iMinute, iSecond, iWorkCode));
                 selectedDevice.isConnected = false;
                 selectedDevice.status = "Offline";
                 btnConnect.Text = "Connect";
@@ -149,6 +152,9 @@ namespace eattendance_desktop
                 showStatusMessage("Connection Successful.");
 
                 selectedDevice.device.RegEvent(selectedDevice.deviceNumber, 65535);
+                selectedDevice.device.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(
+                    (sEnrollNumber, iIsInValid, iAttState, iVerifyMethod, iYear, iMonth, iDay, iHour, iMinute, iSecond, iWorkCode) => OnAttTransactionEx(
+                        selectedDevice, sEnrollNumber, iIsInValid, iAttState, iVerifyMethod, iYear, iMonth, iDay, iHour, iMinute, iSecond, iWorkCode));
             }
             else
             {
@@ -158,6 +164,33 @@ namespace eattendance_desktop
             }
             Cursor = Cursors.Default;
         }
+
+        #region RTEvent Handlers
+        private void OnAttTransactionEx(Device device, string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod, 
+            int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
+        {
+            dataGridAttendances.Rows.Add();
+            int rowIndex = dataGridAttendances.Rows.Count - 1;
+            //dataGridAttendances.Rows[rowIndex].ReadOnly = false;
+            dataGridAttendances.Rows[rowIndex].Cells[0].Value = sEnrollNumber;
+            dataGridAttendances.Rows[rowIndex].Cells[4].Value = string.Format("{0:00}:{1:00}:{2:00}", iHour, iMinute, iSecond);
+            dataGridAttendances.Rows[rowIndex].Cells[5].Value = device.name;
+            dataGridAttendances.Rows[rowIndex].Cells[6].Value = Common.VerifyMethods[iVerifyMethod];
+
+            // get other user info from database and fill
+            // TODO replace the lazy way below
+            string sName = "", sPassword = "";
+            int iPrivilege = 0;
+            bool bEnabled = false;
+
+            device.device.EnableDevice(1, false);
+            device.device.ReadAllUserID(1);
+            device.device.SSR_GetUserInfo(1, sEnrollNumber, out sName, out sPassword, out iPrivilege, out bEnabled);
+            dataGridAttendances.Rows[rowIndex].Cells[2].Value = Common.UserPrivilege[iPrivilege];
+            dataGridAttendances.Rows[rowIndex].Cells[3].Value = sName;
+            device.device.EnableDevice(1, true);
+        }
+        #endregion
 
         #region Device Management
         private void btnDevices_Click(object sender, EventArgs e)
