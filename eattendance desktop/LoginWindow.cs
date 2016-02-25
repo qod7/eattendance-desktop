@@ -25,7 +25,7 @@ namespace eattendance_desktop
         private void LoginWindow_Shown(object sender, EventArgs e)
         {
             attemptLogin();
-            // Additional: if certain amount of days have past since last server communication,
+            // Additional: if certain number of days has past since last server communication,
             // delete token. Force login again.
             // Since no data in the server can be updated without a valid token, 
             // even if the desktop app is logged in with an outdated token, it doesn't matter much.
@@ -173,6 +173,8 @@ namespace eattendance_desktop
             {
                 // No database file present, no table present, or no data in table, or database corrupted.
                 // In any case, no need to log in
+                // if not logged_in, show this window
+                this.Opacity = 1;
             }
             finally
             {
@@ -197,6 +199,7 @@ namespace eattendance_desktop
                         break;
                     case ExitIntent.LOGOUT:
                         this.Show();
+                        this.Opacity = 1;
                         break;
                 }
             }
