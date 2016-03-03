@@ -27,7 +27,7 @@ namespace eattendance_desktop
             InitializeStatusStripTimer();
 
             // logged in message
-            showStatusMessage("Logged in as " + Common.username);
+            showStatusMessage("Logged in as " + Common.loginCredential.username);
         }
 
         private void initializeCommonElements()

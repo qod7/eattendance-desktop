@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <DocumentationFile>
     </DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -52,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>attendance-256x256.ico</ApplicationIcon>
@@ -82,6 +83,7 @@
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="DatabaseHandler.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="DevicesWindow.cs">
       <SubType>Form</SubType>
@@ -101,6 +103,7 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginCredential.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddDeviceWindow.resx">

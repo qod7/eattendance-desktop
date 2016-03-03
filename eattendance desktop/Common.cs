@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eattendance_desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,8 +11,7 @@ namespace eattendance_desktop
 {
     class Common
     {
-        public static String username;
-        public static String token;
+        public static LoginCredential loginCredential;
 
         public static List<Device> Devices = new List<Device>();
         public static int iMaxDeviceNumber = 0;

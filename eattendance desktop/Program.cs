@@ -17,6 +17,8 @@ namespace eattendance_desktop
             Application.SetCompatibleTextRenderingDefault(false);
             var loginWindow = new LoginWindow();
             initCommon();
+            DatabaseHandler DB = new DatabaseHandler();
+            DB.initDatabase();
             // hide the login window while logged_in check happens in background
             loginWindow.Opacity = 0;
             Application.Run(loginWindow);
