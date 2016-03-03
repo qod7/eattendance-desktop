@@ -18,11 +18,10 @@ namespace eattendance_desktop
 {
     public partial class LoginWindow : Form
     {
-        DatabaseHandler DB;
+        DatabaseHandler DB = new DatabaseHandler();
         public LoginWindow()
         {
             InitializeComponent();
-            DB = new DatabaseHandler();
         }
 
         private void LoginWindow_Shown(object sender, EventArgs e)

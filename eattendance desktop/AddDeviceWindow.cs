@@ -12,6 +12,7 @@ namespace eattendance_desktop
     public partial class AddDeviceWindow : Form
     {
         zkemkeeper.CZKEMClass tempDevice = new zkemkeeper.CZKEMClass();
+        DatabaseHandler DB = new DatabaseHandler();
 
         public AddDeviceWindow()
         {
@@ -29,7 +30,8 @@ namespace eattendance_desktop
             // Now create device
             Device device = new Device(tempDevice, btnConnect.Text.ToString().Equals("Disconnect"), txtDeviceName.Text.Trim(),
                 ++Common.iMaxDeviceNumber, txtDeviceIP.Text, txtDevicePort.Value.ToString(), txtDeviceRemarks.Text.Trim());
-            // TODO add this to database
+            // add this to database
+            DB.insertDevice(device);
             // Update Common
             Common.Devices.Add(device);
             this.Close();

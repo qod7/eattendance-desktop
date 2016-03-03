@@ -15,6 +15,8 @@ namespace eattendance_desktop
         private static String APPDIR = AppDomain.CurrentDomain.BaseDirectory;
         private static String DBPATH = APPDIR + "\\data\\eattendance.sqlite";
         private static SQLiteConnection DBCONN;
+        // TODO add more here
+        private String[] tables = { "loginCredentials", "devices" };
 
         public DatabaseHandler()
         {
@@ -37,17 +39,18 @@ namespace eattendance_desktop
                     DBCONN.Open();
                     DBCONN.ChangePassword(Common.dbPass);
                     DBCONN.Close();
+                    // reinitialize DBCONN with set password
+                    DBCONN = new SQLiteConnection(String.Format("Data Source={0};Password={1};", DBPATH, Common.dbPass));
                     // now create the tables
                     initTables();
                 }
                 else
                 {
+                    // reinitialize DBCONN with set password
+                    DBCONN = new SQLiteConnection(String.Format("Data Source={0};Password={1};", DBPATH, Common.dbPass));
                     // database file already exists.
-                    // TODO check database integrity
-                        // delete and initDatabase() if needed
+                    checkTableIntegrity();
                 }
-                // reinitialize DBCONN with set password
-                DBCONN = new SQLiteConnection(String.Format("Data Source={0};Password={1};", DBPATH, Common.dbPass));
             }
             catch (Exception ex)
             {
@@ -62,27 +65,110 @@ namespace eattendance_desktop
         {
             // this is only executed right after the new database file is created.
             DBCONN.Open();
+            String sql;
             SQLiteCommand cmd;
             
             // TABLE loginCredentials
-            String sql = "create table loginCredentials (name varchar(64) not null, token varchar(64) not null, hash varchar(64) not null);";
+            sql = "create table loginCredentials (name varchar(64) not null, token varchar(64) not null, hash varchar(64) not null);";
             cmd = new SQLiteCommand(sql, DBCONN);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
 
             // TABLE devices
+            sql = "create table devices (name varchar(64) not null, ip varchar(64) not null, port varchar(64) not null, remarks varchar(64) not null);";
+            cmd = new SQLiteCommand(sql, DBCONN);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
 
             // TABLE users
 
             // TABLE usergroups
             
             DBCONN.Close();
+
+            // for development purpose. TODO remove this later
+            addDummyData();
+        }
+
+        public void checkTableIntegrity()
+        {
+            // this is only executed everytime the app is opened.
+            DBCONN.Open();
+            SQLiteCommand cmd;
+            try
+            {
+                foreach (String table in tables)
+                {
+                    cmd = new SQLiteCommand(String.Format("select * from {0};", table), DBCONN);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                DBCONN.Close();
+            }
+            catch (SQLiteException)
+            {
+                DBCONN.Close();
+                // maybe the table isn't there. maybe someone tampered with it. just wipe the database
+                this.dropAllTables();
+                this.initTables();
+            }
+
         }
 
         public bool clearTables()
         {
-            // execute delete * from tables
+            DBCONN.Open();
+            SQLiteCommand cmd;
+            try
+            {
+                foreach (String table in tables)
+                {
+                    cmd = new SQLiteCommand(String.Format("delete from {0};", table), DBCONN);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                DBCONN.Close();
+            }
             return true;
+        }
+
+        public bool dropAllTables()
+        {
+            DBCONN.Open();
+            SQLiteCommand cmd;
+            try
+            {
+                foreach (String table in tables)
+                {
+                    cmd = new SQLiteCommand(String.Format("drop table if exists {0};", table), DBCONN);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                DBCONN.Close();
+            }
+            return true;
+        }
+
+        private void addDummyData() 
+        {
+            // Devices
+            this.insertDevice("Main Gate", "192.168.2.130", "4370", "");
+            this.insertDevice("Back Gate", "192.168.2.131", "4370", "");
+            this.insertDevice("Canteen", "192.168.2.132", "4370", "Shut down for maintenance");
         }
         #endregion
 
@@ -131,6 +217,7 @@ namespace eattendance_desktop
                 throw;
             }
         }
+        
         public bool setLoginCredential(String username, String hash, String token)
         {
             try
@@ -192,6 +279,78 @@ namespace eattendance_desktop
         #endregion
 
         #region devices
+        public List<Device> getDevices()
+        {
+            List<Device> devices = new List<Device>();
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "select * from devices;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    devices.Add(new Device((String)reader["name"], ++Common.iMaxDeviceNumber, (String)reader["ip"], 
+                        (String)reader["port"], (String)reader["remarks"]));
+                }
+
+                cmd.Dispose();
+                reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+
+            return devices;
+        }
+
+        public void insertDevice(Device device)
+        {
+            try
+            {
+                this.insertDevice(device.name, device.IP, device.port, device.remarks);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void insertDevice(String name, String ip, String port, String remarks)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("insert into devices values (\"{0}\", \"{1}\", \"{2}\", \"{3}\");", name, ip, port, remarks);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+
+        }
         #endregion
 
         #region user

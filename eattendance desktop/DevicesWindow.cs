@@ -12,6 +12,7 @@ namespace eattendance_desktop
 {
     public partial class DevicesWindow : Form
     {
+        DatabaseHandler DB = new DatabaseHandler();
         public DevicesWindow()
         {
             InitializeComponent();

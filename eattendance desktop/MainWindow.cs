@@ -12,11 +12,10 @@ namespace eattendance_desktop
 {
     public partial class MainWindow : Form
     {
-        DatabaseHandler DB;
+        DatabaseHandler DB = new DatabaseHandler();
         public MainWindow()
         {
             InitializeComponent();
-            DB = new DatabaseHandler();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -44,16 +43,8 @@ namespace eattendance_desktop
         #region Devices Table
         private void populateDevices()
         {
-            // TODO Replace following code to get data from database.
-            // name, status, number, ip, port, remark
-            object[] data = new object[]{new object[] {"Main Gate", "192.168.2.130", "4370", ""},
-                                         new object[] {"Back Gate", "192.168.2.131", "4370", ""},
-                                         new object[] {"Canteen", "192.168.2.132", "4370", "Shut down for maintenance"}};
-            foreach (object[] row in data)
-            {
-                Common.Devices.Add(new Device((String)row[0], ++Common.iMaxDeviceNumber, (String)row[1], (String)row[2], (String)row[3]));
-            }
-
+            // Get data from database into memory
+            Common.Devices = DB.getDevices();
             // now use the data to fill up the table
             fillDevices();
         }
@@ -107,15 +98,8 @@ namespace eattendance_desktop
         {
             int deviceNumber = Convert.ToInt32(dataGridDevices.SelectedRows[0].Cells[2].Value);
             Device selectedDevice = null;
-            //foreach (Device device in Common.Devices)
-            //{
-            //    if (device.deviceNumber == deviceNumber) {
-            //        selectedDevice = device;
-            //        break;
-            //    }
-            //}
-            selectedDevice = Common.Devices.Find(x => x.deviceNumber == deviceNumber); 
-            
+            selectedDevice = Common.Devices.Find(x => x.deviceNumber == deviceNumber);
+
             if (selectedDevice == null) return;
             if (selectedDevice.IP == "" || selectedDevice.port == "")
             {
@@ -168,7 +152,7 @@ namespace eattendance_desktop
         }
 
         #region RTEvent Handlers
-        private void OnAttTransactionEx(Device device, string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod, 
+        private void OnAttTransactionEx(Device device, string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod,
             int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
         {
             dataGridAttendances.Rows.Add();
@@ -231,7 +215,7 @@ namespace eattendance_desktop
                 MessageBox.Show(ex.Message, "Error");
             }
             // clear the devices array in memory
-            Common.Devices = new List<Device>();
+            Common.Devices = null;
             // now close this form
             this.exitIntent = ExitIntent.LOGOUT;
             this.Close();
@@ -246,7 +230,7 @@ namespace eattendance_desktop
             statusStripTimer.Tick += emptyStatusStripInfoLabel;
         }
 
-        private void showStatusMessage(String msg, int interval=2500)
+        private void showStatusMessage(String msg, int interval = 2500)
         {
             this.lblInfoStatusStrip.Text = msg;
             clearStatusStripInfoLabel(interval);

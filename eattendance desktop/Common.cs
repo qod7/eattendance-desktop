@@ -13,7 +13,7 @@ namespace eattendance_desktop
     {
         public static LoginCredential loginCredential;
 
-        public static List<Device> Devices = new List<Device>();
+        public static List<Device> Devices = null;
         public static int iMaxDeviceNumber = 0;
         public static DataGridViewCellStyle OnlineStyle = new DataGridViewCellStyle();
         public static DataGridViewCellStyle OfflineStyle = new DataGridViewCellStyle();
