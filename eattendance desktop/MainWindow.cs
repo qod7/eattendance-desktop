@@ -12,9 +12,11 @@ namespace eattendance_desktop
 {
     public partial class MainWindow : Form
     {
+        DatabaseHandler DB;
         public MainWindow()
         {
             InitializeComponent();
+            DB = new DatabaseHandler();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -219,33 +221,17 @@ namespace eattendance_desktop
         private void btnLogout_Click(object sender, EventArgs e)
         {
             // Delete the token in the local database
-            String DBPath = Application.StartupPath + "\\data\\eattendance.sqlite";
-            SQLiteConnection dbConn = null;
             try
             {
-                dbConn = new SQLiteConnection("Data Source=" + DBPath);
-                dbConn.Open();
-
-                String sqlEmptyTable = "delete from loginCredentials";
-                SQLiteCommand cmdEmptyTable = new SQLiteCommand(sqlEmptyTable, dbConn);
-                cmdEmptyTable.ExecuteNonQuery();
-                cmdEmptyTable.Dispose();
-            }
-            catch (SQLiteException ex)
-            {
-                MessageBox.Show(ex.Message, "Database has been tampered with");
-                throw ex;
+                DB.clearLoginCredential();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Some error occurred");
-                throw ex;
+                System.Diagnostics.Debug.Write(ex.Message);
+                MessageBox.Show(ex.Message, "Error");
             }
-            finally
-            {
-                if (dbConn != null && dbConn.State != ConnectionState.Closed)
-                    dbConn.Close();
-            }
+            // clear the devices array in memory
+            Common.Devices = new List<Device>();
             // now close this form
             this.exitIntent = ExitIntent.LOGOUT;
             this.Close();
