@@ -44,7 +44,7 @@ namespace eattendance_desktop
         private void populateDevices()
         {
             // Get data from database into memory
-            Common.Devices = DB.getDevices();
+            DB.getDevicesIntoMemory();
             // now use the data to fill up the table
             fillDevices();
         }
@@ -216,6 +216,7 @@ namespace eattendance_desktop
             }
             // clear the devices array in memory
             Common.Devices = null;
+            Common.iMaxDeviceNumber = 0;
             // now close this form
             this.exitIntent = ExitIntent.LOGOUT;
             this.Close();

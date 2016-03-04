@@ -54,22 +54,6 @@ namespace eattendance_desktop
             catch { }
         }
 
-        //private void dataGridDevices_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        Device newDevice = new Device("New Device " + (Common.iMaxDeviceNumber + 1).ToString(), ++Common.iMaxDeviceNumber, "192.168.1.100", "4370", "");
-        //        Common.Devices.Add(newDevice);
-        //        DataGridView thisDataGridView = (DataGridView)sender;
-        //        thisDataGridView.Rows[e.RowIndex].Cells[0].Value = newDevice.deviceNumber;
-        //        thisDataGridView.Rows[e.RowIndex].Cells[0].Value = newDevice.name;
-        //        thisDataGridView.Rows[e.RowIndex].Cells[0].Value = newDevice.IP;
-        //        thisDataGridView.Rows[e.RowIndex].Cells[0].Value = newDevice.port;
-        //        thisDataGridView.Rows[e.RowIndex].Cells[0].Value = newDevice.remarks;
-        //    }
-        //    catch { }
-        //}
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try {
@@ -78,10 +62,11 @@ namespace eattendance_desktop
                     "? You cannot undo this action.", "Confirm Delete", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes: 
+                        Device selectedDevice = Common.Devices.Find(x => x.deviceNumber == Convert.ToInt32(selectedRow.Cells[0].Value));
                         // Delete the device from database
+                        DB.deleteDevice(selectedDevice.IP, selectedDevice.port);
                         // Delete the device from Common.Devices
-                        Common.Devices.Remove(
-                            Common.Devices.Find(x => x.deviceNumber == Convert.ToInt32(selectedRow.Cells[0].Value)));
+                        Common.Devices.Remove(selectedDevice);
                         // Remove all rows and call populateTable()
                         // OR
                         dataGridDevices.Rows.Remove(selectedRow);
@@ -99,6 +84,8 @@ namespace eattendance_desktop
             Device newDevice = new Device("New Device " + (Common.iMaxDeviceNumber + 1).ToString(), 
                 ++Common.iMaxDeviceNumber, "192.168.1.100", "4370", "");
             Common.Devices.Add(newDevice);
+            DB.insertDevice(newDevice);
+            // reflect the change in table
             dataGridDevices.Rows.Add();
             int rowIndex = dataGridDevices.Rows.Count - 1;
             dataGridDevices.Rows[rowIndex].ReadOnly = false;
@@ -120,8 +107,7 @@ namespace eattendance_desktop
         {
             if (validateDeviceData())
             {
-                // TODO save changes to database
-                // update Common.devices
+                // save changes to database and update Common.devices
                 foreach (DataGridViewRow thisRow in dataGridDevices.Rows)
                 {
                     int deviceNumber = Convert.ToInt32(thisRow.Cells[0].Value);
@@ -135,12 +121,18 @@ namespace eattendance_desktop
                         {
                             MessageBox.Show("You cannot edit IP and/or port for a device that is currently connected. " +
                             "Please disconnect first. The changes will be ignored.", "Cannot Edit IP or Port.");
+                            // just update the name and remarks in db: the following will work because the name and remarks
+                            // in the object are different from the equivalent in database (found by ip:port combo)
+                            DB.updateDevice(selectedDevice, selectedDevice);
                         }
                     }
                     else
                     {
+                        String oldIP = selectedDevice.IP;
+                        String oldPort = selectedDevice.port;
                         selectedDevice.IP = thisRow.Cells[2].FormattedValue.ToString().Trim();
                         selectedDevice.port = thisRow.Cells[3].FormattedValue.ToString().Trim();
+                        DB.updateDevice(oldIP, oldPort, selectedDevice);
                     }
                 }
                 this.Close();

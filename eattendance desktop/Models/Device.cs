@@ -65,6 +65,18 @@ namespace eattendance_desktop
         }
 
         #region constructors
+        public Device(string name, string ip, string port, string remarks)
+        {
+            this.axCZKEM = new zkemkeeper.CZKEMClass();
+            this.bIsConnected = false;
+            this.iDeviceNumber = -1;
+            this.sName = name;
+            this.sStatus = "Offline";
+            this.sIP = ip;
+            this.sPort = port;
+            this.sRemarks = remarks;
+        }
+        
         public Device(string name, int deviceNumber, string ip, string port, string remarks)
         {
             this.axCZKEM = new zkemkeeper.CZKEMClass();

@@ -69,13 +69,23 @@ namespace eattendance_desktop
             SQLiteCommand cmd;
             
             // TABLE loginCredentials
-            sql = "create table loginCredentials (name varchar(64) not null, token varchar(64) not null, hash varchar(64) not null);";
+            sql = @"CREATE TABLE loginCredentials (
+                        name  VARCHAR (64) NOT NULL,
+                        token VARCHAR (64) NOT NULL,
+                        hash  VARCHAR (64) NOT NULL
+                    );";
             cmd = new SQLiteCommand(sql, DBCONN);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
 
             // TABLE devices
-            sql = "create table devices (name varchar(64) not null, ip varchar(64) not null, port varchar(64) not null, remarks varchar(64) not null);";
+            sql = @"CREATE TABLE devices (
+                        name    VARCHAR (64) NOT NULL,
+                        ip      VARCHAR (64) NOT NULL,
+                        port    VARCHAR (64) NOT NULL,
+                        remarks VARCHAR (64) NOT NULL,
+                        PRIMARY KEY (ip, port)
+                    )";
             cmd = new SQLiteCommand(sql, DBCONN);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
@@ -99,7 +109,7 @@ namespace eattendance_desktop
             {
                 foreach (String table in tables)
                 {
-                    cmd = new SQLiteCommand(String.Format("select * from {0};", table), DBCONN);
+                    cmd = new SQLiteCommand(String.Format("SELECT * FROM {0};", table), DBCONN);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
@@ -123,7 +133,7 @@ namespace eattendance_desktop
             {
                 foreach (String table in tables)
                 {
-                    cmd = new SQLiteCommand(String.Format("delete from {0};", table), DBCONN);
+                    cmd = new SQLiteCommand(String.Format("DELETE FROM {0};", table), DBCONN);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
@@ -147,7 +157,7 @@ namespace eattendance_desktop
             {
                 foreach (String table in tables)
                 {
-                    cmd = new SQLiteCommand(String.Format("drop table if exists {0};", table), DBCONN);
+                    cmd = new SQLiteCommand(String.Format("DROP TABLE IF EXISTS {0};", table), DBCONN);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
@@ -180,7 +190,7 @@ namespace eattendance_desktop
             {
                 DBCONN.Open();
 
-                String sql = "select * from loginCredentials;";
+                String sql = "SELECT * FROM loginCredentials;";
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 SQLiteDataReader reader = cmd.ExecuteReader();
@@ -226,7 +236,7 @@ namespace eattendance_desktop
                 this.clearLoginCredential();
 
                 DBCONN.Open();
-                String sqlInsertData = String.Format("insert into loginCredentials values(\"{0}\", \"{1}\", \"{2}\");", username, hash, token);
+                String sqlInsertData = String.Format("INSERT INTO loginCredentials VALUES(\"{0}\", \"{1}\", \"{2}\");", username, hash, token);
 
                 SQLiteCommand cmdInsertData = new SQLiteCommand(sqlInsertData, DBCONN);
                 cmdInsertData.ExecuteNonQuery();
@@ -279,20 +289,20 @@ namespace eattendance_desktop
         #endregion
 
         #region devices
-        public List<Device> getDevices()
+        public List<Device> getDevicesIntoMemory()
         {
-            List<Device> devices = new List<Device>();
+            Common.Devices = new List<Device>();
             try
             {
                 DBCONN.Open();
 
-                String sql = "select * from devices;";
+                String sql = "SELECT * FROM devices;";
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    devices.Add(new Device((String)reader["name"], ++Common.iMaxDeviceNumber, (String)reader["ip"], 
+                    Common.Devices.Add(new Device((String)reader["name"], ++Common.iMaxDeviceNumber, (String)reader["ip"], 
                         (String)reader["port"], (String)reader["remarks"]));
                 }
 
@@ -310,8 +320,7 @@ namespace eattendance_desktop
                 if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
                     DBCONN.Close();
             }
-
-            return devices;
+            return Common.Devices;
         }
 
         public void insertDevice(Device device)
@@ -332,7 +341,7 @@ namespace eattendance_desktop
             {
                 DBCONN.Open();
 
-                String sql = String.Format("insert into devices values (\"{0}\", \"{1}\", \"{2}\", \"{3}\");", name, ip, port, remarks);
+                String sql = String.Format("INSERT INTO devices VALUES(\"{0}\", \"{1}\", \"{2}\", \"{3}\");", name, ip, port, remarks);
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
@@ -351,6 +360,103 @@ namespace eattendance_desktop
             }
 
         }
+
+        public Device getDevice(String ip, String port)
+        {
+            Device device = null;
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("SELECT * FROM devices WHERE ip=\"{0}\" AND port=\"{1}\";", ip, port);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader r = cmd.ExecuteReader();
+                r.Read();
+                device = new Device((String)r["name"], (String)r["ip"], (String)r["port"], (String)r["remarks"]);
+
+                cmd.Dispose();
+                r.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return device;
+        }
+
+        public void deleteDevice(String ip, String port)
+        {
+            Device device = null;
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("DELETE FROM devices WHERE ip=\"{0}\" AND port=\"{1}\";", ip, port);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public void updateDevice(Device oldDevice, Device newDevice)
+        {
+            try
+            {
+                this.updateDevice(oldDevice.IP, oldDevice.port, newDevice);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void updateDevice(String oldIP, String oldPort, Device nd)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format(@"UPDATE devices SET
+                                            name=""{0}"", port=""{1}"", ip=""{2}"", remarks=""{3}""
+                                            WHERE ip=""{4}"" and port=""{5}"";", nd.name, nd.port, nd.IP, nd.remarks, oldIP, oldPort);
+                Console.WriteLine(sql);
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
         #endregion
 
         #region user
