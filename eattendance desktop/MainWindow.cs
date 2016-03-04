@@ -138,6 +138,7 @@ namespace eattendance_desktop
                 showStatusMessage("Connection Successful.");
 
                 selectedDevice.device.RegEvent(selectedDevice.deviceNumber, 65535);
+                selectedDevice.device.SetDeviceTime(selectedDevice.deviceNumber);
                 selectedDevice.device.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(
                     (sEnrollNumber, iIsInValid, iAttState, iVerifyMethod, iYear, iMonth, iDay, iHour, iMinute, iSecond, iWorkCode) => OnAttTransactionEx(
                         selectedDevice, sEnrollNumber, iIsInValid, iAttState, iVerifyMethod, iYear, iMonth, iDay, iHour, iMinute, iSecond, iWorkCode));
