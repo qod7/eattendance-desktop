@@ -34,9 +34,12 @@ namespace eattendance_desktop
             foreach (Device device in Common.Devices)
             {
                 dataGridDevices.Rows.Add();
-                if (! device.isConnected)
+                if (device.isConnected)
+                    // this is an uneditable row; make it look grey
+                    dataGridDevices.Rows[rowcount].DefaultCellStyle = Common.OnlineStyle;
+                else
                     dataGridDevices.Rows[rowcount].ReadOnly = false;
-                dataGridDevices.Rows[rowcount].Cells[0].Value = device.deviceNumber;
+                dataGridDevices.Rows[rowcount].Cells[0].Value = rowcount + 1;
                 dataGridDevices.Rows[rowcount].Cells[1].Value = device.name;
                 dataGridDevices.Rows[rowcount].Cells[2].Value = device.IP;
                 dataGridDevices.Rows[rowcount].Cells[3].Value = device.port;
@@ -57,54 +60,36 @@ namespace eattendance_desktop
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 DataGridViewRow selectedRow = dataGridDevices.Rows[dataGridDevices.SelectedCells[0].RowIndex];
-                switch (MessageBox.Show("Are you sure you want to delete " + selectedRow.Cells[1].Value + 
-                    "? You cannot undo this action.", "Confirm Delete", MessageBoxButtons.YesNo))
+                switch (MessageBox.Show("Are you sure you want to delete " + selectedRow.Cells[1].Value +
+                    "?", "Confirm Delete", MessageBoxButtons.YesNo))
                 {
-                    case DialogResult.Yes: 
-                        Device selectedDevice = Common.Devices.Find(x => x.deviceNumber == Convert.ToInt32(selectedRow.Cells[0].Value));
-                        // Delete the device from database
-                        DB.deleteDevice(selectedDevice.IP, selectedDevice.port);
-                        // Delete the device from Common.Devices
-                        Common.Devices.Remove(selectedDevice);
-                        // Remove all rows and call populateTable()
-                        // OR
+                    case DialogResult.Yes:
                         dataGridDevices.Rows.Remove(selectedRow);
+                        updateSerialNumbers();
                         break;
-                    case DialogResult.No: 
+                    case DialogResult.No:
                         break;
                 }
             }
-            catch {}
+            catch { }
 
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Device newDevice = new Device("New Device " + (Common.iMaxDeviceNumber + 1).ToString(), 
-                Common.iMaxDeviceNumber + 1, "192.168.1.100", "4370", "");
-            try
-            {
-                DB.insertDevice(newDevice);
-                Common.Devices.Add(newDevice);
-                Common.iMaxDeviceNumber++;
-                // reflect the change in table
-                dataGridDevices.Rows.Add();
-                int rowIndex = dataGridDevices.Rows.Count - 1;
-                dataGridDevices.Rows[rowIndex].ReadOnly = false;
-                dataGridDevices.Rows[rowIndex].Cells[0].Value = newDevice.deviceNumber;
-                dataGridDevices.Rows[rowIndex].Cells[1].Value = newDevice.name;
-                dataGridDevices.Rows[rowIndex].Cells[2].Value = newDevice.IP;
-                dataGridDevices.Rows[rowIndex].Cells[3].Value = newDevice.port;
-                dataGridDevices.Rows[rowIndex].Cells[4].Value = newDevice.remarks;
-                dataGridDevices.Rows[rowIndex].Cells[1].Selected = true;
-                dataGridDevices.BeginEdit(true);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
+            dataGridDevices.Rows.Add();
+            int rowIndex = dataGridDevices.Rows.Count - 1;
+            dataGridDevices.Rows[rowIndex].ReadOnly = false;
+            dataGridDevices.Rows[rowIndex].Cells[0].Value = rowIndex + 1;
+            dataGridDevices.Rows[rowIndex].Cells[1].Value = "New Device";
+            dataGridDevices.Rows[rowIndex].Cells[2].Value = "192.168.1.100";
+            dataGridDevices.Rows[rowIndex].Cells[3].Value = "4370";
+            dataGridDevices.Rows[rowIndex].Cells[4].Value = "";
+            dataGridDevices.Rows[rowIndex].Cells[1].Selected = true;
+            dataGridDevices.BeginEdit(true);
         }
 
         private void btnDiscard_Click(object sender, EventArgs e)
@@ -117,33 +102,32 @@ namespace eattendance_desktop
             if (validateDeviceData())
             {
                 // save changes to database and update Common.devices
+                DB.deleteAllDevices();
+                List<Device> tempDevices = new List<Device>();
                 foreach (DataGridViewRow thisRow in dataGridDevices.Rows)
                 {
-                    int deviceNumber = Convert.ToInt32(thisRow.Cells[0].Value);
-                    Device selectedDevice = Common.Devices.Find(x => x.deviceNumber == deviceNumber);
-                    selectedDevice.name = thisRow.Cells[1].FormattedValue.ToString().Trim();
-                    selectedDevice.remarks = thisRow.Cells[4].FormattedValue.ToString().Trim();
-                    if (selectedDevice.isConnected)
+                    Device newDevice = new Device(
+                        thisRow.Cells[1].FormattedValue.ToString().Trim(),
+                        Convert.ToInt32(thisRow.Cells[0].FormattedValue.ToString().Trim()),
+                        thisRow.Cells[2].FormattedValue.ToString().Trim(),
+                        thisRow.Cells[3].FormattedValue.ToString().Trim(),
+                        thisRow.Cells[4].FormattedValue.ToString().Trim()
+                    );
+                    DB.insertDevice(newDevice);
+
+                    Device selectedDevice = Common.Devices.Find(x => (x.IP == newDevice.IP && x.port == newDevice.port));
+                    if (selectedDevice != null && selectedDevice.isConnected) 
                     {
-                        if (! (selectedDevice.IP.Equals(thisRow.Cells[2].FormattedValue.ToString().Trim()) &&
-                            selectedDevice.port.Equals(thisRow.Cells[3].FormattedValue.ToString().Trim()) ))
-                        {
-                            MessageBox.Show("You cannot edit IP and/or port for a device that is currently connected. " +
-                            "Please disconnect first. The changes will be ignored.", "Cannot Edit IP and/or Port.");
-                            // just update the name and remarks in db: the following will work because the name and remarks
-                            // in the object are different from the equivalent in database (found by ip:port combo)
-                            DB.updateDevice(selectedDevice, selectedDevice);
-                        }
+                        tempDevices.Add(selectedDevice);
                     }
                     else
                     {
-                        String oldIP = selectedDevice.IP;
-                        String oldPort = selectedDevice.port;
-                        selectedDevice.IP = thisRow.Cells[2].FormattedValue.ToString().Trim();
-                        selectedDevice.port = thisRow.Cells[3].FormattedValue.ToString().Trim();
-                        DB.updateDevice(oldIP, oldPort, selectedDevice);
+                        // selectedDevice not found, create one; or is editable, so update it.
+                        tempDevices.Add(newDevice);
                     }
                 }
+                Common.Devices = tempDevices;
+                Common.iMaxDeviceNumber = dataGridDevices.RowCount;
                 this.Close();
             }
         }
@@ -151,30 +135,50 @@ namespace eattendance_desktop
         private bool validateDeviceData()
         {
             bool flag = true;
+
+            var ipPorts = new HashSet<string>();
+
             foreach (DataGridViewRow thisRow in dataGridDevices.Rows)
             {
                 thisRow.ErrorText = string.Empty;
-                int val;
-                if (int.TryParse(thisRow.Cells[3].Value.ToString().Trim(), out val)
-                    && !val.ToString().Equals(thisRow.Cells[3].Value.ToString().Trim()))
-                    thisRow.Cells[3].Value = Convert.ToInt32(val);
-                if (string.IsNullOrEmpty(thisRow.Cells[1].FormattedValue.ToString().Trim()))
+                String name = thisRow.Cells[1].FormattedValue.ToString().Trim();
+                String ip = thisRow.Cells[2].FormattedValue.ToString().Trim();
+                String port = thisRow.Cells[3].FormattedValue.ToString().Trim();
+                ipPorts.Add(String.Format("{0}:{1}", ip, port));
+
+                if (string.IsNullOrEmpty(name))
                 {
                     thisRow.ErrorText = "Device Name cannot be empty.";
                     flag = false;
                 }
-                else if (Common.ipRegex.Match(thisRow.Cells[2].FormattedValue.ToString().Trim()).Length == 0)
+                else if (Common.ipRegex.Match(ip).Length == 0)
                 {
                     thisRow.ErrorText = "Please enter a valid IPv4 address.";
                     flag = false;
                 }
-                else if (Common.portRegex.Match(thisRow.Cells[3].FormattedValue.ToString().Trim()).Length == 0)
+                else if (Common.portRegex.Match(port).Length == 0)
                 {
                     thisRow.ErrorText = "Please enter a valid port number.";
                     flag = false;
                 }
             }
+            // check for ip:port duplicates
+            if (ipPorts.Count != this.dataGridDevices.RowCount)
+            {
+                MessageBox.Show("All IP:PORT combinations have to be unique.", "Uniqueness verification failed");
+                flag = false;
+            }
             return flag;
+        }
+
+        private void updateSerialNumbers()
+        {
+            int i = 1;
+            foreach (DataGridViewRow row in this.dataGridDevices.Rows)
+            {
+                row.Cells[0].Value = i;
+                i++;
+            }
         }
     }
 }

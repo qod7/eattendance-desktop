@@ -33,7 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridDevices = new System.Windows.Forms.DataGridView();
-            this.DeviceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeviceSerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,7 +79,7 @@
             this.dataGridDevices.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridDevices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridDevices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DeviceNumber,
+            this.DeviceSerialNumber,
             this.DeviceName,
             this.DeviceIPAddress,
             this.DevicePort,
@@ -102,12 +102,12 @@
             this.dataGridDevices.Size = new System.Drawing.Size(784, 269);
             this.dataGridDevices.TabIndex = 3;
             // 
-            // DeviceNumber
+            // DeviceSerialNumber
             // 
-            this.DeviceNumber.FillWeight = 40F;
-            this.DeviceNumber.HeaderText = "Device Number";
-            this.DeviceNumber.Name = "DeviceNumber";
-            this.DeviceNumber.ReadOnly = true;
+            this.DeviceSerialNumber.FillWeight = 8F;
+            this.DeviceSerialNumber.HeaderText = "#";
+            this.DeviceSerialNumber.Name = "DeviceSerialNumber";
+            this.DeviceSerialNumber.ReadOnly = true;
             // 
             // DeviceName
             // 
@@ -218,15 +218,15 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dataGridDevices;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDiscard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceSerialNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
     }
 }

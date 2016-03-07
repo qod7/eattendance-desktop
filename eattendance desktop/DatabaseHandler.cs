@@ -405,12 +405,35 @@ namespace eattendance_desktop
 
         public void deleteDevice(String ip, String port)
         {
-            Device device = null;
             try
             {
                 DBCONN.Open();
 
                 String sql = String.Format("DELETE FROM devices WHERE ip=\"{0}\" AND port=\"{1}\";", ip, port);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+        public void deleteAllDevices()
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "DELETE FROM devices;";
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();

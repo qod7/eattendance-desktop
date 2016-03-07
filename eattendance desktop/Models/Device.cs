@@ -101,5 +101,11 @@ namespace eattendance_desktop
             this.sRemarks = remarks;
         }
         #endregion
+
+        public void setConnected(bool isConnected)
+        {
+            this.bIsConnected = isConnected;
+            this.sStatus = isConnected ? "Online" : "Offline";
+        }
     }
 }
