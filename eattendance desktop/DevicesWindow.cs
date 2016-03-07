@@ -34,7 +34,8 @@ namespace eattendance_desktop
             foreach (Device device in Common.Devices)
             {
                 dataGridDevices.Rows.Add();
-                dataGridDevices.Rows[rowcount].ReadOnly = false;
+                if (! device.isConnected)
+                    dataGridDevices.Rows[rowcount].ReadOnly = false;
                 dataGridDevices.Rows[rowcount].Cells[0].Value = device.deviceNumber;
                 dataGridDevices.Rows[rowcount].Cells[1].Value = device.name;
                 dataGridDevices.Rows[rowcount].Cells[2].Value = device.IP;
@@ -82,20 +83,28 @@ namespace eattendance_desktop
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Device newDevice = new Device("New Device " + (Common.iMaxDeviceNumber + 1).ToString(), 
-                ++Common.iMaxDeviceNumber, "192.168.1.100", "4370", "");
-            Common.Devices.Add(newDevice);
-            DB.insertDevice(newDevice);
-            // reflect the change in table
-            dataGridDevices.Rows.Add();
-            int rowIndex = dataGridDevices.Rows.Count - 1;
-            dataGridDevices.Rows[rowIndex].ReadOnly = false;
-            dataGridDevices.Rows[rowIndex].Cells[0].Value = newDevice.deviceNumber;
-            dataGridDevices.Rows[rowIndex].Cells[1].Value = newDevice.name;
-            dataGridDevices.Rows[rowIndex].Cells[2].Value = newDevice.IP;
-            dataGridDevices.Rows[rowIndex].Cells[3].Value = newDevice.port;
-            dataGridDevices.Rows[rowIndex].Cells[4].Value = newDevice.remarks;
-            dataGridDevices.Rows[rowIndex].Cells[1].Selected = true;
-            dataGridDevices.BeginEdit(true);
+                Common.iMaxDeviceNumber + 1, "192.168.1.100", "4370", "");
+            try
+            {
+                DB.insertDevice(newDevice);
+                Common.Devices.Add(newDevice);
+                Common.iMaxDeviceNumber++;
+                // reflect the change in table
+                dataGridDevices.Rows.Add();
+                int rowIndex = dataGridDevices.Rows.Count - 1;
+                dataGridDevices.Rows[rowIndex].ReadOnly = false;
+                dataGridDevices.Rows[rowIndex].Cells[0].Value = newDevice.deviceNumber;
+                dataGridDevices.Rows[rowIndex].Cells[1].Value = newDevice.name;
+                dataGridDevices.Rows[rowIndex].Cells[2].Value = newDevice.IP;
+                dataGridDevices.Rows[rowIndex].Cells[3].Value = newDevice.port;
+                dataGridDevices.Rows[rowIndex].Cells[4].Value = newDevice.remarks;
+                dataGridDevices.Rows[rowIndex].Cells[1].Selected = true;
+                dataGridDevices.BeginEdit(true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void btnDiscard_Click(object sender, EventArgs e)
@@ -116,11 +125,11 @@ namespace eattendance_desktop
                     selectedDevice.remarks = thisRow.Cells[4].FormattedValue.ToString().Trim();
                     if (selectedDevice.isConnected)
                     {
-                        if (! (selectedDevice.IP.Equals(thisRow.Cells[2].FormattedValue.ToString().Trim()) ||
-                            selectedDevice.port.Equals(thisRow.Cells[3].FormattedValue.ToString().Trim()) ) )
+                        if (! (selectedDevice.IP.Equals(thisRow.Cells[2].FormattedValue.ToString().Trim()) &&
+                            selectedDevice.port.Equals(thisRow.Cells[3].FormattedValue.ToString().Trim()) ))
                         {
                             MessageBox.Show("You cannot edit IP and/or port for a device that is currently connected. " +
-                            "Please disconnect first. The changes will be ignored.", "Cannot Edit IP or Port.");
+                            "Please disconnect first. The changes will be ignored.", "Cannot Edit IP and/or Port.");
                             // just update the name and remarks in db: the following will work because the name and remarks
                             // in the object are different from the equivalent in database (found by ip:port combo)
                             DB.updateDevice(selectedDevice, selectedDevice);

@@ -347,6 +347,17 @@ namespace eattendance_desktop
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+            catch (SQLiteException ex)
+            {
+                if (ex.ErrorCode == 19)
+                {
+                    throw new Exception("The same IP:Port combination already exists.", ex);
+                }
+                else
+                {
+                    throw new Exception("Error accessing local database", ex);
+                }
+            }
             catch (Exception ex)
             {
                 // SQL exception of something. todo: print exception to log

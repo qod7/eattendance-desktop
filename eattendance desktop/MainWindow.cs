@@ -52,6 +52,7 @@ namespace eattendance_desktop
         private void fillDevices()
         {
             // First clear the dataGridView
+            dataGridDevices.DataSource = null;
             dataGridDevices.Rows.Clear();
             int rowcount = 0;
             foreach (Device device in Common.Devices)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,12 +30,22 @@ namespace eattendance_desktop
             }
             // Now create device
             Device device = new Device(tempDevice, btnConnect.Text.ToString().Equals("Disconnect"), txtDeviceName.Text.Trim(),
-                ++Common.iMaxDeviceNumber, txtDeviceIP.Text, txtDevicePort.Value.ToString(), txtDeviceRemarks.Text.Trim());
+                Common.iMaxDeviceNumber+1, txtDeviceIP.Text, txtDevicePort.Value.ToString(), txtDeviceRemarks.Text.Trim());
             // add this to database
-            DB.insertDevice(device);
-            // Update Common
-            Common.Devices.Add(device);
-            this.Close();
+            try
+            {
+                DB.insertDevice(device);
+                // Update Common
+                Common.Devices.Add(device);
+                Common.iMaxDeviceNumber++;
+                // Close Window
+                MessageBox.Show("New device has been created", "Success");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
