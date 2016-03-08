@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eattendance_desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,10 @@ namespace eattendance_desktop
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            // Show devices data from database
             populateDevices();
+            // Show unsynced attendances in database
+            populateAttendances();
             // register device selection changed event
             this.dataGridDevices.SelectionChanged += new System.EventHandler(this.dataGridDevices_SelectionChangedClick);
             this.dataGridDevices_SelectionChangedClick(null, null);
@@ -85,6 +89,29 @@ namespace eattendance_desktop
         }
         #endregion
 
+        #region Attendances Table
+        public void populateAttendances()
+        {
+            // Get data from database into memory
+            List<Attendance> attendances = DB.getAttendances();
+            // now use the data to fill up the table
+            dataGridAttendances.DataSource = null;
+            dataGridAttendances.Rows.Clear();
+            int rowcount = 0;
+            foreach (Attendance attendance in attendances)
+            {
+                dataGridAttendances.Rows.Add();
+                dataGridAttendances.Rows[rowcount].Cells[0].Value = attendance.userid;
+                // TODO: DB.getUser(attendance.userid) and fill columns 1, 2 and 3
+                dataGridAttendances.Rows[rowcount].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
+                dataGridAttendances.Rows[rowcount].Cells[5].Value = attendance.device;
+                dataGridAttendances.Rows[rowcount].Cells[6].Value = attendance.entryMethod;
+                rowcount++;
+            }
+        }
+        #endregion
+
+        #region UI Event Handlers
         private void btnConnect_Click(object sender, EventArgs e)
         {
             int deviceNumber = Convert.ToInt32(dataGridDevices.SelectedRows[0].Cells[2].Value);
@@ -142,20 +169,27 @@ namespace eattendance_desktop
             }
             Cursor = Cursors.Default;
         }
+        #endregion
 
         #region RTEvent Handlers
         private void OnAttTransactionEx(Device device, string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod,
             int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
         {
+            // TODO get userinfo from sEnrollNumber; from database
+            // create new attendance object
+            Attendance attendance = new Attendance(sEnrollNumber, new DateTime(iYear, iMonth, iDay, iHour, iMonth, iSecond, DateTimeKind.Local),
+                device.name, Common.VerifyMethods[iVerifyMethod]);
+            // add attendance to database
+            DB.insertAttendance(attendance);
+
+            // now add to attendances table
             dataGridAttendances.Rows.Add();
             int rowIndex = dataGridAttendances.Rows.Count - 1;
-            //dataGridAttendances.Rows[rowIndex].ReadOnly = false;
-            dataGridAttendances.Rows[rowIndex].Cells[0].Value = sEnrollNumber;
-            dataGridAttendances.Rows[rowIndex].Cells[4].Value = string.Format("{0:00}:{1:00}:{2:00}", iHour, iMinute, iSecond);
-            dataGridAttendances.Rows[rowIndex].Cells[5].Value = device.name;
-            dataGridAttendances.Rows[rowIndex].Cells[6].Value = Common.VerifyMethods[iVerifyMethod];
+            dataGridAttendances.Rows[rowIndex].Cells[0].Value = attendance.userid;
+            dataGridAttendances.Rows[rowIndex].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
+            dataGridAttendances.Rows[rowIndex].Cells[5].Value = attendance.device;
+            dataGridAttendances.Rows[rowIndex].Cells[6].Value = attendance.entryMethod;
 
-            // get other user info from database and fill
             // TODO replace the lazy way below
             string sName = "", sPassword = "";
             int iPrivilege = 0;

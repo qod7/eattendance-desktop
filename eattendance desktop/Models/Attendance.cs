@@ -8,23 +8,57 @@ namespace eattendance_desktop.Models
 {
     class Attendance
     {
+        private int _attid;
         private String _userid;
         private DateTime _datetime;
+        private String _device;
+        private String _entryMethod;
 
-        public Attendance(String userid, DateTime datetime)
+        public Attendance(int attid, String userid, DateTime datetime, String device = null, String entryMethod = null)
         {
+            this._attid = attid;
             this._userid = userid;
             this._datetime = datetime;
+            this._device = device;
+            this._entryMethod = entryMethod;
         }
 
-        public Attendance(String userid, Double unixTimeStamp): this(userid, Common.UnixTimeStampToDateTime(unixTimeStamp))
-        { }
+        public Attendance(int attid, String userid, Double unixTimeStamp, String device, String entryMethod)
+            : this(attid, userid, Common.UnixTimeStampToDateTime(unixTimeStamp), device, entryMethod) { }
 
+        public Attendance(String userid, DateTime datetime, String device = null, String entryMethod = null) :
+            this(-1, userid, datetime, device, entryMethod) { }
+
+        public Attendance(String userid) : this(userid, DateTime.Now) { }
+
+        public Attendance(String userid, Double unixTimeStamp, String device, String entryMethod)
+            : this(userid, Common.UnixTimeStampToDateTime(unixTimeStamp), device, entryMethod) { }
+
+        public Attendance(String userid, Double unixTimeStamp)
+            : this(userid, Common.UnixTimeStampToDateTime(unixTimeStamp)) { }
+
+        public int attid
+        {
+            get { return _attid; }
+            set { _attid = value; }
+        }
 
         public String userid
         {
             get { return _userid; }
             set { _userid = value; }
+        }
+
+        public String device
+        {
+            get { return _device; }
+            set { _device = value; }
+        }
+
+        public String entryMethod
+        {
+            get { return _entryMethod; }
+            set { _entryMethod = value; }
         }
 
         public DateTime datetime

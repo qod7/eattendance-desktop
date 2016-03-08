@@ -16,7 +16,7 @@ namespace eattendance_desktop
         private static String DBPATH = APPDIR + "\\data\\eattendance.sqlite";
         private static SQLiteConnection DBCONN;
         // TODO add more here
-        private String[] tables = { "loginCredentials", "devices" };
+        private String[] tables = { "loginCredentials", "devices", "attendances"};
 
         public DatabaseHandler()
         {
@@ -85,7 +85,7 @@ namespace eattendance_desktop
                         port    VARCHAR (64) NOT NULL,
                         remarks VARCHAR (64) NOT NULL,
                         PRIMARY KEY (ip, port)
-                    )";
+                    );";
             cmd = new SQLiteCommand(sql, DBCONN);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
@@ -93,7 +93,19 @@ namespace eattendance_desktop
             // TABLE users
 
             // TABLE usergroups
-            
+
+            // TABLE attendances
+            sql = @"CREATE TABLE attendances (
+                    attid       INTEGER      PRIMARY KEY AUTOINCREMENT,
+                    userid      VARCHAR (64) NOT NULL,
+                    timestamp   INTEGER      NOT NULL,
+                    device      VARCHAR (64) NOT NULL,
+                    entrymethod VARCHAR (64) NOT NULL
+                );";
+            cmd = new SQLiteCommand(sql, DBCONN);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+
             DBCONN.Close();
 
             // for development purpose. TODO remove this later
@@ -427,6 +439,7 @@ namespace eattendance_desktop
                     DBCONN.Close();
             }
         }
+        
         public void deleteAllDevices()
         {
             try
@@ -494,6 +507,73 @@ namespace eattendance_desktop
         #endregion
 
         #region user
+        #endregion
+
+        #region attendances
+        public List<Attendance> getAttendances()
+        {
+            List<Attendance> attendances = new List<Attendance>();
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "SELECT * FROM attendances;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    attendances.Add(new Attendance(reader.GetInt32(0), reader.GetString(1), reader.GetInt64(2),
+                        reader.GetString(3), reader.GetString(4)));
+                }
+
+                cmd.Dispose();
+                reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return attendances;
+        }
+
+        public void insertAttendance(Attendance attendance)
+        {
+            try
+            {
+                DBCONN.Open();
+                String sql = String.Format("INSERT INTO attendances (userid, timestamp, device, entrymethod) VALUES(\"{0}\", {1}, \"{2}\", \"{3}\");",
+                    attendance.userid, Common.DateTimeToUnixTimeStamp(attendance.datetime), attendance.device, attendance.entryMethod);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (SQLiteException ex)
+            {
+                throw new Exception("Error accessing local database", ex);
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+
+        }
+
         #endregion
 
     }
