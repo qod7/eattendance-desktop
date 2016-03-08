@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="DatabaseHandler.cs" />
+    <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="DevicesWindow.cs">
       <SubType>Form</SubType>

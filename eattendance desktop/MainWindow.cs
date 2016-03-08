@@ -20,7 +20,6 @@ namespace eattendance_desktop
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            initializeCommonElements();
             populateDevices();
             // register device selection changed event
             this.dataGridDevices.SelectionChanged += new System.EventHandler(this.dataGridDevices_SelectionChangedClick);
@@ -29,15 +28,6 @@ namespace eattendance_desktop
 
             // logged in message
             showStatusMessage("Logged in as " + Common.loginCredential.username);
-        }
-
-        private void initializeCommonElements()
-        {
-            Common.OnlineStyle.BackColor = Color.LightGreen;
-            Common.OnlineStyle.SelectionBackColor = Color.LightGreen;
-            Common.OfflineStyle.BackColor = Color.LightSlateGray;
-            Common.OfflineStyle.SelectionBackColor = Color.LightSlateGray;
-            Common.BoldCellStyle.Font = new Font(this.dataGridDevices.Font, FontStyle.Bold);
         }
 
         #region Devices Table
