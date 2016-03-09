@@ -197,19 +197,19 @@
             // syncDatabaseToolStripMenuItem
             // 
             this.syncDatabaseToolStripMenuItem.Name = "syncDatabaseToolStripMenuItem";
-            this.syncDatabaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.syncDatabaseToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.syncDatabaseToolStripMenuItem.Text = "Sync Database";
             // 
             // informationToolStripMenuItem
             // 
             this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
-            this.informationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.informationToolStripMenuItem.Text = "Information";
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.btnLogout_Click);
             // 
@@ -332,6 +332,7 @@
             this.btnManual.Text = "Manual";
             this.btnManual.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnManual.UseVisualStyleBackColor = true;
+            this.btnManual.Click += new System.EventHandler(this.btnManual_Click);
             // 
             // btnAttendances
             // 

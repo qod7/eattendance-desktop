@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eattendance_desktop.Models
 {
-    class Attendance
+    public class Attendance
     {
         private int _attid;
         private String _userid;

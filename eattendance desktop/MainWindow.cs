@@ -35,6 +35,7 @@ namespace eattendance_desktop
         }
 
         #region Devices Table
+
         private void populateDevices()
         {
             // Get data from database into memory
@@ -87,9 +88,35 @@ namespace eattendance_desktop
             }
             catch { }
         }
+        
+        #endregion
+
+        #region Devices Window
+
+        private void btnDevices_Click(object sender, EventArgs e)
+        {
+            DevicesWindow devicesWindow = new DevicesWindow();
+            devicesWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed);
+            devicesWindow.ShowDialog();
+        }
+
+        private void devicesWindowClosed(object sender, FormClosedEventArgs e)
+        {
+            this.fillDevices();
+            this.dataGridDevices_SelectionChangedClick(null, null);
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
+            addDeviceWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed); // same handler function does fine here
+            addDeviceWindow.ShowDialog();
+        }
+
         #endregion
 
         #region Attendances Table
+
         public void populateAttendances()
         {
             // Get data from database into memory
@@ -100,15 +127,42 @@ namespace eattendance_desktop
             int rowcount = 0;
             foreach (Attendance attendance in attendances)
             {
-                dataGridAttendances.Rows.Add();
-                dataGridAttendances.Rows[rowcount].Cells[0].Value = attendance.userid;
-                // TODO: DB.getUser(attendance.userid) and fill columns 1, 2 and 3
-                dataGridAttendances.Rows[rowcount].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
-                dataGridAttendances.Rows[rowcount].Cells[5].Value = attendance.device;
-                dataGridAttendances.Rows[rowcount].Cells[6].Value = attendance.entryMethod;
+                insertAttendanceToTable(attendance, rowcount);
                 rowcount++;
             }
         }
+
+        public void insertAttendanceToTable(Attendance attendance, int nRow = -1)
+        {
+            if (nRow == -1)
+                nRow = dataGridAttendances.RowCount;
+            dataGridAttendances.Rows.Add();
+            dataGridAttendances.Rows[nRow].Cells[0].Value = attendance.userid;
+            // TODO: DB.getUser(attendance.userid) and fill columns 1, 2 and 3
+            dataGridAttendances.Rows[nRow].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
+            dataGridAttendances.Rows[nRow].Cells[5].Value = attendance.device;
+            dataGridAttendances.Rows[nRow].Cells[6].Value = attendance.entryMethod;
+        }
+
+        #endregion
+
+        #region Attendances Window
+
+        private void btnManual_Click(object sender, EventArgs e)
+        {
+            using (ManualAttendanceWindow manualAttendanceWindow = new ManualAttendanceWindow())
+            {
+                //manualAttendanceWindow.FormClosed += new FormClosedEventHandler(manualAttendanceWindowClosed);
+                manualAttendanceWindow.ShowDialog();
+
+                // retrieve the attendance that was saved and update dataGridAttendances
+                if (manualAttendanceWindow.newAttendance != null)
+                {
+                    insertAttendanceToTable(manualAttendanceWindow.newAttendance);
+                }
+            }
+        }
+
         #endregion
 
         #region UI Event Handlers
@@ -204,29 +258,9 @@ namespace eattendance_desktop
         }
         #endregion
 
-        #region Device Management
-        private void btnDevices_Click(object sender, EventArgs e)
-        {
-            DevicesWindow devicesWindow = new DevicesWindow();
-            devicesWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed);
-            devicesWindow.ShowDialog();
-        }
-
-        private void devicesWindowClosed(object sender, FormClosedEventArgs e)
-        {
-            this.fillDevices();
-            this.dataGridDevices_SelectionChangedClick(null, null);
-        }
-
-        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddDeviceWindow addDeviceWindow = new AddDeviceWindow();
-            addDeviceWindow.FormClosed += new FormClosedEventHandler(devicesWindowClosed); // same handler function does fine here
-            addDeviceWindow.ShowDialog();
-        }
-        #endregion
-
         #region logout
+
+        // This property will be read back in LoginWindow after MainWindow is closed
         public ExitIntent exitIntent = ExitIntent.CLOSE;
         private void btnLogout_Click(object sender, EventArgs e)
         {
@@ -247,6 +281,7 @@ namespace eattendance_desktop
             this.exitIntent = ExitIntent.LOGOUT;
             this.Close();
         }
+
         #endregion
 
         #region statusStrip

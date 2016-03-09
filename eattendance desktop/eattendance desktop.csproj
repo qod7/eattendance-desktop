@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="DatabaseHandler.cs" />
+    <Compile Include="ManualAttendanceWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualAttendanceWindow.Designer.cs">
+      <DependentUpon>ManualAttendanceWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="DevicesWindow.cs">
@@ -118,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManualAttendanceWindow.resx">
+      <DependentUpon>ManualAttendanceWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
