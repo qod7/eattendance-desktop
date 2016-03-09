@@ -122,6 +122,10 @@
             // 
             // comboBoxUserName
             // 
+            this.comboBoxUserName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxUserName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxUserName.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxUserName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxUserName.FormattingEnabled = true;
             this.comboBoxUserName.Location = new System.Drawing.Point(63, 40);
             this.comboBoxUserName.Name = "comboBoxUserName";
@@ -150,6 +154,7 @@
             // 
             // comboBoxUserID
             // 
+            this.comboBoxUserID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxUserID.FormattingEnabled = true;
             this.comboBoxUserID.Location = new System.Drawing.Point(255, 40);
             this.comboBoxUserID.Name = "comboBoxUserID";
