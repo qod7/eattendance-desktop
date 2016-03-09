@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="attendance-256x256.ico" />
+    <None Include="Resources\profile-user-outline.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="ADOX">
