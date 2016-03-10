@@ -101,6 +101,7 @@
             this.dateTimePickerAttendanceDate.Name = "dateTimePickerAttendanceDate";
             this.dateTimePickerAttendanceDate.Size = new System.Drawing.Size(126, 20);
             this.dateTimePickerAttendanceDate.TabIndex = 3;
+            this.dateTimePickerAttendanceDate.Value = new System.DateTime(2016, 3, 10, 0, 0, 0, 0);
             // 
             // label5
             // 
@@ -166,10 +167,10 @@
             this.pictureBoxUserImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxUserImage.ErrorImage = global::eattendance_desktop.Properties.Resources.profile_user_outline;
             this.pictureBoxUserImage.Image = global::eattendance_desktop.Properties.Resources.profile_user_outline;
-            this.pictureBoxUserImage.Location = new System.Drawing.Point(5, 5);
+            this.pictureBoxUserImage.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxUserImage.Name = "pictureBoxUserImage";
             this.pictureBoxUserImage.Padding = new System.Windows.Forms.Padding(10);
-            this.pictureBoxUserImage.Size = new System.Drawing.Size(58, 64);
+            this.pictureBoxUserImage.Size = new System.Drawing.Size(62, 68);
             this.pictureBoxUserImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxUserImage.TabIndex = 10;
             this.pictureBoxUserImage.TabStop = false;
@@ -180,7 +181,7 @@
             this.panel1.Controls.Add(this.pictureBoxUserImage);
             this.panel1.Location = new System.Drawing.Point(397, 40);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(5);
+            this.panel1.Padding = new System.Windows.Forms.Padding(3);
             this.panel1.Size = new System.Drawing.Size(70, 76);
             this.panel1.TabIndex = 11;
             // 

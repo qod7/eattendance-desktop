@@ -152,7 +152,6 @@ namespace eattendance_desktop
         {
             using (ManualAttendanceWindow manualAttendanceWindow = new ManualAttendanceWindow())
             {
-                //manualAttendanceWindow.FormClosed += new FormClosedEventHandler(manualAttendanceWindowClosed);
                 manualAttendanceWindow.ShowDialog();
 
                 // retrieve the attendance that was saved and update dataGridAttendances
