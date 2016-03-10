@@ -60,8 +60,8 @@ namespace eattendance_desktop
         #region UTILITY FUNCTIONS
         public static double DateTimeToUnixTimeStamp(DateTime dateTime)
         {
-            return (TimeZoneInfo.ConvertTimeToUtc(dateTime) -
-                   new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
+            return Convert.ToInt64((TimeZoneInfo.ConvertTimeToUtc(dateTime) -
+                   new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds);
         }
 
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)

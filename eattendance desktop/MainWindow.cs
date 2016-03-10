@@ -243,8 +243,19 @@ namespace eattendance_desktop
         {
             // TODO get userinfo from sEnrollNumber; from database
             // create new attendance object
-            Attendance attendance = new Attendance(sEnrollNumber, new DateTime(iYear, iMonth, iDay, iHour, iMonth, iSecond, DateTimeKind.Local),
-                device.name, Common.VerifyMethods[iVerifyMethod]);
+            
+            //try
+            //{
+            //    Attendance attendance = new Attendance(sEnrollNumber, new DateTime(iYear, iMonth, iDay, iHour, iMonth, iSecond, DateTimeKind.Local),
+            //        device.name, Common.VerifyMethods[iVerifyMethod]);
+            //}
+            //catch 
+            //{ 
+            //    // the date-time received from the device is inaccurate
+            //}
+            
+            // But since this is a Real-Time handler, we can just use the current system datetime
+            Attendance attendance = new Attendance(sEnrollNumber, DateTime.Now, device.name, Common.VerifyMethods[iVerifyMethod]);
             // add attendance to database
             DB.insertAttendance(attendance);
 
