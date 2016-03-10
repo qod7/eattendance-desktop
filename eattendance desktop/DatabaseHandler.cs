@@ -363,7 +363,7 @@ namespace eattendance_desktop
             {
                 if (ex.ErrorCode == 19)
                 {
-                    throw new Exception("The same IP:Port combination already exists.", ex);
+                    throw new Exception("A device with same IP:Port combination already exists.", ex);
                 }
                 else
                 {

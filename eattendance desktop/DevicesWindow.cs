@@ -52,6 +52,9 @@ namespace eattendance_desktop
         {
             try
             {
+                // skip in case of first column (SN)
+                if (e.ColumnIndex == 0) return;
+                // else make the edited field bold
                 DataGridViewCell thisCell = ((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
                 thisCell.Style = Common.BoldCellStyle;
             }
