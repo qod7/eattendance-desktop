@@ -119,6 +119,9 @@ namespace eattendance_desktop
 
         public void populateAttendances()
         {
+            // First clear the table
+            dataGridAttendances.DataSource = null;
+            dataGridAttendances.Rows.Clear();
             // Get data from database into memory
             List<Attendance> attendances = DB.getAttendances();
             // now use the data to fill up the table
@@ -148,6 +151,16 @@ namespace eattendance_desktop
 
         #region Attendances Window
 
+        private void btnAttendances_Click(object sender, EventArgs e)
+        {
+            using (AttendancesWindow attendancesWindow = new AttendancesWindow())
+            {
+                attendancesWindow.ShowDialog();
+                // reload the attendances table
+                populateAttendances();
+            }
+        }
+
         private void btnManual_Click(object sender, EventArgs e)
         {
             using (ManualAttendanceWindow manualAttendanceWindow = new ManualAttendanceWindow())
@@ -164,7 +177,7 @@ namespace eattendance_desktop
 
         #endregion
 
-        #region UI Event Handlers
+        #region Other UI Event Handlers
         private void btnConnect_Click(object sender, EventArgs e)
         {
             int deviceNumber = Convert.ToInt32(dataGridDevices.SelectedRows[0].Cells[2].Value);

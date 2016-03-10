@@ -486,7 +486,6 @@ namespace eattendance_desktop
                 String sql = String.Format(@"UPDATE devices SET
                                             name=""{0}"", port=""{1}"", ip=""{2}"", remarks=""{3}""
                                             WHERE ip=""{4}"" and port=""{5}"";", nd.name, nd.port, nd.IP, nd.remarks, oldIP, oldPort);
-                Console.WriteLine(sql);
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -572,6 +571,62 @@ namespace eattendance_desktop
                     DBCONN.Close();
             }
 
+        }
+
+        public void deleteAllAttendances()
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("DELETE FROM attendances;");
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public void deleteAttendance(int attendanceID)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("DELETE FROM attendances WHERE attid={0};", attendanceID);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public void deleteAttendance(Attendance attendance)
+        {
+            if (attendance.attid != null)
+                deleteAttendance(attendance.attid);
         }
 
         #endregion

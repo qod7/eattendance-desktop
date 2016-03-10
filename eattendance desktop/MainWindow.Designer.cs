@@ -349,6 +349,7 @@
             this.btnAttendances.Text = "Attendances";
             this.btnAttendances.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAttendances.UseVisualStyleBackColor = true;
+            this.btnAttendances.Click += new System.EventHandler(this.btnAttendances_Click);
             // 
             // label2
             // 
@@ -621,7 +622,9 @@
             this.AttendanceEntryMethod});
             this.dataGridAttendances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridAttendances.Location = new System.Drawing.Point(3, 16);
+            this.dataGridAttendances.MultiSelect = false;
             this.dataGridAttendances.Name = "dataGridAttendances";
+            this.dataGridAttendances.ReadOnly = true;
             this.dataGridAttendances.Size = new System.Drawing.Size(778, 263);
             this.dataGridAttendances.TabIndex = 1;
             // 
@@ -629,6 +632,7 @@
             // 
             this.AttendanceUserID.HeaderText = "User ID";
             this.AttendanceUserID.Name = "AttendanceUserID";
+            this.AttendanceUserID.ReadOnly = true;
             // 
             // AttendanceAccountNumber
             // 
@@ -667,6 +671,7 @@
             // 
             this.AttendanceEntryMethod.HeaderText = "Entry Method";
             this.AttendanceEntryMethod.Name = "AttendanceEntryMethod";
+            this.AttendanceEntryMethod.ReadOnly = true;
             // 
             // MainWindow
             // 

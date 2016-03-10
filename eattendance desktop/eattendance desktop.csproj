@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="DatabaseHandler.cs" />
+    <Compile Include="AttendancesWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttendancesWindow.Designer.cs">
+      <DependentUpon>AttendancesWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManualAttendanceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddDeviceWindow.resx">
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttendancesWindow.resx">
+      <DependentUpon>AttendancesWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DevicesWindow.resx">
       <DependentUpon>DevicesWindow.cs</DependentUpon>
