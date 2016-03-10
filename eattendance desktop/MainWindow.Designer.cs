@@ -126,12 +126,14 @@
             this.viewAttendancesToolStripMenuItem.Name = "viewAttendancesToolStripMenuItem";
             this.viewAttendancesToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.viewAttendancesToolStripMenuItem.Text = "View Attendances";
+            this.viewAttendancesToolStripMenuItem.Click += new System.EventHandler(this.btnAttendances_Click);
             // 
             // manualAttendanceToolStripMenuItem
             // 
             this.manualAttendanceToolStripMenuItem.Name = "manualAttendanceToolStripMenuItem";
             this.manualAttendanceToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.manualAttendanceToolStripMenuItem.Text = "Manual Attendance";
+            this.manualAttendanceToolStripMenuItem.Click += new System.EventHandler(this.btnManual_Click);
             // 
             // usersToolStripMenuItem
             // 
