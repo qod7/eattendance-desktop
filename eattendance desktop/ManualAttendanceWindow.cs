@@ -30,13 +30,19 @@ namespace eattendance_desktop
                 {"202", "Gopal Basnet"},
                 {"203", "Govinda Sah"}
             };
+
+            // populate usernames
             comboBoxUserName.DataSource = new BindingSource(users, null);
             comboBoxUserName.DisplayMember = "Value";
             comboBoxUserName.ValueMember = "Key";
 
+            // populate userid
             comboBoxUserID.DataSource = new BindingSource(users, null);
             comboBoxUserID.DisplayMember = "Key";
             comboBoxUserID.ValueMember = "Key";
+
+            // show userimage
+            // TODO:: pictureBoxUserImage.Image = get image from db;
 
             // Register events for syncing UserName and UserID
             this.comboBoxUserName.SelectedIndexChanged += new System.EventHandler(this.comboBoxUserName_SelectedIndexChanged);
@@ -56,7 +62,7 @@ namespace eattendance_desktop
             else
             {
 
-                this.newAttendance = new Attendance(comboBoxUserID.Text, dateTime, "School Admin's Terminal", "Manual Attendance");
+                this.newAttendance = new Attendance(comboBoxUserID.Text, dateTime, "Admin's Terminal", "Manual");
                 DB.insertAttendance(this.newAttendance);
                 MessageBox.Show("Attendance successfully saved.", "Success");
                 this.Close();
@@ -66,11 +72,13 @@ namespace eattendance_desktop
         private void comboBoxUserName_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxUserID.SelectedIndex = comboBoxUserName.SelectedIndex;
+            // TODO Update userimage here
         }
 
         private void comboBoxUserID_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxUserName.SelectedIndex = comboBoxUserID.SelectedIndex;
+            // TODO Update userimage here
         }
     }
 }
