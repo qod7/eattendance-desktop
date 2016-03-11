@@ -625,8 +625,14 @@ namespace eattendance_desktop
 
         public void deleteAttendance(Attendance attendance)
         {
-            if (attendance.attid != null)
+            try
+            {
                 deleteAttendance(attendance.attid);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         #endregion

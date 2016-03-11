@@ -55,7 +55,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>attendance-256x256.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\attendance-256x256.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IPAddressControlLib">
@@ -76,65 +76,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddDeviceWindow.cs">
+    <Compile Include="Forms\AddDeviceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDeviceWindow.Designer.cs">
+    <Compile Include="Forms\AddDeviceWindow.Designer.cs">
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common.cs" />
-    <Compile Include="DatabaseHandler.cs" />
-    <Compile Include="AttendancesWindow.cs">
+    <Compile Include="Utilities\Common.cs" />
+    <Compile Include="Utilities\DatabaseHandler.cs" />
+    <Compile Include="Forms\AttendancesWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AttendancesWindow.Designer.cs">
+    <Compile Include="Forms\AttendancesWindow.Designer.cs">
       <DependentUpon>AttendancesWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManualAttendanceWindow.cs">
+    <Compile Include="Forms\ManualAttendanceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManualAttendanceWindow.Designer.cs">
+    <Compile Include="Forms\ManualAttendanceWindow.Designer.cs">
       <DependentUpon>ManualAttendanceWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Device.cs" />
-    <Compile Include="DevicesWindow.cs">
+    <Compile Include="Forms\DevicesWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevicesWindow.Designer.cs">
+    <Compile Include="Forms\DevicesWindow.Designer.cs">
       <DependentUpon>DevicesWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginWindow.cs">
+    <Compile Include="Forms\LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginWindow.Designer.cs">
+    <Compile Include="Forms\LoginWindow.Designer.cs">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="Forms\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginCredential.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddDeviceWindow.resx">
+    <EmbeddedResource Include="Forms\AddDeviceWindow.resx">
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AttendancesWindow.resx">
+    <EmbeddedResource Include="Forms\AttendancesWindow.resx">
       <DependentUpon>AttendancesWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevicesWindow.resx">
+    <EmbeddedResource Include="Forms\DevicesWindow.resx">
       <DependentUpon>DevicesWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginWindow.resx">
+    <EmbeddedResource Include="Forms\LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="Forms\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManualAttendanceWindow.resx">
+    <EmbeddedResource Include="Forms\ManualAttendanceWindow.resx">
       <DependentUpon>ManualAttendanceWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -198,7 +198,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="attendance-256x256.ico" />
+    <Content Include="Resources\attendance-256x256.ico" />
     <None Include="Resources\profile-user-outline.png" />
   </ItemGroup>
   <ItemGroup>

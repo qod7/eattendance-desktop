@@ -81,7 +81,7 @@ namespace eattendance_desktop
 
         private void AddDeviceWindow_Load(object sender, EventArgs e)
         {
-            txtDeviceName.Text = String.Format("New Device {0}", Common.iMaxDeviceNumber + 1);
+            txtDeviceName.Text = "New Device";
         }
     }
 }
