@@ -3,6 +3,8 @@
 *.user
 *.sln.docstates
 
+# nuget files
+packages/
 
 # Build results
 [Dd]ebug/
