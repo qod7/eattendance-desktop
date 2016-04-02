@@ -60,8 +60,8 @@
             this.btnDevices = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnTimetable = new System.Windows.Forms.Button();
-            this.btnUsers = new System.Windows.Forms.Button();
-            this.btnUserGroups = new System.Windows.Forms.Button();
+            this.btnStaffs = new System.Windows.Forms.Button();
+            this.btnDepartments = new System.Windows.Forms.Button();
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
             this.devicesGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridDevices = new System.Windows.Forms.DataGridView();
@@ -265,8 +265,8 @@
             this.mainSplitContainer.Panel1.Controls.Add(this.btnDevices);
             this.mainSplitContainer.Panel1.Controls.Add(this.label1);
             this.mainSplitContainer.Panel1.Controls.Add(this.btnTimetable);
-            this.mainSplitContainer.Panel1.Controls.Add(this.btnUsers);
-            this.mainSplitContainer.Panel1.Controls.Add(this.btnUserGroups);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnStaffs);
+            this.mainSplitContainer.Panel1.Controls.Add(this.btnDepartments);
             this.mainSplitContainer.Panel1MinSize = 80;
             // 
             // mainSplitContainer.Panel2
@@ -419,37 +419,37 @@
             this.btnTimetable.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnTimetable.UseVisualStyleBackColor = true;
             // 
-            // btnUsers
+            // btnStaffs
             // 
-            this.btnUsers.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnUsers.FlatAppearance.BorderSize = 0;
-            this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsers.Image = global::eattendance_desktop.Properties.Resources.user;
-            this.btnUsers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnUsers.Location = new System.Drawing.Point(90, 3);
-            this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.btnUsers.Size = new System.Drawing.Size(75, 74);
-            this.btnUsers.TabIndex = 1;
-            this.btnUsers.Text = "Users";
-            this.btnUsers.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnUsers.UseVisualStyleBackColor = true;
+            this.btnStaffs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnStaffs.FlatAppearance.BorderSize = 0;
+            this.btnStaffs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStaffs.Image = global::eattendance_desktop.Properties.Resources.user;
+            this.btnStaffs.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnStaffs.Location = new System.Drawing.Point(90, 3);
+            this.btnStaffs.Name = "btnStaffs";
+            this.btnStaffs.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnStaffs.Size = new System.Drawing.Size(75, 74);
+            this.btnStaffs.TabIndex = 1;
+            this.btnStaffs.Text = "Staffs";
+            this.btnStaffs.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnStaffs.UseVisualStyleBackColor = true;
             // 
-            // btnUserGroups
+            // btnDepartments
             // 
-            this.btnUserGroups.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnUserGroups.FlatAppearance.BorderSize = 0;
-            this.btnUserGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUserGroups.Image = global::eattendance_desktop.Properties.Resources.usergroup;
-            this.btnUserGroups.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnUserGroups.Location = new System.Drawing.Point(12, 3);
-            this.btnUserGroups.Name = "btnUserGroups";
-            this.btnUserGroups.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.btnUserGroups.Size = new System.Drawing.Size(75, 74);
-            this.btnUserGroups.TabIndex = 0;
-            this.btnUserGroups.Text = "User Groups";
-            this.btnUserGroups.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnUserGroups.UseVisualStyleBackColor = true;
+            this.btnDepartments.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnDepartments.FlatAppearance.BorderSize = 0;
+            this.btnDepartments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDepartments.Image = global::eattendance_desktop.Properties.Resources.usergroup;
+            this.btnDepartments.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnDepartments.Location = new System.Drawing.Point(12, 3);
+            this.btnDepartments.Name = "btnDepartments";
+            this.btnDepartments.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.btnDepartments.Size = new System.Drawing.Size(75, 74);
+            this.btnDepartments.TabIndex = 0;
+            this.btnDepartments.Text = "Departments";
+            this.btnDepartments.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDepartments.UseVisualStyleBackColor = true;
             // 
             // tablesSplitContainer
             // 
@@ -741,9 +741,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDevice;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceEntryMethod;
-        private System.Windows.Forms.Button btnUserGroups;
+        private System.Windows.Forms.Button btnDepartments;
         private System.Windows.Forms.Button btnTimetable;
-        private System.Windows.Forms.Button btnUsers;
+        private System.Windows.Forms.Button btnStaffs;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem accountToolStripMenuItem;

@@ -505,7 +505,7 @@ namespace eattendance_desktop
 
         #endregion
 
-        #region user
+        #region staff
         #endregion
 
         #region attendances
