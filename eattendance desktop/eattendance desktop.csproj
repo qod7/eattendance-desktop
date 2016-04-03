@@ -141,6 +141,12 @@
     <Compile Include="Forms\AddDeviceWindow.Designer.cs">
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\StaffsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StaffsWindow.Designer.cs">
+      <DependentUpon>StaffsWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Utilities\Common.cs" />
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManualAttendanceWindow.resx">
       <DependentUpon>ManualAttendanceWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StaffsWindow.resx">
+      <DependentUpon>StaffsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -260,6 +269,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\save.png" />
+    <None Include="Resources\remove.png" />
+    <None Include="Resources\batch.png" />
+    <None Include="Resources\add.png" />
     <Content Include="Resources\attendance-256x256.ico" />
     <None Include="Resources\profile-user-outline.png" />
   </ItemGroup>

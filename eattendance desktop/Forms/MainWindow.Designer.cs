@@ -434,6 +434,7 @@
             this.btnStaffs.Text = "Staffs";
             this.btnStaffs.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnStaffs.UseVisualStyleBackColor = true;
+            this.btnStaffs.Click += new System.EventHandler(this.btnStaffs_Click);
             // 
             // btnDepartments
             // 

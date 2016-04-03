@@ -1,4 +1,5 @@
-﻿using eattendance_desktop.Models;
+﻿using eattendance_desktop.Forms;
+using eattendance_desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -175,6 +176,16 @@ namespace eattendance_desktop
             }
         }
 
+        #endregion
+
+        #region Staffs Window
+        private void btnStaffs_Click(object sender, EventArgs e)
+        {
+            using (StaffsWindow staffsWindow = new StaffsWindow())
+            {
+                staffsWindow.ShowDialog();
+            }
+        }
         #endregion
 
         #region Other UI Event Handlers
