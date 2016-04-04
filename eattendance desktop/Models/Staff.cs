@@ -43,25 +43,6 @@ namespace eattendance_desktop.Models
         public Dictionary<string, string> extras = new Dictionary<string, string>();
 
         // TODO ENCAPSULTE THE FIELDS ABOVE
-        //public string name
-        //{   get { return _name; }
-        //    set { _name = value; }
-        //}
-        //public int enrollNumber
-        //{
-        //    get { return _enrollNumber; }
-        //    set { _enrollNumber = value; }
-        //}
-        //public int privilege
-        //{
-        //    get { return _privilege; }
-        //    set { _privilege = value; }
-        //}
-        //public int password
-        //{
-        //    get { return _password; }
-        //    set { _password = value; }
-        //}
 
         // CONSTRUCTORS
         public Staff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
