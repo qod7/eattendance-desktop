@@ -70,6 +70,26 @@ namespace eattendance_desktop
             return (new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc))
                 .AddSeconds(unixTimeStamp).ToLocalTime();
         }
+
+        public static String Serialize(Dictionary<String, String> dict)
+        {
+            var binFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            var mStream = new System.IO.MemoryStream();
+            binFormatter.Serialize(mStream, dict);
+
+            return Convert.ToBase64String(mStream.ToArray());
+        }
+
+        public static Dictionary<String, String> Deserialize(String bytes)
+        {
+            var mStream = new System.IO.MemoryStream();
+            var binFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
+            var objectBytes = Convert.FromBase64String(bytes);
+            mStream.Write(objectBytes, 0, objectBytes.Length);
+            mStream.Position = 0;
+            return binFormatter.Deserialize(mStream) as Dictionary<String, String>;
+        }
         #endregion
     }
 
