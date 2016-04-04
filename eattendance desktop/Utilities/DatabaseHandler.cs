@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace eattendance_desktop
         private static String DBPATH = APPDIR + "\\data\\eattendance.sqlite";
         private static SQLiteConnection DBCONN;
         // TODO add more here
-        private String[] tables = { "loginCredentials", "devices", "attendances"};
+        private String[] tables = { "loginCredentials", "devices", "attendances", "staffs"};
 
         public DatabaseHandler()
         {
@@ -24,7 +25,13 @@ namespace eattendance_desktop
         }
 
         #region general
+        /// <summary>
+        /// Creates database file if it doesn't exist.
+        /// Initializes/Checks tables.
+        /// </summary>
+        /// <returns></returns>
         public bool initDatabase() {
+
             try
             {
                 // create database if not exists
@@ -90,9 +97,38 @@ namespace eattendance_desktop
             cmd.ExecuteNonQuery();
             cmd.Dispose();
 
-            // TABLE users
+            // TABLE staffs
+            sql = @"CREATE TABLE staffs (
+                        name             TEXT     NOT NULL,
+                        accountNumber    INTEGER  NOT NULL UNIQUE,
+                        password         INTEGER  NOT NULL,
+                        privilege        INTEGER  DEFAULT 0,
+                        cardNumber       INTEGER  UNIQUE,
+                        fingerprints     BLOB,
+                        email            TEXT     UNIQUE,
+                        pk               INTEGER  UNIQUE,
+                        department_pk    INTEGER,
+                        contact          TEXT,
+                        gender           TEXT,
+                        address          TEXT,
+                        dateOfBirth      INTEGER,
+                        image            BLOB,
+                        title            TEXT,
+                        post             TEXT,
+                        dateOfEmployment INTEGER,
+                        nationality      TEXT,
+                        homeAddress      TEXT,
+                        officeTel        TEXT,
+                        homeTel          TEXT,
+                        mobile1          TEXT,
+                        mobile2          TEXT,
+                        extras           BLOB
+                   );";
+            cmd = new SQLiteCommand(sql, DBCONN);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
 
-            // TABLE usergroups
+            // TABLE departments
 
             // TABLE attendances
             sql = @"CREATE TABLE attendances (
@@ -125,6 +161,7 @@ namespace eattendance_desktop
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
+                // You can also check for the columns
                 DBCONN.Close();
             }
             catch (SQLiteException)
@@ -506,6 +543,216 @@ namespace eattendance_desktop
         #endregion
 
         #region staff
+
+        public void insertStaff(Staff staff)
+        {
+            try
+            {
+                this.insertStaff(staff.name, staff.accountNumber, staff.password, staff.privilege, staff.cardNumber,
+                                staff.fingerprints, staff.email, staff.pk, staff.department_pk, staff.contact,
+                                staff.gender, staff.address, staff.dateOfBirth, staff.image, staff.title, staff.post,
+                                staff.dateOfEmployment, staff.nationality, staff.homeAddress, staff.officeTel,
+                                staff.homeTel, staff.mobile1, staff.mobile2, staff.extras);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void insertStaff(String name, int accountNumber, int password, int privilege, int? cardNumber = null,
+                                Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
+                                int? department_pk = null, String contact = null, String gender = null,
+                                String address = null, DateTime? dateOfBirth = null, Image image = null,
+                                String title = null, String post = null, DateTime? dateOfEmployment = null,
+                                String nationality = null, String homeAddress = null, String officeTel = null,
+                                String homeTel = null, String mobile1 = null, String mobile2 = null,
+                                Dictionary<String, String> extras = null)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format(@"INSERT INTO staffs VALUES(""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",
+                                            ""{7}"",""{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",
+                                            ""{16}"",""{17}"",""{18}"",""{19}"",""{20}"",""{21}"",""{22}"",""{23}"");",
+                                            name, accountNumber, password, privilege, cardNumber, Common.Serialize(fingerprints), 
+                                            email, pk, department_pk, contact, gender, address, 
+                                            Common.DateTimeToUnixTimeStamp(dateOfBirth), image, title, post,
+                                            Common.DateTimeToUnixTimeStamp(dateOfEmployment), nationality, homeAddress, 
+                                            officeTel, homeTel, mobile1, mobile2, Common.Serialize(extras));
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (SQLiteException ex)
+            {
+                if (ex.ErrorCode == 19)
+                {
+                    throw new Exception("A duplicate already exists. The account number, card number and email needs to be unique.", ex);
+                }
+                else
+                {
+                    throw new Exception("Error accessing local database", ex);
+                }
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public Staff getStaff(int accountNumber)
+        {
+            Staff staff = null;
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("SELECT * FROM staffs WHERE accountNumber=\"{0}\";", accountNumber);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader r = cmd.ExecuteReader();
+                r.Read();
+                staff = new Staff((String)r["name"],
+                        (int)r["accountNumber"],
+                        (int)r["password"],
+                        (int)r["privilege"],
+                        (int)r["cardNumber"],
+                        Common.Deserialize((String)r["fingerprints"]),
+                        (String)r["email"],
+                        (int)r["pk"],
+                        (int)r["department_pk"],
+                        (String)r["contact"],
+                        (String)r["gender"],
+                        (String)r["address"],
+                        Common.UnixTimeStampToDateTime((int)r["dateOfBirth"]),
+                        (Image)r["image"],
+                        (String)r["title"],
+                        (String)r["post"],
+                        Common.UnixTimeStampToDateTime((int)r["dateOfEmployment"]),
+                        (String)r["nationality"],
+                        (String)r["homeAddress"],
+                        (String)r["officeTel"],
+                        (String)r["homeTel"],
+                        (String)r["mobile1"],
+                        (String)r["mobile2"],
+                        Common.Deserialize((String)r["extras"]));
+
+                cmd.Dispose();
+                r.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return staff;
+        }
+
+        public void deleteStaff(int accountNumber)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("DELETE FROM staffs WHERE accountNumber=\"{0}\";", accountNumber);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public void deleteAllStaffs()
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "DELETE FROM staffs;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        //public void updateStaff(Device oldDevice, Device newDevice)
+        //{
+        //    try
+        //    {
+        //        this.updateStaff(oldDevice.IP, oldDevice.port, newDevice);
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
+
+        //public void updateStaff(String oldIP, String oldPort, Device nd)
+        //{
+        //    try
+        //    {
+        //        DBCONN.Open();
+
+        //        String sql = String.Format(@"UPDATE devices SET
+        //                                    name=""{0}"", port=""{1}"", ip=""{2}"", remarks=""{3}""
+        //                                    WHERE ip=""{4}"" and port=""{5}"";", nd.name, nd.port, nd.IP, nd.remarks, oldIP, oldPort);
+        //        SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Dispose();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // SQL exception of something. todo: print exception to log
+        //        System.Diagnostics.Debug.Write(ex.Message);
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+        //            DBCONN.Close();
+        //    }
+        //}
+
+
         #endregion
 
         #region attendances
