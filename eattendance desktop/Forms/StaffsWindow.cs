@@ -14,9 +14,16 @@ namespace eattendance_desktop.Forms
 {
     public partial class StaffsWindow : Form
     {
+        DatabaseHandler DB = new DatabaseHandler();
         public StaffsWindow()
         {
             InitializeComponent();
+            populateStaffs();
+        }
+
+        private void populateStaffs()
+        {
+            this.dataGridStaffs.DataSource = DB.getStaffDataSource();
         }
     }
 }

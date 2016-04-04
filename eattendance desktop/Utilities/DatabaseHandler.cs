@@ -106,7 +106,7 @@ namespace eattendance_desktop
                         cardNumber       INTEGER  UNIQUE,
                         fingerprints     BLOB,
                         email            TEXT     UNIQUE,
-                        pk               INTEGER  UNIQUE,
+                        pk               INTEGER,
                         department_pk    INTEGER,
                         contact          TEXT,
                         gender           TEXT,
@@ -560,7 +560,7 @@ namespace eattendance_desktop
             }
         }
 
-        public void insertStaff(String name, int accountNumber, int password, int privilege, int? cardNumber = null,
+        public void insertStaff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
                                 int? department_pk = null, String contact = null, String gender = null,
                                 String address = null, DateTime? dateOfBirth = null, Image image = null,
@@ -572,7 +572,8 @@ namespace eattendance_desktop
             try
             {
                 DBCONN.Open();
-
+                Common.Serialize(fingerprints);
+                Common.DateTimeToUnixTimeStamp(dateOfBirth);
                 String sql = String.Format(@"INSERT INTO staffs VALUES(""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",
                                             ""{7}"",""{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",
                                             ""{16}"",""{17}"",""{18}"",""{19}"",""{20}"",""{21}"",""{22}"",""{23}"");",
@@ -581,7 +582,8 @@ namespace eattendance_desktop
                                             Common.DateTimeToUnixTimeStamp(dateOfBirth), image, title, post,
                                             Common.DateTimeToUnixTimeStamp(dateOfEmployment), nationality, homeAddress, 
                                             officeTel, homeTel, mobile1, mobile2, Common.Serialize(extras));
-
+                sql = sql.Replace("\"\"", "NULL");
+                Console.WriteLine(sql);
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -590,7 +592,7 @@ namespace eattendance_desktop
             {
                 if (ex.ErrorCode == 19)
                 {
-                    throw new Exception("A duplicate already exists. The account number, card number and email needs to be unique.", ex);
+                    //throw new Exception("A duplicate already exists. The account number, card number and email needs to be unique.", ex);
                 }
                 else
                 {
@@ -662,6 +664,34 @@ namespace eattendance_desktop
                     DBCONN.Close();
             }
             return staff;
+        }
+
+        public DataTable getStaffDataSource()
+        {
+            SQLiteDataAdapter adapter;
+            DataSet ds = new DataSet();
+            try
+            {
+                DBCONN.Open();
+                String sql = @"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
+                    email as Email, department_pk as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
+                    post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
+                    homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs;";
+                adapter = new SQLiteDataAdapter(sql, DBCONN);
+                adapter.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return ds.Tables[0];
         }
 
         public void deleteStaff(int accountNumber)

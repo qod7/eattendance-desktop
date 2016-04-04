@@ -74,6 +74,7 @@ namespace eattendance_desktop
 
         public static String Serialize(Dictionary<String, String> dict)
         {
+            if (dict == null) return null;
             var binFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             var mStream = new System.IO.MemoryStream();
             binFormatter.Serialize(mStream, dict);

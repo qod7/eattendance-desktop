@@ -31,13 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaffsWindow));
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.dataGridDevices = new System.Windows.Forms.DataGridView();
-            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceIPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DevicePort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeviceRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridStaffs = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -99,7 +93,7 @@
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
             this.tablesSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDevices)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Basic.SuspendLayout();
@@ -126,7 +120,7 @@
             // 
             // tablesSplitContainer.Panel1
             // 
-            this.tablesSplitContainer.Panel1.Controls.Add(this.dataGridDevices);
+            this.tablesSplitContainer.Panel1.Controls.Add(this.dataGridStaffs);
             this.tablesSplitContainer.Panel1MinSize = 66;
             // 
             // tablesSplitContainer.Panel2
@@ -140,23 +134,15 @@
             this.tablesSplitContainer.SplitterDistance = 188;
             this.tablesSplitContainer.TabIndex = 3;
             // 
-            // dataGridDevices
+            // dataGridStaffs
             // 
-            this.dataGridDevices.AllowUserToAddRows = false;
-            this.dataGridDevices.AllowUserToDeleteRows = false;
-            this.dataGridDevices.AllowUserToOrderColumns = true;
-            this.dataGridDevices.AllowUserToResizeRows = false;
-            this.dataGridDevices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridDevices.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridDevices.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridDevices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDevices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DeviceName,
-            this.DeviceStatus,
-            this.DeviceNumber,
-            this.DeviceIPAddress,
-            this.DevicePort,
-            this.DeviceRemark});
+            this.dataGridStaffs.AllowUserToAddRows = false;
+            this.dataGridStaffs.AllowUserToDeleteRows = false;
+            this.dataGridStaffs.AllowUserToOrderColumns = true;
+            this.dataGridStaffs.AllowUserToResizeRows = false;
+            this.dataGridStaffs.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridStaffs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -164,69 +150,17 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridDevices.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridDevices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridDevices.Location = new System.Drawing.Point(0, 0);
-            this.dataGridDevices.MultiSelect = false;
-            this.dataGridDevices.Name = "dataGridDevices";
-            this.dataGridDevices.ReadOnly = true;
-            this.dataGridDevices.RowTemplate.ReadOnly = true;
-            this.dataGridDevices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridDevices.ShowEditingIcon = false;
-            this.dataGridDevices.Size = new System.Drawing.Size(784, 188);
-            this.dataGridDevices.TabIndex = 2;
-            // 
-            // DeviceName
-            // 
-            this.DeviceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DeviceName.FillWeight = 80F;
-            this.DeviceName.Frozen = true;
-            this.DeviceName.HeaderText = "Name";
-            this.DeviceName.Name = "DeviceName";
-            this.DeviceName.ReadOnly = true;
-            this.DeviceName.Width = 168;
-            // 
-            // DeviceStatus
-            // 
-            this.DeviceStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DeviceStatus.FillWeight = 50F;
-            this.DeviceStatus.HeaderText = "Status";
-            this.DeviceStatus.Name = "DeviceStatus";
-            this.DeviceStatus.ReadOnly = true;
-            this.DeviceStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DeviceStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.DeviceStatus.Width = 105;
-            // 
-            // DeviceNumber
-            // 
-            this.DeviceNumber.FillWeight = 50F;
-            this.DeviceNumber.HeaderText = "Device Number";
-            this.DeviceNumber.Name = "DeviceNumber";
-            this.DeviceNumber.ReadOnly = true;
-            this.DeviceNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // DeviceIPAddress
-            // 
-            this.DeviceIPAddress.FillWeight = 50F;
-            this.DeviceIPAddress.HeaderText = "IPAddress";
-            this.DeviceIPAddress.Name = "DeviceIPAddress";
-            this.DeviceIPAddress.ReadOnly = true;
-            this.DeviceIPAddress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // DevicePort
-            // 
-            this.DevicePort.FillWeight = 30F;
-            this.DevicePort.HeaderText = "Port";
-            this.DevicePort.Name = "DevicePort";
-            this.DevicePort.ReadOnly = true;
-            this.DevicePort.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // DeviceRemark
-            // 
-            this.DeviceRemark.FillWeight = 80F;
-            this.DeviceRemark.HeaderText = "Remarks";
-            this.DeviceRemark.Name = "DeviceRemark";
-            this.DeviceRemark.ReadOnly = true;
+            this.dataGridStaffs.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridStaffs.Location = new System.Drawing.Point(0, 0);
+            this.dataGridStaffs.MultiSelect = false;
+            this.dataGridStaffs.Name = "dataGridStaffs";
+            this.dataGridStaffs.ReadOnly = true;
+            this.dataGridStaffs.RowTemplate.ReadOnly = true;
+            this.dataGridStaffs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridStaffs.ShowEditingIcon = false;
+            this.dataGridStaffs.Size = new System.Drawing.Size(784, 188);
+            this.dataGridStaffs.TabIndex = 2;
             // 
             // groupBox3
             // 
@@ -962,7 +896,7 @@
             this.tablesSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).EndInit();
             this.tablesSplitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDevices)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Basic.ResumeLayout(false);
@@ -989,13 +923,7 @@
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.SplitContainer mainSplitContainer;
-        private System.Windows.Forms.DataGridView dataGridDevices;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
+        private System.Windows.Forms.DataGridView dataGridStaffs;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
