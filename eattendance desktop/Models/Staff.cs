@@ -11,18 +11,33 @@ namespace eattendance_desktop.Models
     {
         // General paramenters
         String name;
+        String email;
         
         // Device specific parameters
-        int enrollNumber;   // identifies the staff on the device
-        int privilege;      // check Common.UserPrivilege
+        int accountNumber;  // also identifies the staff on the device
         int password;       // only numbers allowed; max length: 8
+        int privilege;      // check Common.UserPrivilege
+        int cardNumber;     // the rfid card number
         Dictionary<int, String> fingerprints = new Dictionary<int, string>();   // int => fingerindex from 0 to 9
 
-        // Passion specific parameters
-        String unique_id;
-        DateTime dob;
+        // Passion specific parameters; stored individually in server
+        int pk;             // primary key, unique for any staff in any organization
+        int department_pk;  // primary key of the dept of the staff
         String contact;
+        String gender;
+        String address;
+        DateTime dateOfBirth;
         Image image;
+
+        String title;
+        String post;
+        DateTime dateOfEmployment;
+        String nationality;
+        String homeAddress;
+        String officeTel;
+        String homeTel;
+        String mobile1;
+        String mobile2;
 
         // Extras can store anything
         Dictionary<String, String> extras = new Dictionary<string, string>();
