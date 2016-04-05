@@ -17,7 +17,7 @@ namespace eattendance_desktop
         private static String DBPATH = APPDIR + "\\data\\eattendance.sqlite";
         private static SQLiteConnection DBCONN;
         // TODO add more here
-        private String[] tables = { "loginCredentials", "devices", "attendances", "staffs"};
+        private String[] tables = { "loginCredentials", "devices", "attendances", "staffs", "departments"};
 
         public DatabaseHandler()
         {
@@ -129,6 +129,14 @@ namespace eattendance_desktop
             cmd.Dispose();
 
             // TABLE departments
+            sql = @"CREATE TABLE departments (
+                        id      INTEGER      PRIMARY KEY AUTOINCREMENT,
+                        name    VARCHAR (64) NOT NULL,
+                        pk      INTEGER
+                    );";
+            cmd = new SQLiteCommand(sql, DBCONN);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
 
             // TABLE attendances
             sql = @"CREATE TABLE attendances (
@@ -819,6 +827,178 @@ namespace eattendance_desktop
             }
         }
 
+
+        #endregion
+
+        #region department
+
+        public void insertDepartment(Department department)
+        {
+            try
+            {
+                this.insertDepartment(department.id, department.name, department.pk);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void insertDepartment(int id, string name, int? pk)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("INSERT INTO departments VALUES(\"{0}\", \"{1}\", \"{2}\");", id, name, pk);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (SQLiteException ex)
+            {
+                if (ex.ErrorCode == 19)
+                {
+                    throw new Exception("A department with same id already exists.", ex);
+                }
+                else
+                {
+                    throw new Exception("Error accessing local database", ex);
+                }
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+
+        }
+
+        public Department getDepartment(int id)
+        {
+            Department department = null;
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("SELECT * FROM departments WHERE id=\"{0}\";", id);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader r = cmd.ExecuteReader();
+                r.Read();
+                department = new Department(Convert.ToInt32(r["id"]), (String)r["name"], Convert.ToInt32(r["pk"]));
+
+                cmd.Dispose();
+                r.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return department;
+        }
+
+        public void deleteDepartment(int id)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format("DELETE FROM departments WHERE id=\"{0}\";", id);
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public void deleteAllDepartments()
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "DELETE FROM departments;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
+
+        public void updateDepartment(Department oldDepartment, Department newDepartment)
+        {
+            try
+            {
+                this.updateDepartment(oldDepartment.id, newDepartment);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public void updateDepartment(int id, Department nd)
+        {
+            try
+            {
+                DBCONN.Open();
+
+                String sql = String.Format(@"UPDATE departments SET
+                                            name=""{0}"", pk=""{1}""
+                                            WHERE id=""{2}"";", nd.name, nd.pk, id);
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
 
         #endregion
 
