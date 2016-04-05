@@ -1,14 +1,6 @@
 ﻿using eattendance_desktop.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace eattendance_desktop.Forms
@@ -65,6 +57,11 @@ namespace eattendance_desktop.Forms
             this.textMobile2.Text = staff.mobile2;
 
             // EXTRAS
+            this.dataGridViewExtras.Rows.Clear();
+            foreach (KeyValuePair<string, string> item in staff.extras)
+            {
+                this.dataGridViewExtras.Rows.Add(item.Key, item.Value);
+            }
 
             // PHOTO
 

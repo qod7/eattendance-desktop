@@ -59,7 +59,8 @@ namespace eattendance_desktop.Models
             this.password = password;
             this.privilege = privilege;
             this.cardNumber = cardNumber;
-            this.fingerprints = fingerprints;
+            if (fingerprints != null)
+                this.fingerprints = fingerprints;
             this.email = email;
             this.pk = pk;
             this.department_pk = department_pk;
@@ -77,7 +78,8 @@ namespace eattendance_desktop.Models
             this.homeTel = homeTel;
             this.mobile1 = mobile1;
             this.mobile2 = mobile2;
-            this.extras = extras;
+            if (extras != null)
+                this.extras = extras;
         }
     }
 }

@@ -104,7 +104,7 @@ namespace eattendance_desktop
                         password         INTEGER  NOT NULL,
                         privilege        INTEGER  DEFAULT 0,
                         cardNumber       INTEGER,
-                        fingerprints     BLOB,
+                        fingerprints     TEXT,
                         email            TEXT,
                         pk               INTEGER,
                         department_pk    INTEGER,
@@ -122,7 +122,7 @@ namespace eattendance_desktop
                         homeTel          TEXT,
                         mobile1          TEXT,
                         mobile2          TEXT,
-                        extras           BLOB
+                        extras           TEXT
                    );";
             cmd = new SQLiteCommand(sql, DBCONN);
             cmd.ExecuteNonQuery();
@@ -228,8 +228,12 @@ namespace eattendance_desktop
             this.insertDevice("Main Gate", "192.168.2.130", "4370", "");
             this.insertDevice("Back Gate", "192.168.2.131", "4370", "");
             this.insertDevice("Canteen", "192.168.2.132", "4370", "Shut down for maintenance");
-
-            this.insertStaff(new Staff("Aaron", 700, 12345678));
+            
+            // Staffs
+            Staff staff = new Staff("Aaron", 700, 12345678);
+            staff.extras.Add("Maiden Name", "Rama Kumari");
+            staff.extras.Add("Weight", "80 Kg");
+            this.insertStaff(staff);
             this.insertStaff(new Staff("Baron", 701, 12345678));
             this.insertStaff(new Staff("Caron", 702, 12345678));
         }
@@ -576,16 +580,14 @@ namespace eattendance_desktop
             try
             {
                 DBCONN.Open();
-                Common.Serialize(fingerprints);
-                Common.DateTimeToUnixTimeStamp(dateOfBirth);
-                String sql = String.Format(@"INSERT INTO staffs VALUES(""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",
-                                            ""{7}"",""{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",
-                                            ""{16}"",""{17}"",""{18}"",""{19}"",""{20}"",""{21}"",""{22}"",""{23}"");",
-                                            name, accountNumber, password, privilege, cardNumber, Common.Serialize(fingerprints), 
+                String sql = String.Format(@"INSERT INTO staffs VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}',
+                                            '{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}',
+                                            '{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}');",
+                                            name, accountNumber, password, privilege, cardNumber, Common.DictToJSON(fingerprints), 
                                             email, pk, department_pk, contact, gender, address, 
                                             Common.DateTimeToUnixTimeStamp(dateOfBirth), Common.ImageToByte(image), title, post,
                                             Common.DateTimeToUnixTimeStamp(dateOfEmployment), nationality, homeAddress, 
-                                            officeTel, homeTel, mobile1, mobile2, Common.Serialize(extras));
+                                            officeTel, homeTel, mobile1, mobile2, Common.DictToJSON(extras));
                 //sql = sql.Replace("\"\"", "NULL");
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
@@ -633,7 +635,7 @@ namespace eattendance_desktop
                         Convert.ToInt32(r["password"]),
                         Convert.ToInt32(r["privilege"]),
                         Convert.ToInt32(r["cardNumber"]),
-                        Common.Deserialize((Byte[])r["fingerprints"]),
+                        Common.JSONToDict((String)r["fingerprints"]),
                         (String)r["email"],
                         Convert.ToInt32(r["pk"]),
                         Convert.ToInt32(r["department_pk"]),
@@ -651,7 +653,7 @@ namespace eattendance_desktop
                         (String)r["homeTel"],
                         (String)r["mobile1"],
                         (String)r["mobile2"],
-                        Common.Deserialize((Byte[])r["extras"]));
+                        Common.JSONToDict((String)r["extras"]));
 
                 cmd.Dispose();
                 r.Dispose();
@@ -748,43 +750,74 @@ namespace eattendance_desktop
             }
         }
 
-        //public void updateStaff(Device oldDevice, Device newDevice)
-        //{
-        //    try
-        //    {
-        //        this.updateStaff(oldDevice.IP, oldDevice.port, newDevice);
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
+        public void updateStaff(Staff oldStaff, Staff newStaff)
+        {
+            try
+            {
+                this.updateStaff(oldStaff.accountNumber, newStaff);
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
-        //public void updateStaff(String oldIP, String oldPort, Device nd)
-        //{
-        //    try
-        //    {
-        //        DBCONN.Open();
+        public void updateStaff(int accountNumber, Staff newStaff)
+        {
+            Staff staff = newStaff;
+            try
+            {
+                DBCONN.Open();
 
-        //        String sql = String.Format(@"UPDATE devices SET
-        //                                    name=""{0}"", port=""{1}"", ip=""{2}"", remarks=""{3}""
-        //                                    WHERE ip=""{4}"" and port=""{5}"";", nd.name, nd.port, nd.IP, nd.remarks, oldIP, oldPort);
-        //        SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
-        //        cmd.ExecuteNonQuery();
-        //        cmd.Dispose();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // SQL exception of something. todo: print exception to log
-        //        System.Diagnostics.Debug.Write(ex.Message);
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
-        //            DBCONN.Close();
-        //    }
-        //}
+                String sql = String.Format(@"UPDATE staffs SET
+                                            name = '{1}',
+                                            password = '{2}',
+                                            privilege = '{3}',
+                                            cardNumber = '{4}',
+                                            fingerprints = '{5}',
+                                            email = '{6}',
+                                            pk = '{7}',
+                                            department_pk = '{8}',
+                                            contact = '{9}',
+                                            gender = '{10}',
+                                            address = '{11}',
+                                            dateOfBirth = '{12}',
+                                            image = '{13}',
+                                            title = '{14}',
+                                            post = '{15}',
+                                            dateOfEmployment = '{16}',
+                                            nationality = '{17}',
+                                            homeAddress = '{18}',
+                                            officeTel = '{19}',
+                                            homeTel = '{20}',
+                                            mobile1 = '{21}',
+                                            mobile2 = '{22}',
+                                            extras = '{23}'
+                                            WHERE accountNumber='{0}';",
+                                            accountNumber, staff.name, staff.password, staff.privilege, staff.cardNumber,
+                                            Common.DictToJSON(staff.fingerprints), staff.email, staff.pk, staff.department_pk, 
+                                            staff.contact, staff.gender, staff.address, 
+                                            Common.DateTimeToUnixTimeStamp(staff.dateOfBirth), Common.ImageToByte(staff.image), 
+                                            staff.title, staff.post, Common.DateTimeToUnixTimeStamp(staff.dateOfEmployment), 
+                                            staff.nationality, staff.homeAddress, 
+                                            staff.officeTel, staff.homeTel, staff.mobile1, staff.mobile2, Common.DictToJSON(staff.extras));
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+        }
 
 
         #endregion

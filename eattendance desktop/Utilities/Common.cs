@@ -1,4 +1,5 @@
 ﻿using eattendance_desktop.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -74,14 +75,24 @@ namespace eattendance_desktop
                 .AddSeconds(unixTimeStamp).ToLocalTime();
         }
 
-        public static String Serialize(Dictionary<String, String> dict)
+        public static String DictToJSON(Dictionary<String, String> dict)
+        {
+            return JsonConvert.SerializeObject(dict);
+        }
+
+        public static Dictionary<String, String> JSONToDict(String json)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+        }
+
+        public static Byte[] Serialize(Dictionary<String, String> dict)
         {
             if (dict == null) return null;
             var binFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             var mStream = new MemoryStream();
             binFormatter.Serialize(mStream, dict);
 
-            return Convert.ToBase64String(mStream.ToArray());
+            return mStream.ToArray();
         }
 
         public static Dictionary<String, String> Deserialize(String str)
@@ -89,6 +100,7 @@ namespace eattendance_desktop
             var objectBytes = Convert.FromBase64String(str);
             return Deserialize(objectBytes);
         }
+
         public static Dictionary<String, String> Deserialize(Byte[] bytes)
         {
             if (bytes.Length == 0) return null;
@@ -103,6 +115,7 @@ namespace eattendance_desktop
         {
             return ImageToByte(image, ImageFormat.Jpeg);
         }
+
         public static byte[] ImageToByte(Image image, ImageFormat format)
         {
             if (image == null) return null;
