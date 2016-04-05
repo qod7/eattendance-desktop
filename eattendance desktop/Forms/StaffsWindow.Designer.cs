@@ -77,6 +77,9 @@
             this.textPost = new System.Windows.Forms.TextBox();
             this.textNationality = new System.Windows.Forms.TextBox();
             this.dateTimeDateOfEmployment = new System.Windows.Forms.DateTimePicker();
+            this.textMobile2 = new System.Windows.Forms.TextBox();
+            this.textHomeTel = new System.Windows.Forms.TextBox();
+            this.textHomeAddress = new System.Windows.Forms.TextBox();
             this.Extras = new System.Windows.Forms.TabPage();
             this.dataGridViewExtras = new System.Windows.Forms.DataGridView();
             this.ExtrasColumnKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,9 +89,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.textMobile2 = new System.Windows.Forms.TextBox();
-            this.textHomeTel = new System.Windows.Forms.TextBox();
-            this.textHomeAddress = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
@@ -722,6 +722,33 @@
             this.dateTimeDateOfEmployment.TabIndex = 35;
             this.dateTimeDateOfEmployment.Value = new System.DateTime(2016, 3, 10, 0, 0, 0, 0);
             // 
+            // textMobile2
+            // 
+            this.textMobile2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textMobile2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textMobile2.Location = new System.Drawing.Point(223, 123);
+            this.textMobile2.Name = "textMobile2";
+            this.textMobile2.Size = new System.Drawing.Size(91, 18);
+            this.textMobile2.TabIndex = 40;
+            // 
+            // textHomeTel
+            // 
+            this.textHomeTel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textHomeTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textHomeTel.Location = new System.Drawing.Point(223, 63);
+            this.textHomeTel.Name = "textHomeTel";
+            this.textHomeTel.Size = new System.Drawing.Size(91, 18);
+            this.textHomeTel.TabIndex = 36;
+            // 
+            // textHomeAddress
+            // 
+            this.textHomeAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textHomeAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textHomeAddress.Location = new System.Drawing.Point(71, 123);
+            this.textHomeAddress.Name = "textHomeAddress";
+            this.textHomeAddress.Size = new System.Drawing.Size(91, 18);
+            this.textHomeAddress.TabIndex = 39;
+            // 
             // Extras
             // 
             this.Extras.Controls.Add(this.dataGridViewExtras);
@@ -854,33 +881,6 @@
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
-            // textMobile2
-            // 
-            this.textMobile2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textMobile2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textMobile2.Location = new System.Drawing.Point(223, 123);
-            this.textMobile2.Name = "textMobile2";
-            this.textMobile2.Size = new System.Drawing.Size(91, 18);
-            this.textMobile2.TabIndex = 40;
-            // 
-            // textHomeTel
-            // 
-            this.textHomeTel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHomeTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textHomeTel.Location = new System.Drawing.Point(223, 63);
-            this.textHomeTel.Name = "textHomeTel";
-            this.textHomeTel.Size = new System.Drawing.Size(91, 18);
-            this.textHomeTel.TabIndex = 36;
-            // 
-            // textHomeAddress
-            // 
-            this.textHomeAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHomeAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textHomeAddress.Location = new System.Drawing.Point(71, 123);
-            this.textHomeAddress.Name = "textHomeAddress";
-            this.textHomeAddress.Size = new System.Drawing.Size(91, 18);
-            this.textHomeAddress.TabIndex = 39;
-            // 
             // StaffsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -892,6 +892,7 @@
             this.Name = "StaffsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Staffs";
+            this.Load += new System.EventHandler(this.StaffsWindow_Load);
             this.tablesSplitContainer.Panel1.ResumeLayout(false);
             this.tablesSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).EndInit();

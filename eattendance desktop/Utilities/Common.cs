@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -76,21 +78,51 @@ namespace eattendance_desktop
         {
             if (dict == null) return null;
             var binFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            var mStream = new System.IO.MemoryStream();
+            var mStream = new MemoryStream();
             binFormatter.Serialize(mStream, dict);
 
             return Convert.ToBase64String(mStream.ToArray());
         }
 
-        public static Dictionary<String, String> Deserialize(String bytes)
+        public static Dictionary<String, String> Deserialize(String str)
         {
-            var mStream = new System.IO.MemoryStream();
+            var objectBytes = Convert.FromBase64String(str);
+            return Deserialize(objectBytes);
+        }
+        public static Dictionary<String, String> Deserialize(Byte[] bytes)
+        {
+            if (bytes.Length == 0) return null;
+            var mStream = new MemoryStream();
             var binFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-            var objectBytes = Convert.FromBase64String(bytes);
-            mStream.Write(objectBytes, 0, objectBytes.Length);
+            mStream.Write(bytes, 0, bytes.Length);
             mStream.Position = 0;
             return binFormatter.Deserialize(mStream) as Dictionary<String, String>;
+        }
+
+        public static byte[] ImageToByte(Image image)
+        {
+            return ImageToByte(image, ImageFormat.Jpeg);
+        }
+        public static byte[] ImageToByte(Image image, ImageFormat format)
+        {
+            if (image == null) return null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Convert Image to byte[]
+                image.Save(ms, format);
+                byte[] imageBytes = ms.ToArray();
+                return imageBytes;
+            }
+        }
+
+        public static Image ByteToImage(byte[] imageBytes)
+        {
+            if (imageBytes.Length == 0) return null;
+            // Convert byte[] to Image
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = new Bitmap(ms);
+            return image;
         }
         #endregion
     }

@@ -103,9 +103,9 @@ namespace eattendance_desktop
                         accountNumber    INTEGER  NOT NULL UNIQUE,
                         password         INTEGER  NOT NULL,
                         privilege        INTEGER  DEFAULT 0,
-                        cardNumber       INTEGER  UNIQUE,
+                        cardNumber       INTEGER,
                         fingerprints     BLOB,
-                        email            TEXT     UNIQUE,
+                        email            TEXT,
                         pk               INTEGER,
                         department_pk    INTEGER,
                         contact          TEXT,
@@ -228,6 +228,10 @@ namespace eattendance_desktop
             this.insertDevice("Main Gate", "192.168.2.130", "4370", "");
             this.insertDevice("Back Gate", "192.168.2.131", "4370", "");
             this.insertDevice("Canteen", "192.168.2.132", "4370", "Shut down for maintenance");
+
+            this.insertStaff(new Staff("Aaron", 700, 12345678));
+            this.insertStaff(new Staff("Baron", 701, 12345678));
+            this.insertStaff(new Staff("Caron", 702, 12345678));
         }
         #endregion
 
@@ -579,11 +583,10 @@ namespace eattendance_desktop
                                             ""{16}"",""{17}"",""{18}"",""{19}"",""{20}"",""{21}"",""{22}"",""{23}"");",
                                             name, accountNumber, password, privilege, cardNumber, Common.Serialize(fingerprints), 
                                             email, pk, department_pk, contact, gender, address, 
-                                            Common.DateTimeToUnixTimeStamp(dateOfBirth), image, title, post,
+                                            Common.DateTimeToUnixTimeStamp(dateOfBirth), Common.ImageToByte(image), title, post,
                                             Common.DateTimeToUnixTimeStamp(dateOfEmployment), nationality, homeAddress, 
                                             officeTel, homeTel, mobile1, mobile2, Common.Serialize(extras));
-                sql = sql.Replace("\"\"", "NULL");
-                Console.WriteLine(sql);
+                //sql = sql.Replace("\"\"", "NULL");
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -624,30 +627,31 @@ namespace eattendance_desktop
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 SQLiteDataReader r = cmd.ExecuteReader();
                 r.Read();
+
                 staff = new Staff((String)r["name"],
-                        (int)r["accountNumber"],
-                        (int)r["password"],
-                        (int)r["privilege"],
-                        (int)r["cardNumber"],
-                        Common.Deserialize((String)r["fingerprints"]),
+                        Convert.ToInt32(r["accountNumber"]),
+                        Convert.ToInt32(r["password"]),
+                        Convert.ToInt32(r["privilege"]),
+                        Convert.ToInt32(r["cardNumber"]),
+                        Common.Deserialize((Byte[])r["fingerprints"]),
                         (String)r["email"],
-                        (int)r["pk"],
-                        (int)r["department_pk"],
+                        Convert.ToInt32(r["pk"]),
+                        Convert.ToInt32(r["department_pk"]),
                         (String)r["contact"],
                         (String)r["gender"],
                         (String)r["address"],
-                        Common.UnixTimeStampToDateTime((int)r["dateOfBirth"]),
-                        (Image)r["image"],
+                        Common.UnixTimeStampToDateTime(Convert.ToInt32(r["dateOfBirth"])),
+                        Common.ByteToImage((Byte[])r["image"]),
                         (String)r["title"],
                         (String)r["post"],
-                        Common.UnixTimeStampToDateTime((int)r["dateOfEmployment"]),
+                        Common.UnixTimeStampToDateTime(Convert.ToInt32(r["dateOfEmployment"])),
                         (String)r["nationality"],
                         (String)r["homeAddress"],
                         (String)r["officeTel"],
                         (String)r["homeTel"],
                         (String)r["mobile1"],
                         (String)r["mobile2"],
-                        Common.Deserialize((String)r["extras"]));
+                        Common.Deserialize((Byte[])r["extras"]));
 
                 cmd.Dispose();
                 r.Dispose();
