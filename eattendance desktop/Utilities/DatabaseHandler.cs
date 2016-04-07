@@ -605,7 +605,7 @@ namespace eattendance_desktop
             {
                 if (ex.ErrorCode == 19)
                 {
-                    //throw new Exception("A duplicate already exists. The account number, card number and email needs to be unique.", ex);
+                    throw new Exception("The account number has to be unique. A duplicate already exists. Entry not saved", ex);
                 }
                 else
                 {
@@ -680,10 +680,9 @@ namespace eattendance_desktop
             return staff;
         }
 
-        public DataTable getStaffDataSource()
+        public List<List<string>> getStaffData()
         {
-            SQLiteDataAdapter adapter;
-            DataSet ds = new DataSet();
+            List<List<string>> rows = new List<List<string>>();
             try
             {
                 DBCONN.Open();
@@ -691,8 +690,23 @@ namespace eattendance_desktop
                     email as Email, department_pk as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
                     post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
                     homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs;";
-                adapter = new SQLiteDataAdapter(sql, DBCONN);
-                adapter.Fill(ds);
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader r = cmd.ExecuteReader();
+                var columnNames = new List<string>();
+                for (int i = 0; i < r.FieldCount; i++)
+                {
+                    columnNames.Add(r.GetName(i));
+                }
+                List<string> row;
+                while (r.Read())
+                {
+                    row = new List<string>();
+                    for (int i = 0; i < r.FieldCount; i++)
+                    {
+                        row.Add(r[columnNames[i]].ToString());
+                    }
+                    rows.Add(row);
+                }
             }
             catch (Exception ex)
             {
@@ -705,7 +719,33 @@ namespace eattendance_desktop
                 if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
                     DBCONN.Close();
             }
-            return ds.Tables[0];
+            return rows;
+        }
+
+        public int getMaxAccountNumber()
+        {
+            int max = 0;
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "SELECT MAX(accountNumber) FROM staffs;";
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                max = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return max;
         }
 
         public void deleteStaff(int accountNumber)
@@ -826,7 +866,6 @@ namespace eattendance_desktop
                     DBCONN.Close();
             }
         }
-
 
         #endregion
 

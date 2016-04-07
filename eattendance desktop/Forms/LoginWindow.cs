@@ -99,6 +99,10 @@ namespace eattendance_desktop
         {
             this.Hide();
 
+            // TODO remove this block later
+            (new Forms.StaffsWindow()).ShowDialog();
+            return;
+            
             using (var mainWindow = new MainWindow())
             {
                 mainWindow.ShowDialog();

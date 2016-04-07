@@ -89,6 +89,23 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.accountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.privilege = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.department_pk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.post = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nationality = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.officeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mobile1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mobile2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
@@ -143,6 +160,24 @@
             this.dataGridStaffs.BackgroundColor = System.Drawing.Color.White;
             this.dataGridStaffs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.accountNumber,
+            this.name,
+            this.privilege,
+            this.cardNumber,
+            this.email,
+            this.department_pk,
+            this.contact,
+            this.gender,
+            this.address,
+            this.title,
+            this.post,
+            this.nationality,
+            this.homeAddress,
+            this.officeTel,
+            this.homeTel,
+            this.mobile1,
+            this.mobile2});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -272,6 +307,7 @@
             this.dateTimeDOB.Size = new System.Drawing.Size(91, 18);
             this.dateTimeDOB.TabIndex = 20;
             this.dateTimeDOB.Value = new System.DateTime(2016, 3, 10, 0, 0, 0, 0);
+            this.dateTimeDOB.ValueChanged += new System.EventHandler(this.panelDirtied);
             // 
             // comboGender
             // 
@@ -283,6 +319,7 @@
             this.comboGender.Name = "comboGender";
             this.comboGender.Size = new System.Drawing.Size(91, 20);
             this.comboGender.TabIndex = 16;
+            this.comboGender.SelectedValueChanged += new System.EventHandler(this.panelDirtied);
             // 
             // textAddress
             // 
@@ -292,6 +329,7 @@
             this.textAddress.Name = "textAddress";
             this.textAddress.Size = new System.Drawing.Size(91, 18);
             this.textAddress.TabIndex = 18;
+            this.textAddress.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // comboDepartment
             // 
@@ -303,6 +341,7 @@
             this.comboDepartment.Name = "comboDepartment";
             this.comboDepartment.Size = new System.Drawing.Size(91, 20);
             this.comboDepartment.TabIndex = 19;
+            this.comboDepartment.SelectedValueChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label1
             // 
@@ -336,6 +375,7 @@
             this.textContact.Name = "textContact";
             this.textContact.Size = new System.Drawing.Size(91, 18);
             this.textContact.TabIndex = 14;
+            this.textContact.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label2
             // 
@@ -357,6 +397,7 @@
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(91, 18);
             this.textName.TabIndex = 12;
+            this.textName.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // comboPrivilege
             // 
@@ -368,6 +409,7 @@
             this.comboPrivilege.Name = "comboPrivilege";
             this.comboPrivilege.Size = new System.Drawing.Size(91, 20);
             this.comboPrivilege.TabIndex = 15;
+            this.comboPrivilege.SelectedValueChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label8
             // 
@@ -449,6 +491,7 @@
             this.textAccountNo.Name = "textAccountNo";
             this.textAccountNo.Size = new System.Drawing.Size(91, 18);
             this.textAccountNo.TabIndex = 11;
+            this.textAccountNo.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label6
             // 
@@ -470,6 +513,7 @@
             this.textPassword.Name = "textPassword";
             this.textPassword.Size = new System.Drawing.Size(91, 18);
             this.textPassword.TabIndex = 13;
+            this.textPassword.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // textCardNo
             // 
@@ -479,6 +523,7 @@
             this.textCardNo.Name = "textCardNo";
             this.textCardNo.Size = new System.Drawing.Size(91, 18);
             this.textCardNo.TabIndex = 17;
+            this.textCardNo.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // Additional
             // 
@@ -540,6 +585,7 @@
             this.textMobile1.Name = "textMobile1";
             this.textMobile1.Size = new System.Drawing.Size(91, 18);
             this.textMobile1.TabIndex = 38;
+            this.textMobile1.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label11
             // 
@@ -573,6 +619,7 @@
             this.textOfficeTel.Name = "textOfficeTel";
             this.textOfficeTel.Size = new System.Drawing.Size(91, 18);
             this.textOfficeTel.TabIndex = 34;
+            this.textOfficeTel.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label13
             // 
@@ -594,6 +641,7 @@
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(91, 18);
             this.textEmail.TabIndex = 32;
+            this.textEmail.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label14
             // 
@@ -678,6 +726,7 @@
             this.textTitle.Name = "textTitle";
             this.textTitle.Size = new System.Drawing.Size(91, 18);
             this.textTitle.TabIndex = 31;
+            this.textTitle.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // label20
             // 
@@ -700,6 +749,7 @@
             this.textPost.Name = "textPost";
             this.textPost.Size = new System.Drawing.Size(91, 18);
             this.textPost.TabIndex = 33;
+            this.textPost.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // textNationality
             // 
@@ -709,6 +759,7 @@
             this.textNationality.Name = "textNationality";
             this.textNationality.Size = new System.Drawing.Size(91, 18);
             this.textNationality.TabIndex = 37;
+            this.textNationality.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // dateTimeDateOfEmployment
             // 
@@ -721,6 +772,7 @@
             this.dateTimeDateOfEmployment.Size = new System.Drawing.Size(91, 18);
             this.dateTimeDateOfEmployment.TabIndex = 35;
             this.dateTimeDateOfEmployment.Value = new System.DateTime(2016, 3, 10, 0, 0, 0, 0);
+            this.dateTimeDateOfEmployment.ValueChanged += new System.EventHandler(this.panelDirtied);
             // 
             // textMobile2
             // 
@@ -730,6 +782,7 @@
             this.textMobile2.Name = "textMobile2";
             this.textMobile2.Size = new System.Drawing.Size(91, 18);
             this.textMobile2.TabIndex = 40;
+            this.textMobile2.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // textHomeTel
             // 
@@ -739,6 +792,7 @@
             this.textHomeTel.Name = "textHomeTel";
             this.textHomeTel.Size = new System.Drawing.Size(91, 18);
             this.textHomeTel.TabIndex = 36;
+            this.textHomeTel.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // textHomeAddress
             // 
@@ -748,6 +802,7 @@
             this.textHomeAddress.Name = "textHomeAddress";
             this.textHomeAddress.Size = new System.Drawing.Size(91, 18);
             this.textHomeAddress.TabIndex = 39;
+            this.textHomeAddress.TextChanged += new System.EventHandler(this.panelDirtied);
             // 
             // Extras
             // 
@@ -775,6 +830,7 @@
             this.dataGridViewExtras.Name = "dataGridViewExtras";
             this.dataGridViewExtras.Size = new System.Drawing.Size(317, 149);
             this.dataGridViewExtras.TabIndex = 0;
+            this.dataGridViewExtras.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.panelDirtied);
             // 
             // ExtrasColumnKey
             // 
@@ -848,6 +904,7 @@
             this.btnSave.Text = "Save";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnRemove
             // 
@@ -864,6 +921,7 @@
             this.btnRemove.Text = "Remove";
             this.btnRemove.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnAdd
             // 
@@ -880,6 +938,109 @@
             this.btnAdd.Text = "Add";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // accountNumber
+            // 
+            this.accountNumber.HeaderText = "Account No.";
+            this.accountNumber.Name = "accountNumber";
+            this.accountNumber.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // privilege
+            // 
+            this.privilege.HeaderText = "Privilege";
+            this.privilege.Name = "privilege";
+            this.privilege.ReadOnly = true;
+            // 
+            // cardNumber
+            // 
+            this.cardNumber.HeaderText = "Card Number";
+            this.cardNumber.Name = "cardNumber";
+            this.cardNumber.ReadOnly = true;
+            // 
+            // email
+            // 
+            this.email.HeaderText = "Email";
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            // 
+            // department_pk
+            // 
+            this.department_pk.HeaderText = "Department";
+            this.department_pk.Name = "department_pk";
+            this.department_pk.ReadOnly = true;
+            // 
+            // contact
+            // 
+            this.contact.HeaderText = "Contact";
+            this.contact.Name = "contact";
+            this.contact.ReadOnly = true;
+            // 
+            // gender
+            // 
+            this.gender.HeaderText = "Gender";
+            this.gender.Name = "gender";
+            this.gender.ReadOnly = true;
+            // 
+            // address
+            // 
+            this.address.HeaderText = "Address";
+            this.address.Name = "address";
+            this.address.ReadOnly = true;
+            // 
+            // title
+            // 
+            this.title.HeaderText = "Title";
+            this.title.Name = "title";
+            this.title.ReadOnly = true;
+            // 
+            // post
+            // 
+            this.post.HeaderText = "Post";
+            this.post.Name = "post";
+            this.post.ReadOnly = true;
+            // 
+            // nationality
+            // 
+            this.nationality.HeaderText = "Nationality";
+            this.nationality.Name = "nationality";
+            this.nationality.ReadOnly = true;
+            // 
+            // homeAddress
+            // 
+            this.homeAddress.HeaderText = "Home Address";
+            this.homeAddress.Name = "homeAddress";
+            this.homeAddress.ReadOnly = true;
+            // 
+            // officeTel
+            // 
+            this.officeTel.HeaderText = "Office Tel.";
+            this.officeTel.Name = "officeTel";
+            this.officeTel.ReadOnly = true;
+            // 
+            // homeTel
+            // 
+            this.homeTel.HeaderText = "Home Tel.";
+            this.homeTel.Name = "homeTel";
+            this.homeTel.ReadOnly = true;
+            // 
+            // mobile1
+            // 
+            this.mobile1.HeaderText = "Mobile1";
+            this.mobile1.Name = "mobile1";
+            this.mobile1.ReadOnly = true;
+            // 
+            // mobile2
+            // 
+            this.mobile2.HeaderText = "Mobile2";
+            this.mobile2.Name = "mobile2";
+            this.mobile2.ReadOnly = true;
             // 
             // StaffsWindow
             // 
@@ -977,5 +1138,22 @@
         private System.Windows.Forms.TextBox textMobile2;
         private System.Windows.Forms.TextBox textHomeTel;
         private System.Windows.Forms.TextBox textHomeAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn privilege;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cardNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn department_pk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contact;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn title;
+        private System.Windows.Forms.DataGridViewTextBoxColumn post;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nationality;
+        private System.Windows.Forms.DataGridViewTextBoxColumn homeAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn officeTel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn homeTel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mobile1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mobile2;
     }
 }

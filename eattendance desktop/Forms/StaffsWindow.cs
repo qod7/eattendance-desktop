@@ -8,6 +8,8 @@ namespace eattendance_desktop.Forms
     public partial class StaffsWindow : Form
     {
         DatabaseHandler DB = new DatabaseHandler();
+        bool uiInitialized = false;
+        bool panelDirty = false;
         public StaffsWindow()
         {
             InitializeComponent();
@@ -16,22 +18,90 @@ namespace eattendance_desktop.Forms
         private void StaffsWindow_Load(object sender, EventArgs e)
         {
             initElementData();
-            this.dataGridStaffs.SelectionChanged += new System.EventHandler(this.dataGridStaffs_SelectionChanged);
+            this.dataGridStaffs.SelectionChanged += new System.
+                EventHandler(this.dataGridStaffs_SelectionChanged);
+            this.dataGridStaffs.RowValidating += new System.Windows.
+                Forms.DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
+            // invoke SelectionChanged for first time
+            this.dataGridStaffs_SelectionChanged(sender, null);
+            // all elements initialized now
+            this.uiInitialized = true;
         }
 
         private void initElementData()
         {
             // populate staff-table
-            this.dataGridStaffs.DataSource = DB.getStaffDataSource();
+            fillTable();
             // populate comboPrivilege
             this.comboPrivilege.DataSource = Common.UserPrivilege;
+            // populate comboGender
+            this.comboGender.DataSource = Common.Gender;
         }
 
+        private void dataGridStaffs_OnRowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            // if 'Cancel' option selected, return
+            if (!confirmExitPanel())
+            {
+                // first rollback the selection
+                e.Cancel = true;
+                return;
+            }
+        }
         private void dataGridStaffs_SelectionChanged(object sender, EventArgs e)
         {
+            // if onRowValidating is passed
+            // change the selected staff
             Staff staff = DB.getStaff(Convert.ToInt32(dataGridStaffs.SelectedRows[0].Cells[0].Value));
             // Fill bottom panel with staff details
+            fillPanel(staff);
+            this.panelDirty = false;
+        }
 
+        private bool confirmExitPanel()
+        {
+            // check if current data in panel not saved, offer save
+            if (this.panelDirty)
+            {
+                switch (MessageBox.Show("You have unsaved changes. Save first?",
+                    "Unsaved changes", MessageBoxButtons.YesNoCancel))
+                {
+                    case DialogResult.Yes:
+                        // true -> proceed with the flow; false -> stop right there
+                        return this.saveStaff();
+                    case DialogResult.No:
+                        // nothing to do then. just go with the flow
+                        break;
+                    case DialogResult.Cancel:
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        private void fillTable()
+        {
+            List<List<string>> rows = DB.getStaffData();
+            int oldRowCount = dataGridStaffs.RowCount;
+            int rowCount = 0;
+            // add new rows
+            foreach(var row in rows)
+            {
+                dataGridStaffs.Rows.Add(row.ToArray());
+                rowCount++;
+            }
+            // remove old rows
+            for (int i=0; i<oldRowCount; i++)
+            {
+                dataGridStaffs.Rows.RemoveAt(0);
+            }
+            // Why this shitty workaround? 
+            // For some reason Rows.Clear() throws an ArgumentOutOfRangeException.
+            // So does Rows.RemoveAt(0) when there's only one row. Strange!
+        }
+
+        private void fillPanel(Staff staff)
+        {
             // BASIC
             this.textName.Text = staff.name;
             this.textAccountNo.Text = staff.accountNumber.ToString();
@@ -66,6 +136,136 @@ namespace eattendance_desktop.Forms
             // PHOTO
 
             // FINGERPRINTS
+        }
+
+        private Staff panelToStaff()
+        {
+            Staff staff = new Staff(this.textName.Text, 
+                Convert.ToInt32(this.textAccountNo.Text), 
+                Convert.ToInt32(this.textPassword.Text));
+            // BASIC
+            staff.privilege = this.comboPrivilege.SelectedIndex;
+            staff.cardNumber = Convert.ToInt32(this.textCardNo.Text);
+            //staff.department_pk = (int)this.comboDepartment.SelectedValue;
+            staff.contact = this.textContact.Text;
+            staff.gender = this.comboGender.Text;
+            staff.address = this.textAddress.Text;
+            staff.dateOfBirth = this.dateTimeDOB.Value;
+
+            // ADDITIONAL
+            staff.email = this.textEmail.Text;
+            staff.title = this.textTitle.Text;
+            staff.post = this.textPost.Text;
+            staff.dateOfEmployment = this.dateTimeDateOfEmployment.Value;
+            staff.nationality = this.textNationality.Text;
+            staff.homeAddress = this.textHomeAddress.Text;
+            staff.officeTel = this.textOfficeTel.Text;
+            staff.homeTel = this.textHomeTel.Text;
+            staff.mobile1 = this.textMobile1.Text;
+            staff.mobile2 = this.textMobile2.Text;
+
+            // EXTRAS
+            foreach (DataGridViewRow row in dataGridViewExtras.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                    staff.extras.Add(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString());
+            }
+
+            // PHOTO
+
+            // FINGERPRINTS
+
+            return staff;
+        }
+
+        private void panelDirtied(object sender, EventArgs e)
+        {
+            if (uiInitialized) this.panelDirty = true;
+        }
+
+        private void panelDirtied(object sender, DataGridViewCellEventArgs e)
+        {
+            this.panelDirtied(sender, (EventArgs)null);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            // if 'Cancel' option selected, return
+            if (!confirmExitPanel()) return;
+            // else, create a new staff
+            Staff staff = new Staff("New Staff", DB.getMaxAccountNumber() + 1, 12345678);
+            fillPanel(staff);
+            // restore panelDirty
+            panelDirty = true;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            // confirm delete?
+            // remove from database
+            // reload table
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.saveStaff();
+        }
+
+        private bool saveStaff()
+        {
+            // check if any change
+            if (!panelDirty) return true;
+            // get selected account number (unedited one)
+            string sAccountNumber = dataGridStaffs.SelectedRows[0].Cells[0].Value.ToString();
+            int accountNumber = Convert.ToInt32(sAccountNumber);
+            // validate data first
+            int panelAccountNumber;
+            int panelPassword;
+            int panelCardNumber;
+            if (!int.TryParse(textAccountNo.Text.ToString(), out panelAccountNumber))
+            {
+                MessageBox.Show("Account number cannot be non-numeric.");
+                return false;
+            }
+            if (!int.TryParse(textPassword.Text.ToString(), out panelPassword))
+            {
+                MessageBox.Show("Password cannot be non-numeric.");
+                return false;
+            }
+            if (!int.TryParse(textCardNo.Text.ToString(), out panelCardNumber))
+            {
+                MessageBox.Show("Card number cannot be non-numeric.");
+                return false;
+            }
+            if (textName.Text.ToString().Equals(""))
+            {
+                MessageBox.Show("Name cannot be empty.");
+                return false;
+            }
+
+            // check if accountNumber needs update
+            if (this.textAccountNo.Text.ToString().Equals(sAccountNumber))
+            {
+                //db.update
+                DB.updateStaff(accountNumber, panelToStaff());
+            }
+            else
+            {
+                // check if the new accountNumber exists in database
+                Staff dbStaff = DB.getStaff(panelAccountNumber);
+                if (dbStaff != null)
+                {
+                    MessageBox.Show("Another entry with same account number already exists. Cannot update");
+                    return false;
+                }
+                // db.insert
+                DB.insertStaff(panelToStaff());
+            }
+            // restore dirty
+            panelDirty = false;
+            // reload table
+            this.fillTable();
+            return true;
         }
     }
 }

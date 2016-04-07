@@ -26,12 +26,12 @@ namespace eattendance_desktop.Models
         public String contact;
         public String gender;
         public String address;
-        public DateTime? dateOfBirth;
+        public DateTime? dateOfBirth = Common.UnixTimeStampToDateTime(0);
         public Image image;
 
         public String title;
         public String post;
-        public DateTime? dateOfEmployment;
+        public DateTime? dateOfEmployment = Common.UnixTimeStampToDateTime(0);
         public String nationality;
         public String homeAddress;
         public String officeTel;
@@ -67,11 +67,13 @@ namespace eattendance_desktop.Models
             this.contact = contact;
             this.gender = gender;
             this.address = address;
-            this.dateOfBirth = dateOfBirth;
+            if (dateOfBirth != null)
+                this.dateOfBirth = dateOfBirth;
             this.image = image;
             this.title = title;
             this.post = post;
-            this.dateOfEmployment = dateOfEmployment;
+            if (dateOfEmployment != null)
+                this.dateOfEmployment = dateOfEmployment;
             this.nationality = nationality;
             this.homeAddress = homeAddress;
             this.officeTel = officeTel;
