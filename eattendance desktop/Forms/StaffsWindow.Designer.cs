@@ -32,6 +32,23 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaffsWindow));
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
             this.dataGridStaffs = new System.Windows.Forms.DataGridView();
+            this.accountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.privilege = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.department_pk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.post = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nationality = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.officeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mobile1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mobile2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -85,27 +102,13 @@
             this.ExtrasColumnKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtrasColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.panelDepartment = new System.Windows.Forms.Panel();
+            this.panelDepartmentControls = new System.Windows.Forms.Panel();
+            this.treeViewDepartments = new System.Windows.Forms.TreeView();
             this.btnBatch = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.accountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.privilege = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.department_pk = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.post = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nationality = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.homeAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.officeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.homeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mobile1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mobile2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
@@ -123,6 +126,7 @@
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
+            this.panelDepartment.SuspendLayout();
             this.SuspendLayout();
             // 
             // tablesSplitContainer
@@ -137,6 +141,7 @@
             // 
             // tablesSplitContainer.Panel1
             // 
+            this.tablesSplitContainer.Panel1.Controls.Add(this.panelDepartment);
             this.tablesSplitContainer.Panel1.Controls.Add(this.dataGridStaffs);
             this.tablesSplitContainer.Panel1MinSize = 66;
             // 
@@ -157,6 +162,9 @@
             this.dataGridStaffs.AllowUserToDeleteRows = false;
             this.dataGridStaffs.AllowUserToOrderColumns = true;
             this.dataGridStaffs.AllowUserToResizeRows = false;
+            this.dataGridStaffs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridStaffs.BackgroundColor = System.Drawing.Color.White;
             this.dataGridStaffs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -186,16 +194,117 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridStaffs.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridStaffs.Location = new System.Drawing.Point(0, 0);
+            this.dataGridStaffs.Location = new System.Drawing.Point(143, 0);
             this.dataGridStaffs.MultiSelect = false;
             this.dataGridStaffs.Name = "dataGridStaffs";
             this.dataGridStaffs.ReadOnly = true;
             this.dataGridStaffs.RowTemplate.ReadOnly = true;
             this.dataGridStaffs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridStaffs.ShowEditingIcon = false;
-            this.dataGridStaffs.Size = new System.Drawing.Size(784, 188);
+            this.dataGridStaffs.Size = new System.Drawing.Size(641, 188);
             this.dataGridStaffs.TabIndex = 2;
+            // 
+            // accountNumber
+            // 
+            this.accountNumber.HeaderText = "Account No.";
+            this.accountNumber.Name = "accountNumber";
+            this.accountNumber.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // privilege
+            // 
+            this.privilege.HeaderText = "Privilege";
+            this.privilege.Name = "privilege";
+            this.privilege.ReadOnly = true;
+            // 
+            // cardNumber
+            // 
+            this.cardNumber.HeaderText = "Card Number";
+            this.cardNumber.Name = "cardNumber";
+            this.cardNumber.ReadOnly = true;
+            // 
+            // email
+            // 
+            this.email.HeaderText = "Email";
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            // 
+            // department_pk
+            // 
+            this.department_pk.HeaderText = "Department";
+            this.department_pk.Name = "department_pk";
+            this.department_pk.ReadOnly = true;
+            // 
+            // contact
+            // 
+            this.contact.HeaderText = "Contact";
+            this.contact.Name = "contact";
+            this.contact.ReadOnly = true;
+            // 
+            // gender
+            // 
+            this.gender.HeaderText = "Gender";
+            this.gender.Name = "gender";
+            this.gender.ReadOnly = true;
+            // 
+            // address
+            // 
+            this.address.HeaderText = "Address";
+            this.address.Name = "address";
+            this.address.ReadOnly = true;
+            // 
+            // title
+            // 
+            this.title.HeaderText = "Title";
+            this.title.Name = "title";
+            this.title.ReadOnly = true;
+            // 
+            // post
+            // 
+            this.post.HeaderText = "Post";
+            this.post.Name = "post";
+            this.post.ReadOnly = true;
+            // 
+            // nationality
+            // 
+            this.nationality.HeaderText = "Nationality";
+            this.nationality.Name = "nationality";
+            this.nationality.ReadOnly = true;
+            // 
+            // homeAddress
+            // 
+            this.homeAddress.HeaderText = "Home Address";
+            this.homeAddress.Name = "homeAddress";
+            this.homeAddress.ReadOnly = true;
+            // 
+            // officeTel
+            // 
+            this.officeTel.HeaderText = "Office Tel.";
+            this.officeTel.Name = "officeTel";
+            this.officeTel.ReadOnly = true;
+            // 
+            // homeTel
+            // 
+            this.homeTel.HeaderText = "Home Tel.";
+            this.homeTel.Name = "homeTel";
+            this.homeTel.ReadOnly = true;
+            // 
+            // mobile1
+            // 
+            this.mobile1.HeaderText = "Mobile1";
+            this.mobile1.Name = "mobile1";
+            this.mobile1.ReadOnly = true;
+            // 
+            // mobile2
+            // 
+            this.mobile2.HeaderText = "Mobile2";
+            this.mobile2.Name = "mobile2";
+            this.mobile2.ReadOnly = true;
             // 
             // groupBox3
             // 
@@ -873,6 +982,35 @@
             this.mainSplitContainer.SplitterDistance = 65;
             this.mainSplitContainer.TabIndex = 3;
             // 
+            // panelDepartment
+            // 
+            this.panelDepartment.Controls.Add(this.treeViewDepartments);
+            this.panelDepartment.Controls.Add(this.panelDepartmentControls);
+            this.panelDepartment.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelDepartment.Location = new System.Drawing.Point(0, 0);
+            this.panelDepartment.Name = "panelDepartment";
+            this.panelDepartment.Size = new System.Drawing.Size(145, 188);
+            this.panelDepartment.TabIndex = 3;
+            // 
+            // panelDepartmentControls
+            // 
+            this.panelDepartmentControls.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.panelDepartmentControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelDepartmentControls.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelDepartmentControls.Location = new System.Drawing.Point(0, 0);
+            this.panelDepartmentControls.Name = "panelDepartmentControls";
+            this.panelDepartmentControls.Size = new System.Drawing.Size(145, 21);
+            this.panelDepartmentControls.TabIndex = 0;
+            // 
+            // treeViewDepartments
+            // 
+            this.treeViewDepartments.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.treeViewDepartments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewDepartments.Location = new System.Drawing.Point(0, 21);
+            this.treeViewDepartments.Name = "treeViewDepartments";
+            this.treeViewDepartments.Size = new System.Drawing.Size(145, 167);
+            this.treeViewDepartments.TabIndex = 5;
+            // 
             // btnBatch
             // 
             this.btnBatch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -940,108 +1078,6 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // accountNumber
-            // 
-            this.accountNumber.HeaderText = "Account No.";
-            this.accountNumber.Name = "accountNumber";
-            this.accountNumber.ReadOnly = true;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // privilege
-            // 
-            this.privilege.HeaderText = "Privilege";
-            this.privilege.Name = "privilege";
-            this.privilege.ReadOnly = true;
-            // 
-            // cardNumber
-            // 
-            this.cardNumber.HeaderText = "Card Number";
-            this.cardNumber.Name = "cardNumber";
-            this.cardNumber.ReadOnly = true;
-            // 
-            // email
-            // 
-            this.email.HeaderText = "Email";
-            this.email.Name = "email";
-            this.email.ReadOnly = true;
-            // 
-            // department_pk
-            // 
-            this.department_pk.HeaderText = "Department";
-            this.department_pk.Name = "department_pk";
-            this.department_pk.ReadOnly = true;
-            // 
-            // contact
-            // 
-            this.contact.HeaderText = "Contact";
-            this.contact.Name = "contact";
-            this.contact.ReadOnly = true;
-            // 
-            // gender
-            // 
-            this.gender.HeaderText = "Gender";
-            this.gender.Name = "gender";
-            this.gender.ReadOnly = true;
-            // 
-            // address
-            // 
-            this.address.HeaderText = "Address";
-            this.address.Name = "address";
-            this.address.ReadOnly = true;
-            // 
-            // title
-            // 
-            this.title.HeaderText = "Title";
-            this.title.Name = "title";
-            this.title.ReadOnly = true;
-            // 
-            // post
-            // 
-            this.post.HeaderText = "Post";
-            this.post.Name = "post";
-            this.post.ReadOnly = true;
-            // 
-            // nationality
-            // 
-            this.nationality.HeaderText = "Nationality";
-            this.nationality.Name = "nationality";
-            this.nationality.ReadOnly = true;
-            // 
-            // homeAddress
-            // 
-            this.homeAddress.HeaderText = "Home Address";
-            this.homeAddress.Name = "homeAddress";
-            this.homeAddress.ReadOnly = true;
-            // 
-            // officeTel
-            // 
-            this.officeTel.HeaderText = "Office Tel.";
-            this.officeTel.Name = "officeTel";
-            this.officeTel.ReadOnly = true;
-            // 
-            // homeTel
-            // 
-            this.homeTel.HeaderText = "Home Tel.";
-            this.homeTel.Name = "homeTel";
-            this.homeTel.ReadOnly = true;
-            // 
-            // mobile1
-            // 
-            this.mobile1.HeaderText = "Mobile1";
-            this.mobile1.Name = "mobile1";
-            this.mobile1.ReadOnly = true;
-            // 
-            // mobile2
-            // 
-            this.mobile2.HeaderText = "Mobile2";
-            this.mobile2.Name = "mobile2";
-            this.mobile2.ReadOnly = true;
-            // 
             // StaffsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1073,6 +1109,7 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
+            this.panelDepartment.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1155,5 +1192,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn homeTel;
         private System.Windows.Forms.DataGridViewTextBoxColumn mobile1;
         private System.Windows.Forms.DataGridViewTextBoxColumn mobile2;
+        private System.Windows.Forms.Panel panelDepartment;
+        private System.Windows.Forms.TreeView treeViewDepartments;
+        private System.Windows.Forms.Panel panelDepartmentControls;
     }
 }

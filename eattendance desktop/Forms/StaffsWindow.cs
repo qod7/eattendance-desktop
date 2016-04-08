@@ -31,6 +31,20 @@ namespace eattendance_desktop.Forms
         {
             // populate staff-table
             fillTable();
+            // populate departments
+            List<Department> departments = DB.getDepartments();
+            List<TreeNode> departmentsNode = new List<TreeNode>();
+            foreach (var dept in departments)
+            {
+                TreeNode node = new TreeNode(dept.name);
+                node.Tag = dept;
+                departmentsNode.Add(node);
+            }
+            TreeNode mainNode = new TreeNode("Organization", departmentsNode.ToArray());
+            mainNode.ExpandAll();
+            treeViewDepartments.Nodes.Add(mainNode);
+            // populate comboDepartment
+
             // populate comboPrivilege
             this.comboPrivilege.DataSource = Common.UserPrivilege;
             // populate comboGender

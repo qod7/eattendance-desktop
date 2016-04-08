@@ -244,6 +244,12 @@ namespace eattendance_desktop
             this.insertStaff(staff);
             this.insertStaff(new Staff("Baron", 701, 12345678));
             this.insertStaff(new Staff("Caron", 702, 12345678));
+
+            // Departments
+            this.insertDepartment(new Department(1, "Sales"));
+            this.insertDepartment(new Department(2, "Marketing"));
+            this.insertDepartment(new Department(3, "Accounts"));
+
         }
         #endregion
 
@@ -917,6 +923,39 @@ namespace eattendance_desktop
                     DBCONN.Close();
             }
 
+        }
+
+        public List<Department> getDepartments()
+        {
+            List<Department> departments = new List<Department>();
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "SELECT * FROM departments;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader r = cmd.ExecuteReader();
+                while (r.Read())
+                {
+                    departments.Add(new Department(Convert.ToInt32(r["id"]), 
+                        (String)r["name"], Convert.ToInt32(r["pk"])));
+                }
+                cmd.Dispose();
+                r.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return departments;
         }
 
         public Department getDepartment(int id)
