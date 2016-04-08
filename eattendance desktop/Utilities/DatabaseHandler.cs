@@ -670,7 +670,6 @@ namespace eattendance_desktop
             {
                 // SQL exception of something. todo: print exception to log
                 System.Diagnostics.Debug.Write(ex.Message);
-                throw;
             }
             finally
             {

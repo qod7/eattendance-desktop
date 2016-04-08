@@ -10,6 +10,7 @@ namespace eattendance_desktop.Forms
         DatabaseHandler DB = new DatabaseHandler();
         bool uiInitialized = false;
         bool panelDirty = false;
+        bool newEntryInPanel = false;
         public StaffsWindow()
         {
             InitializeComponent();
@@ -20,8 +21,6 @@ namespace eattendance_desktop.Forms
             initElementData();
             this.dataGridStaffs.SelectionChanged += new System.
                 EventHandler(this.dataGridStaffs_SelectionChanged);
-            this.dataGridStaffs.RowValidating += new System.Windows.
-                Forms.DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
             // invoke SelectionChanged for first time
             this.dataGridStaffs_SelectionChanged(sender, null);
             // all elements initialized now
@@ -38,23 +37,12 @@ namespace eattendance_desktop.Forms
             this.comboGender.DataSource = Common.Gender;
         }
 
-        private void dataGridStaffs_OnRowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            // if 'Cancel' option selected, return
-            if (!confirmExitPanel())
-            {
-                // first rollback the selection
-                e.Cancel = true;
-                return;
-            }
-        }
         private void dataGridStaffs_SelectionChanged(object sender, EventArgs e)
         {
-            // if onRowValidating is passed
             // change the selected staff
             Staff staff = DB.getStaff(Convert.ToInt32(dataGridStaffs.SelectedRows[0].Cells[0].Value));
             // Fill bottom panel with staff details
-            fillPanel(staff);
+            fillPanel(staff, false);
             this.panelDirty = false;
         }
 
@@ -71,7 +59,7 @@ namespace eattendance_desktop.Forms
                         return this.saveStaff();
                     case DialogResult.No:
                         // nothing to do then. just go with the flow
-                        break;
+                        return true;
                     case DialogResult.Cancel:
                         return false;
                 }
@@ -83,25 +71,36 @@ namespace eattendance_desktop.Forms
         {
             List<List<string>> rows = DB.getStaffData();
             int oldRowCount = dataGridStaffs.RowCount;
+            int oldSelectionIndex = -1;
+            if (dataGridStaffs.SelectedRows.Count > 0)
+                oldSelectionIndex = dataGridStaffs.SelectedRows[0].Index;
             int rowCount = 0;
             // add new rows
-            foreach(var row in rows)
+            foreach (var row in rows)
             {
                 dataGridStaffs.Rows.Add(row.ToArray());
                 rowCount++;
             }
             // remove old rows
-            for (int i=0; i<oldRowCount; i++)
+            for (int i = 0; i < oldRowCount; i++)
             {
                 dataGridStaffs.Rows.RemoveAt(0);
+            }
+            // now restore the selected index
+            if (oldSelectionIndex >= 0)
+            {
+                if (oldSelectionIndex >= dataGridStaffs.RowCount)
+                    oldSelectionIndex = dataGridStaffs.RowCount - 1;
+                dataGridStaffs.Rows[oldSelectionIndex].Selected = true;
             }
             // Why this shitty workaround? 
             // For some reason Rows.Clear() throws an ArgumentOutOfRangeException.
             // So does Rows.RemoveAt(0) when there's only one row. Strange!
         }
 
-        private void fillPanel(Staff staff)
+        private void fillPanel(Staff staff, bool isNewStaff)
         {
+            this.newEntryInPanel = isNewStaff;
             // BASIC
             this.textName.Text = staff.name;
             this.textAccountNo.Text = staff.accountNumber.ToString();
@@ -140,35 +139,39 @@ namespace eattendance_desktop.Forms
 
         private Staff panelToStaff()
         {
-            Staff staff = new Staff(this.textName.Text, 
+            Staff staff = new Staff(this.textName.Text.Replace("'", ""), 
                 Convert.ToInt32(this.textAccountNo.Text), 
                 Convert.ToInt32(this.textPassword.Text));
             // BASIC
             staff.privilege = this.comboPrivilege.SelectedIndex;
-            staff.cardNumber = Convert.ToInt32(this.textCardNo.Text);
+
+            if (textCardNo.Text.Equals("")) staff.cardNumber = null;
+            else staff.cardNumber = Convert.ToInt32(this.textCardNo.Text);
+
             //staff.department_pk = (int)this.comboDepartment.SelectedValue;
-            staff.contact = this.textContact.Text;
+            staff.contact = this.textContact.Text.Replace("'", "");
             staff.gender = this.comboGender.Text;
-            staff.address = this.textAddress.Text;
+            staff.address = this.textAddress.Text.Replace("'", "");
             staff.dateOfBirth = this.dateTimeDOB.Value;
 
             // ADDITIONAL
-            staff.email = this.textEmail.Text;
-            staff.title = this.textTitle.Text;
-            staff.post = this.textPost.Text;
+            staff.email = this.textEmail.Text.Replace("'", "");
+            staff.title = this.textTitle.Text.Replace("'", "");
+            staff.post = this.textPost.Text.Replace("'", "");
             staff.dateOfEmployment = this.dateTimeDateOfEmployment.Value;
-            staff.nationality = this.textNationality.Text;
-            staff.homeAddress = this.textHomeAddress.Text;
-            staff.officeTel = this.textOfficeTel.Text;
-            staff.homeTel = this.textHomeTel.Text;
-            staff.mobile1 = this.textMobile1.Text;
-            staff.mobile2 = this.textMobile2.Text;
+            staff.nationality = this.textNationality.Text.Replace("'", "");
+            staff.homeAddress = this.textHomeAddress.Text.Replace("'", "");
+            staff.officeTel = this.textOfficeTel.Text.Replace("'", "");
+            staff.homeTel = this.textHomeTel.Text.Replace("'", "");
+            staff.mobile1 = this.textMobile1.Text.Replace("'", "");
+            staff.mobile2 = this.textMobile2.Text.Replace("'", "");
 
             // EXTRAS
             foreach (DataGridViewRow row in dataGridViewExtras.Rows)
             {
                 if (row.Cells[0].Value != null)
-                    staff.extras.Add(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString());
+                    staff.extras.Add(row.Cells[0].Value.ToString().Replace("'", ""), 
+                        row.Cells[1].Value.ToString().Replace("'", ""));
             }
 
             // PHOTO
@@ -192,9 +195,11 @@ namespace eattendance_desktop.Forms
         {
             // if 'Cancel' option selected, return
             if (!confirmExitPanel()) return;
-            // else, create a new staff
+            // else, first reload the table, in case it was just updated
+            this.fillTable();
+            // then create a new staff
             Staff staff = new Staff("New Staff", DB.getMaxAccountNumber() + 1, 12345678);
-            fillPanel(staff);
+            fillPanel(staff, true);
             // restore panelDirty
             panelDirty = true;
         }
@@ -208,7 +213,13 @@ namespace eattendance_desktop.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.saveStaff();
+            if (this.saveStaff())
+            {
+                // restore dirty
+                panelDirty = false;
+                // reload table
+                this.fillTable();
+            }
         }
 
         private bool saveStaff()
@@ -221,20 +232,21 @@ namespace eattendance_desktop.Forms
             // validate data first
             int panelAccountNumber;
             int panelPassword;
-            int panelCardNumber;
+            long panelCardNumber;
             if (!int.TryParse(textAccountNo.Text.ToString(), out panelAccountNumber))
             {
-                MessageBox.Show("Account number cannot be non-numeric.");
+                MessageBox.Show("Account number non-numeric or too long.");
                 return false;
             }
-            if (!int.TryParse(textPassword.Text.ToString(), out panelPassword))
+            if (!int.TryParse(textPassword.Text.ToString(), out panelPassword) || textPassword.Text.Length > 8)
             {
-                MessageBox.Show("Password cannot be non-numeric.");
+                MessageBox.Show("Password has to be numeric and 8 digits or less.");
                 return false;
             }
-            if (!int.TryParse(textCardNo.Text.ToString(), out panelCardNumber))
+            string cardNo = textCardNo.Text.ToString();
+            if (!cardNo.Equals("") && !long.TryParse(cardNo, out panelCardNumber))
             {
-                MessageBox.Show("Card number cannot be non-numeric.");
+                MessageBox.Show("Card number non-numeric or too long.");
                 return false;
             }
             if (textName.Text.ToString().Equals(""))
@@ -243,28 +255,41 @@ namespace eattendance_desktop.Forms
                 return false;
             }
 
-            // check if accountNumber needs update
-            if (this.textAccountNo.Text.ToString().Equals(sAccountNumber))
-            {
-                //db.update
-                DB.updateStaff(accountNumber, panelToStaff());
-            }
-            else
+            // check if this is a new staff
+            if (this.newEntryInPanel)
             {
                 // check if the new accountNumber exists in database
                 Staff dbStaff = DB.getStaff(panelAccountNumber);
                 if (dbStaff != null)
                 {
-                    MessageBox.Show("Another entry with same account number already exists. Cannot update");
+                    MessageBox.Show("Another entry with same account number already exists. Creation aborted.");
                     return false;
                 }
                 // db.insert
                 DB.insertStaff(panelToStaff());
             }
-            // restore dirty
-            panelDirty = false;
-            // reload table
-            this.fillTable();
+            else
+            {
+                // check if accountNumber needs updating
+                if (this.textAccountNo.Text.ToString().Equals(sAccountNumber))
+                {
+                    //db.update
+                    DB.updateStaff(accountNumber, panelToStaff());
+                }
+                else
+                {
+                    // check if the new accountNumber exists in database
+                    Staff dbStaff = DB.getStaff(panelAccountNumber);
+                    if (dbStaff != null)
+                    {
+                        MessageBox.Show("Another entry with same account number already exists. Cannot update");
+                        return false;
+                    }
+                    // db.update
+                    DB.updateStaff(panelAccountNumber, panelToStaff());
+                }
+            }
+
             return true;
         }
     }
