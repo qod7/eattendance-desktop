@@ -208,7 +208,21 @@ namespace eattendance_desktop.Forms
         {
             // confirm delete?
             // remove from database
-            // reload table
+            switch (MessageBox.Show("Are you sure you want to delete the selected staff?", 
+                "Confirm Delete", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.Yes:
+                    // get selected staff
+                    int accountNumber = Convert.ToInt32(this.dataGridStaffs.SelectedRows[0].Cells[0].Value.ToString());
+                    DB.deleteStaff(accountNumber);
+                    // reload the table
+                    this.fillTable();
+                    MessageBox.Show("Staff delete successful.");
+                    break;
+                case DialogResult.No:
+                    // nothing to do then
+                    break;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
