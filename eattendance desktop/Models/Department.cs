@@ -23,5 +23,10 @@ namespace eattendance_desktop.Models
             this.name = name;
             this.pk = pk;
         }
+
+        public override string ToString()
+        {
+            return this.name;
+        }
     }
 }
