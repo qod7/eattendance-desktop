@@ -11,6 +11,7 @@ namespace eattendance_desktop.Forms
         bool uiInitialized = false;
         bool panelDirty = false;
         bool newEntryInPanel = false;
+        bool onRowValidatingActive = false;
         public StaffsWindow()
         {
             InitializeComponent();
@@ -21,6 +22,10 @@ namespace eattendance_desktop.Forms
             initElementData();
             this.dataGridStaffs.SelectionChanged += new System.
                 EventHandler(this.dataGridStaffs_SelectionChanged);
+            this.dataGridStaffs.RowValidating += new System.Windows.Forms.
+                DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
+            this.dataGridStaffs.Leave += new EventHandler(this.dataGridStaffs_OnLeave);
+            this.dataGridStaffs.Enter += new EventHandler(this.dataGridStaffs_OnEnter);
             // invoke SelectionChanged for first time
             this.dataGridStaffs_SelectionChanged(sender, null);
             // all elements initialized now
@@ -37,6 +42,33 @@ namespace eattendance_desktop.Forms
             this.comboPrivilege.DataSource = Common.UserPrivilege;
             // populate comboGender
             this.comboGender.DataSource = Common.Gender;
+        }
+
+        private void dataGridStaffs_OnEnter(object sender, EventArgs e)
+        {
+            onRowValidatingActive = true;
+        }
+
+        private void dataGridStaffs_OnLeave(object sender, EventArgs e)
+        {
+            onRowValidatingActive = false;
+        }
+
+        private void dataGridStaffs_OnRowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (onRowValidatingActive && panelDirty)
+            {
+                switch (MessageBox.Show("You have unsaved changes. Discard them?",
+                        "Confirm Discard Changes", MessageBoxButtons.YesNo))
+                {
+                    case DialogResult.Yes:
+                        break;
+                    case DialogResult.No:
+                        e.Cancel = true;
+                        return;
+                }
+            }
+            e.Cancel = false;
         }
 
         private void dataGridStaffs_SelectionChanged(object sender, EventArgs e)
