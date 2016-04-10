@@ -161,7 +161,7 @@ namespace eattendance_desktop.Forms
             this.textPassword.Text = staff.password.ToString();
             this.comboPrivilege.SelectedIndex = staff.privilege;
             this.textCardNo.Text = staff.cardNumber.ToString();
-            this.comboDepartment.SelectedValue = staff.department_pk;
+            this.comboDepartment.SelectedValue = staff.department_id;
             this.textContact.Text = staff.contact;
             this.comboGender.Text = staff.gender;
             this.textAddress.Text = staff.address;
@@ -202,7 +202,7 @@ namespace eattendance_desktop.Forms
             if (textCardNo.Text.Equals("")) staff.cardNumber = null;
             else staff.cardNumber = Convert.ToInt32(this.textCardNo.Text);
 
-            //staff.department_pk = (int)this.comboDepartment.SelectedValue;
+            //staff.department_id = (int)this.comboDepartment.SelectedValue;
             staff.contact = this.textContact.Text.Replace("'", "");
             staff.gender = this.comboGender.Text;
             staff.address = this.textAddress.Text.Replace("'", "");
@@ -377,6 +377,7 @@ namespace eattendance_desktop.Forms
 
         private void treeViewDepartments_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
+            if (e.Label == null) return;
             TreeNode node = e.Node;
             Department tag = (Department)node.Tag;
             if (e.Label.Equals(""))
@@ -406,11 +407,12 @@ namespace eattendance_desktop.Forms
             {
                 case DialogResult.Yes:
                     // get selected department
-                    Department dept = (Department)this.treeViewDepartments.SelectedNode.Tag;
+                    TreeNode node = this.treeViewDepartments.SelectedNode;
+                    Department dept = (Department)node.Tag;
                     DB.deleteDepartment(dept.id);
-                    // reload the table
-                    this.fillTable();
-                    MessageBox.Show("Staff delete successful.");
+                    // remove from treeview
+                    this.treeViewDepartments.Nodes.Remove(node);
+                    MessageBox.Show("Department delete successful.");
                     break;
                 case DialogResult.No:
                     // nothing to do then

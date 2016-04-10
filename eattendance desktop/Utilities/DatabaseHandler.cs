@@ -107,7 +107,7 @@ namespace eattendance_desktop
                         fingerprints     TEXT,
                         email            TEXT,
                         pk               INTEGER,
-                        department_pk    INTEGER,
+                        department_id    INTEGER,
                         contact          TEXT,
                         gender           TEXT,
                         address          TEXT,
@@ -571,7 +571,7 @@ namespace eattendance_desktop
             try
             {
                 this.insertStaff(staff.name, staff.accountNumber, staff.password, staff.privilege, staff.cardNumber,
-                                staff.fingerprints, staff.email, staff.pk, staff.department_pk, staff.contact,
+                                staff.fingerprints, staff.email, staff.pk, staff.department_id, staff.contact,
                                 staff.gender, staff.address, staff.dateOfBirth, staff.image, staff.title, staff.post,
                                 staff.dateOfEmployment, staff.nationality, staff.homeAddress, staff.officeTel,
                                 staff.homeTel, staff.mobile1, staff.mobile2, staff.extras);
@@ -584,7 +584,7 @@ namespace eattendance_desktop
 
         public void insertStaff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
-                                int? department_pk = null, String contact = null, String gender = null,
+                                int? department_id = null, String contact = null, String gender = null,
                                 String address = null, DateTime? dateOfBirth = null, Image image = null,
                                 String title = null, String post = null, DateTime? dateOfEmployment = null,
                                 String nationality = null, String homeAddress = null, String officeTel = null,
@@ -598,7 +598,7 @@ namespace eattendance_desktop
                                             '{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}',
                                             '{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}');",
                                             name, accountNumber, password, privilege, cardNumber, Common.DictToJSON(fingerprints), 
-                                            email, pk, department_pk, contact, gender, address, 
+                                            email, pk, department_id, contact, gender, address, 
                                             Common.DateTimeToUnixTimeStamp(dateOfBirth), Common.ImageToByte(image), title, post,
                                             Common.DateTimeToUnixTimeStamp(dateOfEmployment), nationality, homeAddress, 
                                             officeTel, homeTel, mobile1, mobile2, Common.DictToJSON(extras));
@@ -652,7 +652,7 @@ namespace eattendance_desktop
                         Common.JSONToDict((String)r["fingerprints"]),
                         (String)r["email"],
                         Convert.ToInt32(r["pk"]),
-                        Convert.ToInt32(r["department_pk"]),
+                        Convert.ToInt32(r["department_id"]),
                         (String)r["contact"],
                         (String)r["gender"],
                         (String)r["address"],
@@ -692,7 +692,7 @@ namespace eattendance_desktop
             {
                 DBCONN.Open();
                 String sql = @"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
-                    email as Email, department_pk as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
+                    email as Email, department_id as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
                     post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
                     homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs;";
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
@@ -830,7 +830,7 @@ namespace eattendance_desktop
                                             fingerprints = '{5}',
                                             email = '{6}',
                                             pk = '{7}',
-                                            department_pk = '{8}',
+                                            department_id = '{8}',
                                             contact = '{9}',
                                             gender = '{10}',
                                             address = '{11}',
@@ -848,7 +848,7 @@ namespace eattendance_desktop
                                             extras = '{23}'
                                             WHERE accountNumber='{0}';",
                                             accountNumber, staff.name, staff.password, staff.privilege, staff.cardNumber,
-                                            Common.DictToJSON(staff.fingerprints), staff.email, staff.pk, staff.department_pk, 
+                                            Common.DictToJSON(staff.fingerprints), staff.email, staff.pk, staff.department_id, 
                                             staff.contact, staff.gender, staff.address, 
                                             Common.DateTimeToUnixTimeStamp(staff.dateOfBirth), Common.ImageToByte(staff.image), 
                                             staff.title, staff.post, Common.DateTimeToUnixTimeStamp(staff.dateOfEmployment), 
@@ -1026,6 +1026,13 @@ namespace eattendance_desktop
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+
+                // update staffs for the deleted department
+                sql = String.Format("UPDATE staffs SET department_id='' where department_id={0};", id);
+
+                cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
             }
             catch (Exception ex)
             {
@@ -1049,6 +1056,13 @@ namespace eattendance_desktop
                 String sql = "DELETE FROM departments;";
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                // update staffs for the deleted department
+                sql = "UPDATE staffs SET department_id='';";
+
+                cmd = new SQLiteCommand(sql, DBCONN);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }

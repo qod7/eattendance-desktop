@@ -43,7 +43,7 @@
             this.privilege = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.department_pk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.department_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -257,7 +257,7 @@
             this.privilege,
             this.cardNumber,
             this.email,
-            this.department_pk,
+            this.department_id,
             this.contact,
             this.gender,
             this.address,
@@ -317,11 +317,11 @@
             this.email.Name = "email";
             this.email.ReadOnly = true;
             // 
-            // department_pk
+            // department_id
             // 
-            this.department_pk.HeaderText = "Department";
-            this.department_pk.Name = "department_pk";
-            this.department_pk.ReadOnly = true;
+            this.department_id.HeaderText = "Department";
+            this.department_id.Name = "department_id";
+            this.department_id.ReadOnly = true;
             // 
             // contact
             // 
@@ -1235,7 +1235,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn privilege;
         private System.Windows.Forms.DataGridViewTextBoxColumn cardNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn department_pk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn department_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn contact;
         private System.Windows.Forms.DataGridViewTextBoxColumn gender;
         private System.Windows.Forms.DataGridViewTextBoxColumn address;

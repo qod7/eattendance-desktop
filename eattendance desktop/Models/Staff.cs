@@ -22,7 +22,7 @@ namespace eattendance_desktop.Models
         // Passion specific parameters; stored individually in server
         public String email;
         public int? pk;             // primary key, unique for any staff in any organization
-        public int? department_pk;  // primary key of the dept of the staff
+        public int? department_id;  // primary key of the dept of the staff
         public String contact;
         public String gender;
         public String address;
@@ -47,7 +47,7 @@ namespace eattendance_desktop.Models
         // CONSTRUCTORS
         public Staff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
-                                int? department_pk = null, String contact = null, String gender = null,
+                                int? department_id = null, String contact = null, String gender = null,
                                 String address = null, DateTime? dateOfBirth = null, Image image = null,
                                 String title = null, String post = null, DateTime? dateOfEmployment = null,
                                 String nationality = null, String homeAddress = null, String officeTel = null,
@@ -63,7 +63,7 @@ namespace eattendance_desktop.Models
                 this.fingerprints = fingerprints;
             this.email = email;
             this.pk = pk;
-            this.department_pk = department_pk;
+            this.department_id = department_id;
             this.contact = contact;
             this.gender = gender;
             this.address = address;
