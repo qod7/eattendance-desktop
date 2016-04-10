@@ -13,7 +13,7 @@ namespace eattendance_desktop
 {
     class DatabaseHandler
     {
-        private static String APPDIR = AppDomain.CurrentDomain.BaseDirectory;
+        public static String APPDIR = AppDomain.CurrentDomain.BaseDirectory;
         private static String DBPATH = APPDIR + "\\data\\eattendance.sqlite";
         private static SQLiteConnection DBCONN;
         // TODO add more here

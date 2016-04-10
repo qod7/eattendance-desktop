@@ -1,6 +1,8 @@
 ﻿using eattendance_desktop.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace eattendance_desktop.Forms
@@ -413,6 +415,33 @@ namespace eattendance_desktop.Forms
                     // remove from treeview
                     this.treeViewDepartments.Nodes.Remove(node);
                     MessageBox.Show("Department delete successful.");
+                    break;
+                case DialogResult.No:
+                    // nothing to do then
+                    break;
+            }
+        }
+
+        private void buttonBrowseImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                this.staffImage.Image = Image.FromFile(dialog.FileName);
+                this.staffImage.Tag = dialog.FileName;
+            }
+        }
+
+        private void buttonClearImage_Click(object sender, EventArgs e)
+        {
+            if (this.staffImage.Image == null) return;
+            switch (MessageBox.Show("Are you sure you want to clear the image?",
+                                    "Confirm Clear", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.Yes:
+                    this.staffImage.Image = null;
+                    this.staffImage.Tag = null;
                     break;
                 case DialogResult.No:
                     // nothing to do then
