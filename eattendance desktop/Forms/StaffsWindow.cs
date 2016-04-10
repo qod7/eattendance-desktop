@@ -384,12 +384,16 @@ namespace eattendance_desktop.Forms
             newNode.Tag = dept;
             // add new dept to database
             DB.insertDepartment(dept);
-            //add the new child to the selected node
+            // add the new child to the selected node
             rootNode.Nodes.Add(newNode);
+            // move focus to new node so name can be entered
+            treeViewDepartments.LabelEdit = true;
+            newNode.BeginEdit();
         }
 
         private void treeViewDepartments_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
+            treeViewDepartments.LabelEdit = false;
             if (e.Label == null) return;
             TreeNode node = e.Node;
             Department tag = (Department)node.Tag;
@@ -407,12 +411,19 @@ namespace eattendance_desktop.Forms
 
         private void btnEditDept_Click(object sender, EventArgs e)
         {
-            TreeNode selectedNode = treeViewDepartments.SelectedNode;
-            selectedNode.BeginEdit();
+            TreeNode node = this.treeViewDepartments.SelectedNode;
+            if (node == null) return;
+            if (node.Equals(treeViewDepartments.Nodes[0])) return;
+            treeViewDepartments.LabelEdit = true;
+            node.BeginEdit();
         }
 
         private void btnRemoveDept_Click(object sender, EventArgs e)
         {
+            TreeNode node = this.treeViewDepartments.SelectedNode;
+            if (node == null) return;
+            if (node.Equals(treeViewDepartments.Nodes[0])) return;
+
             // confirm delete?
             // remove from database
             switch (MessageBox.Show("Are you sure you want to delete the selected department?",
@@ -420,7 +431,6 @@ namespace eattendance_desktop.Forms
             {
                 case DialogResult.Yes:
                     // get selected department
-                    TreeNode node = this.treeViewDepartments.SelectedNode;
                     Department dept = (Department)node.Tag;
                     DB.deleteDepartment(dept.id);
                     // remove from treeview
