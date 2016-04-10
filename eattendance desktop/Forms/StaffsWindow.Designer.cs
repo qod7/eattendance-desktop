@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaffsWindow));
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -112,6 +113,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
@@ -119,6 +122,7 @@
             this.panelDepartment.SuspendLayout();
             this.panelDepartmentControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Basic.SuspendLayout();
@@ -131,6 +135,7 @@
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tablesSplitContainer
@@ -206,6 +211,7 @@
             this.btnEditDept.Size = new System.Drawing.Size(20, 20);
             this.btnEditDept.TabIndex = 6;
             this.btnEditDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnEditDept, "Edit Department");
             this.btnEditDept.UseVisualStyleBackColor = true;
             this.btnEditDept.Click += new System.EventHandler(this.btnEditDept_Click);
             // 
@@ -221,6 +227,7 @@
             this.btnRemoveDept.Size = new System.Drawing.Size(20, 20);
             this.btnRemoveDept.TabIndex = 6;
             this.btnRemoveDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnRemoveDept, "Remove Department");
             this.btnRemoveDept.UseVisualStyleBackColor = true;
             this.btnRemoveDept.Click += new System.EventHandler(this.btnRemoveDept_Click);
             // 
@@ -236,6 +243,7 @@
             this.btnAddDept.Size = new System.Drawing.Size(20, 20);
             this.btnAddDept.TabIndex = 6;
             this.btnAddDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnAddDept, "Add Department");
             this.btnAddDept.UseVisualStyleBackColor = true;
             this.btnAddDept.Click += new System.EventHandler(this.btnAddDept_Click);
             // 
@@ -392,6 +400,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.pictureBox1);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox3.Location = new System.Drawing.Point(334, 0);
             this.groupBox3.Name = "groupBox3";
@@ -1079,6 +1088,7 @@
             this.btnBatch.TabIndex = 3;
             this.btnBatch.Text = "Batch";
             this.btnBatch.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnBatch, "Add Staff in Batch");
             this.btnBatch.UseVisualStyleBackColor = true;
             // 
             // btnSave
@@ -1095,6 +1105,7 @@
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnSave, "Save Staff");
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -1112,6 +1123,7 @@
             this.btnRemove.TabIndex = 1;
             this.btnRemove.Text = "Remove";
             this.btnRemove.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnRemove, "Remove Staff");
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
@@ -1129,8 +1141,18 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Add";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnAdd, "Add Staff");
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 38);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(194, 159);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // StaffsWindow
             // 
@@ -1151,6 +1173,7 @@
             this.panelDepartment.ResumeLayout(false);
             this.panelDepartmentControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Basic.ResumeLayout(false);
@@ -1165,6 +1188,7 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1253,5 +1277,7 @@
         private System.Windows.Forms.Button btnAddDept;
         private System.Windows.Forms.Button btnEditDept;
         private System.Windows.Forms.Button btnRemoveDept;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
