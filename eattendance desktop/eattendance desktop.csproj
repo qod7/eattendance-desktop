@@ -269,6 +269,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\info.png" />
     <None Include="Resources\trashcan.png" />
     <None Include="Resources\browse.png" />
     <None Include="Resources\edit_dept.png" />

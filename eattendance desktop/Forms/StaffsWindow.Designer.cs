@@ -35,9 +35,6 @@
             this.panelDepartment = new System.Windows.Forms.Panel();
             this.treeViewDepartments = new System.Windows.Forms.TreeView();
             this.panelDepartmentControls = new System.Windows.Forms.Panel();
-            this.btnEditDept = new System.Windows.Forms.Button();
-            this.btnRemoveDept = new System.Windows.Forms.Button();
-            this.btnAddDept = new System.Windows.Forms.Button();
             this.dataGridStaffs = new System.Windows.Forms.DataGridView();
             this.accountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,9 +54,6 @@
             this.mobile1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mobile2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.buttonClearImage = new System.Windows.Forms.Button();
-            this.buttonBrowseImage = new System.Windows.Forms.Button();
-            this.staffImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -112,11 +106,18 @@
             this.ExtrasColumnKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtrasColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnBatch = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnEditDept = new System.Windows.Forms.Button();
+            this.btnRemoveDept = new System.Windows.Forms.Button();
+            this.btnAddDept = new System.Windows.Forms.Button();
+            this.buttonStaffImageInfo = new System.Windows.Forms.Button();
+            this.buttonClearImage = new System.Windows.Forms.Button();
+            this.buttonBrowseImage = new System.Windows.Forms.Button();
+            this.staffImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
@@ -125,7 +126,6 @@
             this.panelDepartmentControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.staffImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Basic.SuspendLayout();
@@ -138,6 +138,7 @@
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.staffImage)).BeginInit();
             this.SuspendLayout();
             // 
             // tablesSplitContainer
@@ -200,54 +201,6 @@
             this.panelDepartmentControls.Name = "panelDepartmentControls";
             this.panelDepartmentControls.Size = new System.Drawing.Size(145, 21);
             this.panelDepartmentControls.TabIndex = 0;
-            // 
-            // btnEditDept
-            // 
-            this.btnEditDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnEditDept.FlatAppearance.BorderSize = 0;
-            this.btnEditDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditDept.Image = global::eattendance_desktop.Properties.Resources.edit_dept;
-            this.btnEditDept.Location = new System.Drawing.Point(46, -2);
-            this.btnEditDept.Margin = new System.Windows.Forms.Padding(0);
-            this.btnEditDept.Name = "btnEditDept";
-            this.btnEditDept.Size = new System.Drawing.Size(20, 20);
-            this.btnEditDept.TabIndex = 6;
-            this.btnEditDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip.SetToolTip(this.btnEditDept, "Edit Department");
-            this.btnEditDept.UseVisualStyleBackColor = true;
-            this.btnEditDept.Click += new System.EventHandler(this.btnEditDept_Click);
-            // 
-            // btnRemoveDept
-            // 
-            this.btnRemoveDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnRemoveDept.FlatAppearance.BorderSize = 0;
-            this.btnRemoveDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemoveDept.Image = global::eattendance_desktop.Properties.Resources.delete_dept;
-            this.btnRemoveDept.Location = new System.Drawing.Point(23, -2);
-            this.btnRemoveDept.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRemoveDept.Name = "btnRemoveDept";
-            this.btnRemoveDept.Size = new System.Drawing.Size(20, 20);
-            this.btnRemoveDept.TabIndex = 6;
-            this.btnRemoveDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip.SetToolTip(this.btnRemoveDept, "Remove Department");
-            this.btnRemoveDept.UseVisualStyleBackColor = true;
-            this.btnRemoveDept.Click += new System.EventHandler(this.btnRemoveDept_Click);
-            // 
-            // btnAddDept
-            // 
-            this.btnAddDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnAddDept.FlatAppearance.BorderSize = 0;
-            this.btnAddDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddDept.Image = global::eattendance_desktop.Properties.Resources.add_dept;
-            this.btnAddDept.Location = new System.Drawing.Point(0, -2);
-            this.btnAddDept.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAddDept.Name = "btnAddDept";
-            this.btnAddDept.Size = new System.Drawing.Size(20, 20);
-            this.btnAddDept.TabIndex = 6;
-            this.btnAddDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip.SetToolTip(this.btnAddDept, "Add Department");
-            this.btnAddDept.UseVisualStyleBackColor = true;
-            this.btnAddDept.Click += new System.EventHandler(this.btnAddDept_Click);
             // 
             // dataGridStaffs
             // 
@@ -402,6 +355,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.buttonStaffImageInfo);
             this.groupBox3.Controls.Add(this.buttonClearImage);
             this.groupBox3.Controls.Add(this.buttonBrowseImage);
             this.groupBox3.Controls.Add(this.staffImage);
@@ -412,53 +366,6 @@
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Photo";
-            // 
-            // buttonClearImage
-            // 
-            this.buttonClearImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonClearImage.FlatAppearance.BorderSize = 0;
-            this.buttonClearImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClearImage.Image = global::eattendance_desktop.Properties.Resources.trashcan;
-            this.buttonClearImage.Location = new System.Drawing.Point(29, 16);
-            this.buttonClearImage.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonClearImage.Name = "buttonClearImage";
-            this.buttonClearImage.Size = new System.Drawing.Size(20, 20);
-            this.buttonClearImage.TabIndex = 7;
-            this.buttonClearImage.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip.SetToolTip(this.buttonClearImage, "Clear Image");
-            this.buttonClearImage.UseVisualStyleBackColor = true;
-            this.buttonClearImage.Click += new System.EventHandler(this.buttonClearImage_Click);
-            // 
-            // buttonBrowseImage
-            // 
-            this.buttonBrowseImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonBrowseImage.FlatAppearance.BorderSize = 0;
-            this.buttonBrowseImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBrowseImage.Image = global::eattendance_desktop.Properties.Resources.browse;
-            this.buttonBrowseImage.Location = new System.Drawing.Point(6, 16);
-            this.buttonBrowseImage.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonBrowseImage.Name = "buttonBrowseImage";
-            this.buttonBrowseImage.Size = new System.Drawing.Size(20, 20);
-            this.buttonBrowseImage.TabIndex = 8;
-            this.buttonBrowseImage.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip.SetToolTip(this.buttonBrowseImage, "Browse Image");
-            this.buttonBrowseImage.UseVisualStyleBackColor = true;
-            this.buttonBrowseImage.Click += new System.EventHandler(this.buttonBrowseImage_Click);
-            // 
-            // staffImage
-            // 
-            this.staffImage.BackColor = System.Drawing.Color.White;
-            this.staffImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.staffImage.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.staffImage.InitialImage = null;
-            this.staffImage.Location = new System.Drawing.Point(3, 38);
-            this.staffImage.Margin = new System.Windows.Forms.Padding(10);
-            this.staffImage.Name = "staffImage";
-            this.staffImage.Padding = new System.Windows.Forms.Padding(10);
-            this.staffImage.Size = new System.Drawing.Size(134, 159);
-            this.staffImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.staffImage.TabIndex = 0;
-            this.staffImage.TabStop = false;
             // 
             // groupBox2
             // 
@@ -1196,6 +1103,116 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // btnEditDept
+            // 
+            this.btnEditDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnEditDept.FlatAppearance.BorderSize = 0;
+            this.btnEditDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditDept.Image = global::eattendance_desktop.Properties.Resources.edit_dept;
+            this.btnEditDept.Location = new System.Drawing.Point(46, -2);
+            this.btnEditDept.Margin = new System.Windows.Forms.Padding(0);
+            this.btnEditDept.Name = "btnEditDept";
+            this.btnEditDept.Size = new System.Drawing.Size(20, 20);
+            this.btnEditDept.TabIndex = 6;
+            this.btnEditDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnEditDept, "Edit Department");
+            this.btnEditDept.UseVisualStyleBackColor = true;
+            this.btnEditDept.Click += new System.EventHandler(this.btnEditDept_Click);
+            // 
+            // btnRemoveDept
+            // 
+            this.btnRemoveDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRemoveDept.FlatAppearance.BorderSize = 0;
+            this.btnRemoveDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveDept.Image = global::eattendance_desktop.Properties.Resources.delete_dept;
+            this.btnRemoveDept.Location = new System.Drawing.Point(23, -2);
+            this.btnRemoveDept.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRemoveDept.Name = "btnRemoveDept";
+            this.btnRemoveDept.Size = new System.Drawing.Size(20, 20);
+            this.btnRemoveDept.TabIndex = 6;
+            this.btnRemoveDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnRemoveDept, "Remove Department");
+            this.btnRemoveDept.UseVisualStyleBackColor = true;
+            this.btnRemoveDept.Click += new System.EventHandler(this.btnRemoveDept_Click);
+            // 
+            // btnAddDept
+            // 
+            this.btnAddDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddDept.FlatAppearance.BorderSize = 0;
+            this.btnAddDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddDept.Image = global::eattendance_desktop.Properties.Resources.add_dept;
+            this.btnAddDept.Location = new System.Drawing.Point(0, -2);
+            this.btnAddDept.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddDept.Name = "btnAddDept";
+            this.btnAddDept.Size = new System.Drawing.Size(20, 20);
+            this.btnAddDept.TabIndex = 6;
+            this.btnAddDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.btnAddDept, "Add Department");
+            this.btnAddDept.UseVisualStyleBackColor = true;
+            this.btnAddDept.Click += new System.EventHandler(this.btnAddDept_Click);
+            // 
+            // buttonStaffImageInfo
+            // 
+            this.buttonStaffImageInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonStaffImageInfo.FlatAppearance.BorderSize = 0;
+            this.buttonStaffImageInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStaffImageInfo.Image = global::eattendance_desktop.Properties.Resources.info;
+            this.buttonStaffImageInfo.Location = new System.Drawing.Point(117, 16);
+            this.buttonStaffImageInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonStaffImageInfo.Name = "buttonStaffImageInfo";
+            this.buttonStaffImageInfo.Size = new System.Drawing.Size(20, 20);
+            this.buttonStaffImageInfo.TabIndex = 9;
+            this.buttonStaffImageInfo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.buttonStaffImageInfo, "JPEG images less than 100 KB are preferred.");
+            this.buttonStaffImageInfo.UseVisualStyleBackColor = true;
+            // 
+            // buttonClearImage
+            // 
+            this.buttonClearImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonClearImage.FlatAppearance.BorderSize = 0;
+            this.buttonClearImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClearImage.Image = global::eattendance_desktop.Properties.Resources.trashcan;
+            this.buttonClearImage.Location = new System.Drawing.Point(29, 16);
+            this.buttonClearImage.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonClearImage.Name = "buttonClearImage";
+            this.buttonClearImage.Size = new System.Drawing.Size(20, 20);
+            this.buttonClearImage.TabIndex = 7;
+            this.buttonClearImage.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.buttonClearImage, "Clear Image");
+            this.buttonClearImage.UseVisualStyleBackColor = true;
+            this.buttonClearImage.Click += new System.EventHandler(this.buttonClearImage_Click);
+            // 
+            // buttonBrowseImage
+            // 
+            this.buttonBrowseImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonBrowseImage.FlatAppearance.BorderSize = 0;
+            this.buttonBrowseImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBrowseImage.Image = global::eattendance_desktop.Properties.Resources.browse;
+            this.buttonBrowseImage.Location = new System.Drawing.Point(6, 16);
+            this.buttonBrowseImage.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonBrowseImage.Name = "buttonBrowseImage";
+            this.buttonBrowseImage.Size = new System.Drawing.Size(20, 20);
+            this.buttonBrowseImage.TabIndex = 8;
+            this.buttonBrowseImage.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip.SetToolTip(this.buttonBrowseImage, "Browse Image");
+            this.buttonBrowseImage.UseVisualStyleBackColor = true;
+            this.buttonBrowseImage.Click += new System.EventHandler(this.buttonBrowseImage_Click);
+            // 
+            // staffImage
+            // 
+            this.staffImage.BackColor = System.Drawing.Color.White;
+            this.staffImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.staffImage.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.staffImage.InitialImage = null;
+            this.staffImage.Location = new System.Drawing.Point(3, 38);
+            this.staffImage.Margin = new System.Windows.Forms.Padding(10);
+            this.staffImage.Name = "staffImage";
+            this.staffImage.Padding = new System.Windows.Forms.Padding(10);
+            this.staffImage.Size = new System.Drawing.Size(134, 159);
+            this.staffImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.staffImage.TabIndex = 0;
+            this.staffImage.TabStop = false;
+            // 
             // StaffsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1216,7 +1233,6 @@
             this.panelDepartmentControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.staffImage)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Basic.ResumeLayout(false);
@@ -1231,6 +1247,7 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.staffImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1323,5 +1340,6 @@
         private System.Windows.Forms.PictureBox staffImage;
         private System.Windows.Forms.Button buttonClearImage;
         private System.Windows.Forms.Button buttonBrowseImage;
+        private System.Windows.Forms.Button buttonStaffImageInfo;
     }
 }
