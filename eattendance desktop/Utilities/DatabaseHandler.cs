@@ -130,7 +130,7 @@ namespace eattendance_desktop
 
             // TABLE departments
             sql = @"CREATE TABLE departments (
-                        id      INTEGER      PRIMARY KEY AUTOINCREMENT,
+                        id      INTEGER      PRIMARY KEY,
                         name    VARCHAR (64) NOT NULL,
                         pk      INTEGER
                     );";
@@ -923,6 +923,32 @@ namespace eattendance_desktop
                     DBCONN.Close();
             }
 
+        }
+
+        public int getMaxDepartmentID()
+        {
+            int max = 0;
+            try
+            {
+                DBCONN.Open();
+
+                String sql = "SELECT MAX(id) FROM departments;";
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                max = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return max;
         }
 
         public List<Department> getDepartments()

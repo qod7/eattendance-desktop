@@ -116,9 +116,9 @@ namespace eattendance_desktop.Forms
                 departmentsNode.Add(node);
                 comboDepartment.Items.Add(dept);
             }
-            TreeNode mainNode = new TreeNode("Organization", departmentsNode.ToArray());
-            mainNode.ExpandAll();
-            treeViewDepartments.Nodes.Add(mainNode);
+            TreeNode rootNode = new TreeNode("Organization", departmentsNode.ToArray());
+            rootNode.ExpandAll();
+            treeViewDepartments.Nodes.Add(rootNode);
         }
 
         private void fillTable()
@@ -359,6 +359,63 @@ namespace eattendance_desktop.Forms
             }
 
             return true;
+        }
+
+        private void btnAddDept_Click(object sender, EventArgs e)
+        {
+            //find the root "organization" node
+            TreeNode rootNode = treeViewDepartments.Nodes[0];
+            //create the new node and department object to add
+            Department dept = new Department(DB.getMaxDepartmentID() + 1, "New Department");
+            TreeNode newNode = new TreeNode(String.Format("New Department {0}", dept.id));
+            newNode.Tag = dept;
+            // add new dept to database
+            DB.insertDepartment(dept);
+            //add the new child to the selected node
+            rootNode.Nodes.Add(newNode);
+        }
+
+        private void treeViewDepartments_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            TreeNode node = e.Node;
+            Department tag = (Department)node.Tag;
+            if (e.Label.Equals(""))
+            {
+                MessageBox.Show("Department name cannot be empty.");
+                e.CancelEdit = true;
+            }
+            else
+            {
+                tag.name = e.Label;
+                DB.updateDepartment(tag.id, tag);
+            }
+        }
+
+        private void btnEditDept_Click(object sender, EventArgs e)
+        {
+            TreeNode selectedNode = treeViewDepartments.SelectedNode;
+            selectedNode.BeginEdit();
+        }
+
+        private void btnRemoveDept_Click(object sender, EventArgs e)
+        {
+            // confirm delete?
+            // remove from database
+            switch (MessageBox.Show("Are you sure you want to delete the selected department?",
+                "Confirm Delete", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.Yes:
+                    // get selected department
+                    Department dept = (Department)this.treeViewDepartments.SelectedNode.Tag;
+                    DB.deleteDepartment(dept.id);
+                    // reload the table
+                    this.fillTable();
+                    MessageBox.Show("Staff delete successful.");
+                    break;
+                case DialogResult.No:
+                    // nothing to do then
+                    break;
+            }
         }
     }
 }

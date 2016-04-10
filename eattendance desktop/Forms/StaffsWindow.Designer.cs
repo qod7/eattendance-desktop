@@ -31,6 +31,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StaffsWindow));
             this.tablesSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.panelDepartment = new System.Windows.Forms.Panel();
+            this.treeViewDepartments = new System.Windows.Forms.TreeView();
+            this.panelDepartmentControls = new System.Windows.Forms.Panel();
+            this.btnEditDept = new System.Windows.Forms.Button();
+            this.btnRemoveDept = new System.Windows.Forms.Button();
+            this.btnAddDept = new System.Windows.Forms.Button();
             this.dataGridStaffs = new System.Windows.Forms.DataGridView();
             this.accountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,9 +108,6 @@
             this.ExtrasColumnKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtrasColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.panelDepartment = new System.Windows.Forms.Panel();
-            this.panelDepartmentControls = new System.Windows.Forms.Panel();
-            this.treeViewDepartments = new System.Windows.Forms.TreeView();
             this.btnBatch = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
@@ -113,6 +116,8 @@
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
             this.tablesSplitContainer.SuspendLayout();
+            this.panelDepartment.SuspendLayout();
+            this.panelDepartmentControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -126,7 +131,6 @@
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
-            this.panelDepartment.SuspendLayout();
             this.SuspendLayout();
             // 
             // tablesSplitContainer
@@ -155,6 +159,85 @@
             this.tablesSplitContainer.Size = new System.Drawing.Size(784, 392);
             this.tablesSplitContainer.SplitterDistance = 188;
             this.tablesSplitContainer.TabIndex = 3;
+            // 
+            // panelDepartment
+            // 
+            this.panelDepartment.Controls.Add(this.treeViewDepartments);
+            this.panelDepartment.Controls.Add(this.panelDepartmentControls);
+            this.panelDepartment.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelDepartment.Location = new System.Drawing.Point(0, 0);
+            this.panelDepartment.Name = "panelDepartment";
+            this.panelDepartment.Size = new System.Drawing.Size(145, 188);
+            this.panelDepartment.TabIndex = 3;
+            // 
+            // treeViewDepartments
+            // 
+            this.treeViewDepartments.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.treeViewDepartments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewDepartments.LabelEdit = true;
+            this.treeViewDepartments.Location = new System.Drawing.Point(0, 21);
+            this.treeViewDepartments.Name = "treeViewDepartments";
+            this.treeViewDepartments.Size = new System.Drawing.Size(145, 167);
+            this.treeViewDepartments.TabIndex = 5;
+            this.treeViewDepartments.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeViewDepartments_AfterLabelEdit);
+            // 
+            // panelDepartmentControls
+            // 
+            this.panelDepartmentControls.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.panelDepartmentControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelDepartmentControls.Controls.Add(this.btnEditDept);
+            this.panelDepartmentControls.Controls.Add(this.btnRemoveDept);
+            this.panelDepartmentControls.Controls.Add(this.btnAddDept);
+            this.panelDepartmentControls.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelDepartmentControls.Location = new System.Drawing.Point(0, 0);
+            this.panelDepartmentControls.Name = "panelDepartmentControls";
+            this.panelDepartmentControls.Size = new System.Drawing.Size(145, 21);
+            this.panelDepartmentControls.TabIndex = 0;
+            // 
+            // btnEditDept
+            // 
+            this.btnEditDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnEditDept.FlatAppearance.BorderSize = 0;
+            this.btnEditDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditDept.Image = global::eattendance_desktop.Properties.Resources.edit_dept;
+            this.btnEditDept.Location = new System.Drawing.Point(46, -2);
+            this.btnEditDept.Margin = new System.Windows.Forms.Padding(0);
+            this.btnEditDept.Name = "btnEditDept";
+            this.btnEditDept.Size = new System.Drawing.Size(20, 20);
+            this.btnEditDept.TabIndex = 6;
+            this.btnEditDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEditDept.UseVisualStyleBackColor = true;
+            this.btnEditDept.Click += new System.EventHandler(this.btnEditDept_Click);
+            // 
+            // btnRemoveDept
+            // 
+            this.btnRemoveDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRemoveDept.FlatAppearance.BorderSize = 0;
+            this.btnRemoveDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveDept.Image = global::eattendance_desktop.Properties.Resources.delete_dept;
+            this.btnRemoveDept.Location = new System.Drawing.Point(23, -2);
+            this.btnRemoveDept.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRemoveDept.Name = "btnRemoveDept";
+            this.btnRemoveDept.Size = new System.Drawing.Size(20, 20);
+            this.btnRemoveDept.TabIndex = 6;
+            this.btnRemoveDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRemoveDept.UseVisualStyleBackColor = true;
+            this.btnRemoveDept.Click += new System.EventHandler(this.btnRemoveDept_Click);
+            // 
+            // btnAddDept
+            // 
+            this.btnAddDept.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddDept.FlatAppearance.BorderSize = 0;
+            this.btnAddDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddDept.Image = global::eattendance_desktop.Properties.Resources.add_dept;
+            this.btnAddDept.Location = new System.Drawing.Point(0, -2);
+            this.btnAddDept.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddDept.Name = "btnAddDept";
+            this.btnAddDept.Size = new System.Drawing.Size(20, 20);
+            this.btnAddDept.TabIndex = 6;
+            this.btnAddDept.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAddDept.UseVisualStyleBackColor = true;
+            this.btnAddDept.Click += new System.EventHandler(this.btnAddDept_Click);
             // 
             // dataGridStaffs
             // 
@@ -982,35 +1065,6 @@
             this.mainSplitContainer.SplitterDistance = 65;
             this.mainSplitContainer.TabIndex = 3;
             // 
-            // panelDepartment
-            // 
-            this.panelDepartment.Controls.Add(this.treeViewDepartments);
-            this.panelDepartment.Controls.Add(this.panelDepartmentControls);
-            this.panelDepartment.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelDepartment.Location = new System.Drawing.Point(0, 0);
-            this.panelDepartment.Name = "panelDepartment";
-            this.panelDepartment.Size = new System.Drawing.Size(145, 188);
-            this.panelDepartment.TabIndex = 3;
-            // 
-            // panelDepartmentControls
-            // 
-            this.panelDepartmentControls.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.panelDepartmentControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelDepartmentControls.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDepartmentControls.Location = new System.Drawing.Point(0, 0);
-            this.panelDepartmentControls.Name = "panelDepartmentControls";
-            this.panelDepartmentControls.Size = new System.Drawing.Size(145, 21);
-            this.panelDepartmentControls.TabIndex = 0;
-            // 
-            // treeViewDepartments
-            // 
-            this.treeViewDepartments.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.treeViewDepartments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewDepartments.Location = new System.Drawing.Point(0, 21);
-            this.treeViewDepartments.Name = "treeViewDepartments";
-            this.treeViewDepartments.Size = new System.Drawing.Size(145, 167);
-            this.treeViewDepartments.TabIndex = 5;
-            // 
             // btnBatch
             // 
             this.btnBatch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -1094,6 +1148,8 @@
             this.tablesSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).EndInit();
             this.tablesSplitContainer.ResumeLayout(false);
+            this.panelDepartment.ResumeLayout(false);
+            this.panelDepartmentControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -1109,7 +1165,6 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
-            this.panelDepartment.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1195,5 +1250,8 @@
         private System.Windows.Forms.Panel panelDepartment;
         private System.Windows.Forms.TreeView treeViewDepartments;
         private System.Windows.Forms.Panel panelDepartmentControls;
+        private System.Windows.Forms.Button btnAddDept;
+        private System.Windows.Forms.Button btnEditDept;
+        private System.Windows.Forms.Button btnRemoveDept;
     }
 }

@@ -269,10 +269,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\edit_dept.png" />
+    <None Include="Resources\delete_dept.png" />
     <None Include="Resources\save.png" />
     <None Include="Resources\remove.png" />
     <None Include="Resources\batch.png" />
     <None Include="Resources\add.png" />
+    <None Include="Resources\add_dept.png" />
     <Content Include="Resources\attendance-256x256.ico" />
     <None Include="Resources\profile-user-outline.png" />
   </ItemGroup>

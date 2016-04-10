@@ -73,6 +73,16 @@ namespace eattendance_desktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_dept {
+            get {
+                object obj = ResourceManager.GetObject("add_dept", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap attendances {
             get {
                 object obj = ResourceManager.GetObject("attendances", resourceCulture);
@@ -103,9 +113,29 @@ namespace eattendance_desktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap delete_dept {
+            get {
+                object obj = ResourceManager.GetObject("delete_dept", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Device {
             get {
                 object obj = ResourceManager.GetObject("Device", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_dept {
+            get {
+                object obj = ResourceManager.GetObject("edit_dept", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
