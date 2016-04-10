@@ -27,7 +27,7 @@ namespace eattendance_desktop.Models
         public String gender;
         public String address;
         public DateTime? dateOfBirth = Common.UnixTimeStampToDateTime(0);
-        public Image image;
+        public String image;
 
         public String title;
         public String post;
@@ -48,7 +48,7 @@ namespace eattendance_desktop.Models
         public Staff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
                                 int? department_id = null, String contact = null, String gender = null,
-                                String address = null, DateTime? dateOfBirth = null, Image image = null,
+                                String address = null, DateTime? dateOfBirth = null, String image = null,
                                 String title = null, String post = null, DateTime? dateOfEmployment = null,
                                 String nationality = null, String homeAddress = null, String officeTel = null,
                                 String homeTel = null, String mobile1 = null, String mobile2 = null,

@@ -189,6 +189,7 @@ namespace eattendance_desktop.Forms
             }
 
             // PHOTO
+            this.staffImage.Image = Common.NameToImage(staff.image);
 
             // FINGERPRINTS
         }
@@ -231,6 +232,16 @@ namespace eattendance_desktop.Forms
             }
 
             // PHOTO
+            if (this.staffImage.Tag != null)
+            {
+                if (!Directory.Exists("data//images"))
+                    Directory.CreateDirectory("data//images");
+                string sourceFile = (string)this.staffImage.Tag;
+
+                staff.image = String.Format("{0}{1}", staff.accountNumber, Path.GetExtension(sourceFile));
+                string destFile = Path.Combine("data//images", staff.image);
+                File.Copy(sourceFile, destFile, true);
+            }
 
             // FINGERPRINTS
 
@@ -430,6 +441,7 @@ namespace eattendance_desktop.Forms
             {
                 this.staffImage.Image = Image.FromFile(dialog.FileName);
                 this.staffImage.Tag = dialog.FileName;
+                this.panelDirty = true;
             }
         }
 
@@ -442,6 +454,7 @@ namespace eattendance_desktop.Forms
                 case DialogResult.Yes:
                     this.staffImage.Image = null;
                     this.staffImage.Tag = null;
+                    this.panelDirty = true;
                     break;
                 case DialogResult.No:
                     // nothing to do then

@@ -112,7 +112,7 @@ namespace eattendance_desktop
                         gender           TEXT,
                         address          TEXT,
                         dateOfBirth      INTEGER,
-                        image            BLOB,
+                        image            TEXT,
                         title            TEXT,
                         post             TEXT,
                         dateOfEmployment INTEGER,
@@ -585,7 +585,7 @@ namespace eattendance_desktop
         public void insertStaff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
                                 int? department_id = null, String contact = null, String gender = null,
-                                String address = null, DateTime? dateOfBirth = null, Image image = null,
+                                String address = null, DateTime? dateOfBirth = null, String image = null,
                                 String title = null, String post = null, DateTime? dateOfEmployment = null,
                                 String nationality = null, String homeAddress = null, String officeTel = null,
                                 String homeTel = null, String mobile1 = null, String mobile2 = null,
@@ -599,7 +599,7 @@ namespace eattendance_desktop
                                             '{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}');",
                                             name, accountNumber, password, privilege, cardNumber, Common.DictToJSON(fingerprints), 
                                             email, pk, department_id, contact, gender, address, 
-                                            Common.DateTimeToUnixTimeStamp(dateOfBirth), Common.ImageToByte(image), title, post,
+                                            Common.DateTimeToUnixTimeStamp(dateOfBirth), image, title, post,
                                             Common.DateTimeToUnixTimeStamp(dateOfEmployment), nationality, homeAddress, 
                                             officeTel, homeTel, mobile1, mobile2, Common.DictToJSON(extras));
                 //sql = sql.Replace("\"\"", "NULL");
@@ -657,7 +657,7 @@ namespace eattendance_desktop
                         (String)r["gender"],
                         (String)r["address"],
                         Common.UnixTimeStampToDateTime(Convert.ToInt32(r["dateOfBirth"])),
-                        Common.ByteToImage((Byte[])r["image"]),
+                        (String)r["image"],
                         (String)r["title"],
                         (String)r["post"],
                         Common.UnixTimeStampToDateTime(Convert.ToInt32(r["dateOfEmployment"])),
@@ -757,8 +757,17 @@ namespace eattendance_desktop
         {
             try
             {
+                // Delete the staff image
+                Staff staff = getStaff(accountNumber);
+                if (staff.image != null)
+                    File.Delete(staff.image);
+            }
+            catch { }
+            try
+            {
                 DBCONN.Open();
 
+                // Now remove the record
                 String sql = String.Format("DELETE FROM staffs WHERE accountNumber=\"{0}\";", accountNumber);
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
@@ -782,6 +791,10 @@ namespace eattendance_desktop
         {
             try
             {
+                // delete all images
+                Directory.Delete(APPDIR + "\\data\\images", true);
+
+                // now delete all records
                 DBCONN.Open();
 
                 String sql = "DELETE FROM staffs;";
@@ -850,7 +863,7 @@ namespace eattendance_desktop
                                             accountNumber, staff.name, staff.password, staff.privilege, staff.cardNumber,
                                             Common.DictToJSON(staff.fingerprints), staff.email, staff.pk, staff.department_id, 
                                             staff.contact, staff.gender, staff.address, 
-                                            Common.DateTimeToUnixTimeStamp(staff.dateOfBirth), Common.ImageToByte(staff.image), 
+                                            Common.DateTimeToUnixTimeStamp(staff.dateOfBirth), staff.image, 
                                             staff.title, staff.post, Common.DateTimeToUnixTimeStamp(staff.dateOfEmployment), 
                                             staff.nationality, staff.homeAddress, 
                                             staff.officeTel, staff.homeTel, staff.mobile1, staff.mobile2, Common.DictToJSON(staff.extras));

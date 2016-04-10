@@ -85,6 +85,20 @@ namespace eattendance_desktop
             return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
         }
 
+        public static Image NameToImage(String filename)
+        {
+            try
+            {
+                return Image.FromFile(Path.Combine("data//images", filename));
+            }
+            catch
+            {
+                // File not found or not readable
+                return null;
+            }
+        }
+
+        #region archaic
         public static Byte[] Serialize(Dictionary<String, String> dict)
         {
             if (dict == null) return null;
@@ -137,6 +151,7 @@ namespace eattendance_desktop
             Image image = new Bitmap(ms);
             return image;
         }
+        #endregion
         #endregion
     }
 
