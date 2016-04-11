@@ -147,8 +147,11 @@
     <Compile Include="Forms\StaffsWindow.Designer.cs">
       <DependentUpon>StaffsWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Shift.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\TimeTable.cs" />
+    <Compile Include="Models\TimeTableList.cs" />
     <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\DatabaseHandler.cs" />
     <Compile Include="Forms\AttendancesWindow.cs">
