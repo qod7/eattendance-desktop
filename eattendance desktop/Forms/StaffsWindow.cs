@@ -148,7 +148,7 @@ namespace eattendance_desktop.Forms
                 dataGridStaffs.Rows.Add(row.ToArray());
             }
             // now restore the selected index
-            if (oldSelectionIndex >= 0)
+            if (dataGridStaffs.RowCount > 0 && oldSelectionIndex >= 0)
             {
                 if (oldSelectionIndex >= dataGridStaffs.RowCount)
                     oldSelectionIndex = dataGridStaffs.RowCount - 1;
