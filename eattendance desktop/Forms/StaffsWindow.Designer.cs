@@ -1158,6 +1158,7 @@
             this.btnBatch.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolTip.SetToolTip(this.btnBatch, "Add Staff in Batch");
             this.btnBatch.UseVisualStyleBackColor = true;
+            this.btnBatch.Click += new System.EventHandler(this.btnBatch_Click);
             // 
             // btnSave
             // 

@@ -14,6 +14,8 @@ namespace eattendance_desktop.Forms
         bool panelDirty = false;
         bool newEntryInPanel = false;
         bool onRowValidatingActive = false;
+        EventHandler staffSelectionChangedEvent;
+
         public StaffsWindow()
         {
             InitializeComponent();
@@ -22,28 +24,24 @@ namespace eattendance_desktop.Forms
         private void StaffsWindow_Load(object sender, EventArgs e)
         {
             initElementData();
-            this.dataGridStaffs.SelectionChanged += new System.
-                EventHandler(this.dataGridStaffs_SelectionChanged);
-            this.dataGridStaffs.RowValidating += new System.Windows.Forms.
-                DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
+            this.staffSelectionChangedEvent = new EventHandler(this.dataGridStaffs_SelectionChanged);
+            this.dataGridStaffs.RowValidating += new DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
             this.dataGridStaffs.Leave += new EventHandler(this.dataGridStaffs_OnLeave);
             this.dataGridStaffs.Enter += new EventHandler(this.dataGridStaffs_OnEnter);
-            // invoke SelectionChanged for first time
-            this.dataGridStaffs_SelectionChanged(null, null);
             // all elements initialized now
             this.uiInitialized = true;
         }
 
         private void initElementData()
         {
-            // populate staff-table
-            fillTable();
             // populate departments and comboDeparment
             fillDepartment();
             // populate comboPrivilege
             this.comboPrivilege.DataSource = Common.UserPrivilege;
             // populate comboGender
             this.comboGender.DataSource = Common.Gender;
+            // finally populate staff-table
+            fillTable();
         }
 
         private void dataGridStaffs_OnEnter(object sender, EventArgs e)
@@ -125,6 +123,15 @@ namespace eattendance_desktop.Forms
 
         private void fillTable()
         {
+            // to preserve row selection - important after staff-save
+            int oldSelectionIndex = -1;
+            if (dataGridStaffs.SelectedRows.Count > 0)
+                oldSelectionIndex = dataGridStaffs.SelectedRows[0].Index;
+            // Start by clearing the table
+            // SelectionChanged event needs to be removed to avoid being called on emptied table
+            this.dataGridStaffs.SelectionChanged -= staffSelectionChangedEvent;
+            dataGridStaffs.Rows.Clear();
+            this.dataGridStaffs.SelectionChanged += staffSelectionChangedEvent;
             // get selected department from treeView
             int? dept_id = null;
             TreeNode node = treeViewDepartments.SelectedNode;
@@ -135,21 +142,10 @@ namespace eattendance_desktop.Forms
             }
             // now get the staffs for the selected department
             List<List<string>> rows = DB.getStaffData(dept_id);
-            int oldRowCount = dataGridStaffs.RowCount;
-            int oldSelectionIndex = -1;
-            if (dataGridStaffs.SelectedRows.Count > 0)
-                oldSelectionIndex = dataGridStaffs.SelectedRows[0].Index;
-            int rowCount = 0;
             // add new rows
             foreach (var row in rows)
             {
                 dataGridStaffs.Rows.Add(row.ToArray());
-                rowCount++;
-            }
-            // remove old rows
-            for (int i = 0; i < oldRowCount; i++)
-            {
-                dataGridStaffs.Rows.RemoveAt(0);
             }
             // now restore the selected index
             if (oldSelectionIndex >= 0)
@@ -158,9 +154,6 @@ namespace eattendance_desktop.Forms
                     oldSelectionIndex = dataGridStaffs.RowCount - 1;
                 dataGridStaffs.Rows[oldSelectionIndex].Selected = true;
             }
-            // Why this shitty workaround? 
-            // For some reason Rows.Clear() throws an ArgumentOutOfRangeException.
-            // So does Rows.RemoveAt(0) when there's only one row. Strange!
         }
 
         private void fillPanel(Staff staff, bool isNewStaff)
@@ -299,6 +292,11 @@ namespace eattendance_desktop.Forms
                     // nothing to do then
                     break;
             }
+        }
+
+        private void btnBatch_Click(object sender, EventArgs e)
+        {
+            // start window to take in batch data
         }
 
         private void btnSave_Click(object sender, EventArgs e)
