@@ -249,12 +249,12 @@ namespace eattendance_desktop.Forms
             {
                 if (photoOptions[0].Equals("new"))
                 {
-                    if (!Directory.Exists("data//images"))
-                        Directory.CreateDirectory("data//images");
+                    if (!Directory.Exists("data\\images"))
+                        Directory.CreateDirectory("data\\images");
                     string sourceFile = photoOptions[1];
 
                     staff.image = String.Format("{0}{1}", staff.accountNumber, Path.GetExtension(sourceFile));
-                    string destFile = Path.Combine("data//images", staff.image);
+                    string destFile = Path.Combine("data\\images", staff.image);
                     File.Copy(sourceFile, destFile, true);
                 }
                 else

@@ -89,7 +89,12 @@ namespace eattendance_desktop
         {
             try
             {
-                return Image.FromFile(Path.Combine("data//images", filename));
+                Image image;
+                using (var bmpTemp = new Bitmap(Path.Combine("data//images", filename)))
+                {
+                    image = new Bitmap(bmpTemp);
+                }
+                return image;
             }
             catch
             {
