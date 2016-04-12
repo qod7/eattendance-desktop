@@ -187,6 +187,7 @@
             this.treeViewDepartments.Size = new System.Drawing.Size(145, 167);
             this.treeViewDepartments.TabIndex = 5;
             this.treeViewDepartments.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeViewDepartments_AfterLabelEdit);
+            this.treeViewDepartments.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewDepartments_AfterSelect);
             // 
             // panelDepartmentControls
             // 

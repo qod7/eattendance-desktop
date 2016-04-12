@@ -685,16 +685,24 @@ namespace eattendance_desktop
             return staff;
         }
 
-        public List<List<string>> getStaffData()
+        public List<List<string>> getStaffData(int? dept_id = null)
         {
             List<List<string>> rows = new List<List<string>>();
             try
             {
                 DBCONN.Open();
-                String sql = @"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
+                String sql;
+                if (dept_id == null)
+                    sql = @"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
                     email as Email, department_id as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
                     post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
                     homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs;";
+                else
+                    sql = String.Format(@"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
+                    email as Email, department_id as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
+                    post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
+                    homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs where department_id={0};", dept_id);
+
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 SQLiteDataReader r = cmd.ExecuteReader();
                 var columnNames = new List<string>();
@@ -703,7 +711,7 @@ namespace eattendance_desktop
                     columnNames.Add(r.GetName(i));
                 }
                 List<string> row;
-                while (r.Read())
+                while (r.HasRows && r.Read())
                 {
                     row = new List<string>();
                     for (int i = 0; i < r.FieldCount; i++)

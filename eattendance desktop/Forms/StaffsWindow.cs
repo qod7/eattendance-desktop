@@ -29,7 +29,7 @@ namespace eattendance_desktop.Forms
             this.dataGridStaffs.Leave += new EventHandler(this.dataGridStaffs_OnLeave);
             this.dataGridStaffs.Enter += new EventHandler(this.dataGridStaffs_OnEnter);
             // invoke SelectionChanged for first time
-            this.dataGridStaffs_SelectionChanged(sender, null);
+            this.dataGridStaffs_SelectionChanged(null, null);
             // all elements initialized now
             this.uiInitialized = true;
         }
@@ -125,7 +125,16 @@ namespace eattendance_desktop.Forms
 
         private void fillTable()
         {
-            List<List<string>> rows = DB.getStaffData();
+            // get selected department from treeView
+            int? dept_id = null;
+            TreeNode node = treeViewDepartments.SelectedNode;
+            if (node != null)
+            {
+                if (!node.Equals(treeViewDepartments.Nodes[0]))
+                    dept_id = ((Department)node.Tag).id;
+            }
+            // now get the staffs for the selected department
+            List<List<string>> rows = DB.getStaffData(dept_id);
             int oldRowCount = dataGridStaffs.RowCount;
             int oldSelectionIndex = -1;
             if (dataGridStaffs.SelectedRows.Count > 0)
@@ -470,6 +479,12 @@ namespace eattendance_desktop.Forms
                     // nothing to do then
                     break;
             }
+        }
+
+        private void treeViewDepartments_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // reload the table - will accomodate for the selected dept change
+            fillTable();
         }
     }
 }
