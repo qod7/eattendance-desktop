@@ -693,15 +693,17 @@ namespace eattendance_desktop
                 DBCONN.Open();
                 String sql;
                 if (dept_id == null)
-                    sql = @"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
-                    email as Email, department_id as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
-                    post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
-                    homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs;";
+                    sql = @"select accountNumber as 'Account No', staffs.name as Name, privilege as Privilege, cardNumber as 'Card Number', 
+                    email as Email, departments.name as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
+                    post as Post, nationality as Nationality, homeAddress as 'Home Address', officeTel as 'Office Tel.', 
+                    homeTel as 'Home Tel.', mobile1 as Mobile1, mobile2 as Mobile2 
+                    from staffs left join departments on (staffs.department_id = departments.id)";
                 else
-                    sql = String.Format(@"select accountNumber as ""Account No"", name as Name, privilege as Privilege, cardNumber as ""Card Number"", 
-                    email as Email, department_id as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
-                    post as Post, nationality as Nationality, homeAddress as ""Home Address"", officeTel as ""Office Tel."", 
-                    homeTel as ""Home Tel."", mobile1 as Mobile1, mobile2 as Mobile2 from staffs where department_id={0};", dept_id);
+                    sql = String.Format(@"select accountNumber as 'Account No', staffs.name as Name, privilege as Privilege, cardNumber as 'Card Number', 
+                    email as Email, departments.name as Department, contact as Contact, gender as Gender, address as Address, title as Title, 
+                    post as Post, nationality as Nationality, homeAddress as 'Home Address', officeTel as 'Office Tel.', 
+                    homeTel as 'Home Tel.', mobile1 as Mobile1, mobile2 as Mobile2 from staffs left join departments 
+                    on (staffs.department_id = departments.id) where departments.id={0};", dept_id);
 
                 SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
                 SQLiteDataReader r = cmd.ExecuteReader();

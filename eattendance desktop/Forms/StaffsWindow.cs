@@ -15,6 +15,7 @@ namespace eattendance_desktop.Forms
         bool newEntryInPanel = false;
         bool onRowValidatingActive = false;
         EventHandler staffSelectionChangedEvent;
+        List<Department> departments;
 
         public StaffsWindow()
         {
@@ -25,11 +26,14 @@ namespace eattendance_desktop.Forms
         {
             initElementData();
             this.staffSelectionChangedEvent = new EventHandler(this.dataGridStaffs_SelectionChanged);
+            this.dataGridStaffs.SelectionChanged += staffSelectionChangedEvent;
             this.dataGridStaffs.RowValidating += new DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
             this.dataGridStaffs.Leave += new EventHandler(this.dataGridStaffs_OnLeave);
             this.dataGridStaffs.Enter += new EventHandler(this.dataGridStaffs_OnEnter);
             // all elements initialized now
             this.uiInitialized = true;
+            // invoke selectionchanged for the first time
+            this.dataGridStaffs_SelectionChanged(null, null);
         }
 
         private void initElementData()
@@ -107,7 +111,7 @@ namespace eattendance_desktop.Forms
             treeViewDepartments.Nodes.Clear();
             comboDepartment.Items.Clear();
 
-            List<Department> departments = DB.getDepartments();
+            this.departments = DB.getDepartments();
             List<TreeNode> departmentsNode = new List<TreeNode>();
             foreach (var dept in departments)
             {
@@ -165,7 +169,10 @@ namespace eattendance_desktop.Forms
             this.textPassword.Text = staff.password.ToString();
             this.comboPrivilege.SelectedIndex = staff.privilege;
             this.textCardNo.Text = staff.cardNumber.ToString();
-            this.comboDepartment.SelectedValue = staff.department_id;
+            if (staff.department_id != null)
+                this.comboDepartment.SelectedItem = departments.Find(d => d.id == staff.department_id);
+            else
+                this.comboDepartment.SelectedIndex = -1;
             this.textContact.Text = staff.contact;
             this.comboGender.Text = staff.gender;
             this.textAddress.Text = staff.address;
@@ -192,6 +199,7 @@ namespace eattendance_desktop.Forms
 
             // PHOTO
             this.staffImage.Image = Common.NameToImage(staff.image);
+            this.staffImage.Tag = new List<string> { "old", staff.image };
 
             // FINGERPRINTS
         }
@@ -207,7 +215,9 @@ namespace eattendance_desktop.Forms
             if (textCardNo.Text.Equals("")) staff.cardNumber = null;
             else staff.cardNumber = Convert.ToInt32(this.textCardNo.Text);
 
-            //staff.department_id = (int)this.comboDepartment.SelectedValue;
+            Department dept = (Department)this.comboDepartment.SelectedItem;
+            if (dept != null)
+                staff.department_id = dept.id;
             staff.contact = this.textContact.Text.Replace("'", "");
             staff.gender = this.comboGender.Text;
             staff.address = this.textAddress.Text.Replace("'", "");
@@ -234,15 +244,23 @@ namespace eattendance_desktop.Forms
             }
 
             // PHOTO
-            if (this.staffImage.Tag != null)
+            List<string> photoOptions = (List<string>)this.staffImage.Tag;
+            if (photoOptions != null)
             {
-                if (!Directory.Exists("data//images"))
-                    Directory.CreateDirectory("data//images");
-                string sourceFile = (string)this.staffImage.Tag;
+                if (photoOptions[0].Equals("new"))
+                {
+                    if (!Directory.Exists("data//images"))
+                        Directory.CreateDirectory("data//images");
+                    string sourceFile = photoOptions[1];
 
-                staff.image = String.Format("{0}{1}", staff.accountNumber, Path.GetExtension(sourceFile));
-                string destFile = Path.Combine("data//images", staff.image);
-                File.Copy(sourceFile, destFile, true);
+                    staff.image = String.Format("{0}{1}", staff.accountNumber, Path.GetExtension(sourceFile));
+                    string destFile = Path.Combine("data//images", staff.image);
+                    File.Copy(sourceFile, destFile, true);
+                }
+                else
+                {
+                    staff.image = photoOptions[1];
+                }
             }
 
             // FINGERPRINTS
@@ -457,7 +475,7 @@ namespace eattendance_desktop.Forms
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 this.staffImage.Image = Image.FromFile(dialog.FileName);
-                this.staffImage.Tag = dialog.FileName;
+                this.staffImage.Tag = new List<string> { "new", dialog.FileName };
                 this.panelDirty = true;
             }
         }
