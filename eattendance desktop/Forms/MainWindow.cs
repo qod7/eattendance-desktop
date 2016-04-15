@@ -136,7 +136,9 @@ namespace eattendance_desktop
                 nRow = dataGridAttendances.RowCount;
             dataGridAttendances.Rows.Add();
             dataGridAttendances.Rows[nRow].Cells[0].Value = attendance.userid;
-            // TODO: DB.getUser(attendance.userid) and fill columns 1, 2 and 3
+            Staff staff = DB.getStaff(Convert.ToInt32(attendance.userid));
+            dataGridAttendances.Rows[nRow].Cells[2].Value = Common.UserPrivilege[staff.privilege];
+            dataGridAttendances.Rows[nRow].Cells[3].Value = staff.name;
             dataGridAttendances.Rows[nRow].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
             dataGridAttendances.Rows[nRow].Cells[5].Value = attendance.device;
             dataGridAttendances.Rows[nRow].Cells[6].Value = attendance.entryMethod;
@@ -246,43 +248,24 @@ namespace eattendance_desktop
         private void OnAttTransactionEx(Device device, string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod,
             int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
         {
-            // TODO get userinfo from sEnrollNumber; from database
-            // create new attendance object
-            
-            //try
-            //{
-            //    Attendance attendance = new Attendance(sEnrollNumber, new DateTime(iYear, iMonth, iDay, iHour, iMonth, iSecond, DateTimeKind.Local),
-            //        device.name, Common.VerifyMethods[iVerifyMethod]);
-            //}
-            //catch 
-            //{ 
-            //    // the date-time received from the device is inaccurate
-            //}
-            
-            // But since this is a Real-Time handler, we can just use the current system datetime
-            Attendance attendance = new Attendance(sEnrollNumber, DateTime.Now, device.name, Common.VerifyMethods[iVerifyMethod]);
-            // add attendance to database
-            DB.insertAttendance(attendance);
-
-            // now add to attendances table
-            dataGridAttendances.Rows.Add();
-            int rowIndex = dataGridAttendances.Rows.Count - 1;
-            dataGridAttendances.Rows[rowIndex].Cells[0].Value = attendance.userid;
-            dataGridAttendances.Rows[rowIndex].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
-            dataGridAttendances.Rows[rowIndex].Cells[5].Value = attendance.device;
-            dataGridAttendances.Rows[rowIndex].Cells[6].Value = attendance.entryMethod;
-
-            // TODO replace the lazy way below
-            string sName = "", sPassword = "";
-            int iPrivilege = 0;
-            bool bEnabled = false;
-
-            device.device.EnableDevice(1, false);
-            device.device.ReadAllUserID(1);
-            device.device.SSR_GetUserInfo(1, sEnrollNumber, out sName, out sPassword, out iPrivilege, out bEnabled);
-            dataGridAttendances.Rows[rowIndex].Cells[2].Value = Common.UserPrivilege[iPrivilege];
-            dataGridAttendances.Rows[rowIndex].Cells[3].Value = sName;
-            device.device.EnableDevice(1, true);
+            // try to get staff from database for said enrollNumber
+            Staff staff = DB.getStaff(Convert.ToInt32(sEnrollNumber));
+            if (staff != null)
+            {
+                // create the attendance object
+                Attendance attendance = new Attendance(sEnrollNumber, DateTime.Now, device.name, Common.VerifyMethods[iVerifyMethod]);
+                // add attendance to database
+                DB.insertAttendance(attendance);
+                // now fill the attendancs table
+                dataGridAttendances.Rows.Add();
+                int rowIndex = dataGridAttendances.Rows.Count - 1;
+                dataGridAttendances.Rows[rowIndex].Cells[0].Value = attendance.userid;
+                dataGridAttendances.Rows[rowIndex].Cells[2].Value = Common.UserPrivilege[staff.privilege];
+                dataGridAttendances.Rows[rowIndex].Cells[3].Value = staff.name;
+                dataGridAttendances.Rows[rowIndex].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
+                dataGridAttendances.Rows[rowIndex].Cells[5].Value = attendance.device;
+                dataGridAttendances.Rows[rowIndex].Cells[6].Value = attendance.entryMethod;
+            }
         }
         #endregion
 

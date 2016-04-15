@@ -34,9 +34,8 @@
             this.attendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAttendancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualAttendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userGroupsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.staffsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageStaffsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timetableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,6 +81,7 @@
             this.AttendanceTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceDevice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceEntryMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -102,7 +102,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.attendanceToolStripMenuItem,
-            this.usersToolStripMenuItem,
+            this.staffsToolStripMenuItem,
             this.deviceToolStripMenuItem,
             this.accountToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -135,32 +135,27 @@
             this.manualAttendanceToolStripMenuItem.Text = "Manual Attendance";
             this.manualAttendanceToolStripMenuItem.Click += new System.EventHandler(this.btnManual_Click);
             // 
-            // usersToolStripMenuItem
+            // staffsToolStripMenuItem
             // 
-            this.usersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.userGroupsToolStripMenuItem,
-            this.manageUsersToolStripMenuItem,
-            this.timetableToolStripMenuItem});
-            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            this.usersToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.usersToolStripMenuItem.Text = "Users";
+            this.staffsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manageStaffsToolStripMenuItem,
+            this.timetableToolStripMenuItem,
+            this.iDGeneratorToolStripMenuItem});
+            this.staffsToolStripMenuItem.Name = "staffsToolStripMenuItem";
+            this.staffsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.staffsToolStripMenuItem.Text = "Staffs";
             // 
-            // userGroupsToolStripMenuItem
+            // manageStaffsToolStripMenuItem
             // 
-            this.userGroupsToolStripMenuItem.Name = "userGroupsToolStripMenuItem";
-            this.userGroupsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.userGroupsToolStripMenuItem.Text = "User Groups";
-            // 
-            // manageUsersToolStripMenuItem
-            // 
-            this.manageUsersToolStripMenuItem.Name = "manageUsersToolStripMenuItem";
-            this.manageUsersToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.manageUsersToolStripMenuItem.Text = "Manage Users";
+            this.manageStaffsToolStripMenuItem.Name = "manageStaffsToolStripMenuItem";
+            this.manageStaffsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manageStaffsToolStripMenuItem.Text = "Manage Staffs";
+            this.manageStaffsToolStripMenuItem.Click += new System.EventHandler(this.btnStaffs_Click);
             // 
             // timetableToolStripMenuItem
             // 
             this.timetableToolStripMenuItem.Name = "timetableToolStripMenuItem";
-            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.timetableToolStripMenuItem.Text = "Timetable";
             // 
             // deviceToolStripMenuItem
@@ -676,6 +671,12 @@
             this.AttendanceEntryMethod.Name = "AttendanceEntryMethod";
             this.AttendanceEntryMethod.ReadOnly = true;
             // 
+            // iDGeneratorToolStripMenuItem
+            // 
+            this.iDGeneratorToolStripMenuItem.Name = "iDGeneratorToolStripMenuItem";
+            this.iDGeneratorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iDGeneratorToolStripMenuItem.Text = "ID Generator";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -716,11 +717,10 @@
 
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem attendanceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem staffsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewAttendancesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualAttendanceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem userGroupsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem manageUsersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageStaffsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem timetableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
@@ -766,6 +766,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceIPAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
+        private System.Windows.Forms.ToolStripMenuItem iDGeneratorToolStripMenuItem;
     }
 }
 
