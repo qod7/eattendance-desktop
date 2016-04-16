@@ -134,14 +134,17 @@ namespace eattendance_desktop
         {
             if (nRow == -1)
                 nRow = dataGridAttendances.RowCount;
-            dataGridAttendances.Rows.Add();
-            dataGridAttendances.Rows[nRow].Cells[0].Value = attendance.userid;
             Staff staff = DB.getStaff(Convert.ToInt32(attendance.userid));
-            dataGridAttendances.Rows[nRow].Cells[2].Value = Common.UserPrivilege[staff.privilege];
-            dataGridAttendances.Rows[nRow].Cells[3].Value = staff.name;
-            dataGridAttendances.Rows[nRow].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
-            dataGridAttendances.Rows[nRow].Cells[5].Value = attendance.device;
-            dataGridAttendances.Rows[nRow].Cells[6].Value = attendance.entryMethod;
+            if (staff != null)
+            {
+                dataGridAttendances.Rows.Add();
+                dataGridAttendances.Rows[nRow].Cells[0].Value = attendance.userid;
+                dataGridAttendances.Rows[nRow].Cells[2].Value = Common.UserPrivilege[staff.privilege];
+                dataGridAttendances.Rows[nRow].Cells[3].Value = staff.name;
+                dataGridAttendances.Rows[nRow].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");
+                dataGridAttendances.Rows[nRow].Cells[5].Value = attendance.device;
+                dataGridAttendances.Rows[nRow].Cells[6].Value = attendance.entryMethod;
+            }
         }
 
         #endregion

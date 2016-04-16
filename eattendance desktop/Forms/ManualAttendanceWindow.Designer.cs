@@ -165,8 +165,8 @@
             // pictureBoxUserImage
             // 
             this.pictureBoxUserImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxUserImage.ErrorImage = global::eattendance_desktop.Properties.Resources.profile_user_outline;
-            this.pictureBoxUserImage.Image = global::eattendance_desktop.Properties.Resources.profile_user_outline;
+            this.pictureBoxUserImage.ErrorImage = null;
+            this.pictureBoxUserImage.InitialImage = global::eattendance_desktop.Properties.Resources.profile_user_outline;
             this.pictureBoxUserImage.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxUserImage.Name = "pictureBoxUserImage";
             this.pictureBoxUserImage.Padding = new System.Windows.Forms.Padding(10);

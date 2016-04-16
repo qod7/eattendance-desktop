@@ -15,6 +15,8 @@ namespace eattendance_desktop
     {
         public Attendance newAttendance = null;
         DatabaseHandler DB = new DatabaseHandler();
+        List<List<string>> staffData;
+
         public ManualAttendanceWindow()
         {
             InitializeComponent();
@@ -23,30 +25,23 @@ namespace eattendance_desktop
 
         private void initDataSources()
         {
-            // TODO Grab Usernames and ID from databases
-            SortedDictionary<string, string> users = new SortedDictionary<string, string> {
-                {"200", "Ram Sharma"},
-                {"201", "Hari Man"},
-                {"202", "Gopal Basnet"},
-                {"203", "Govinda Sah"}
-            };
-
-            // populate usernames
-            comboBoxUserName.DataSource = new BindingSource(users, null);
-            comboBoxUserName.DisplayMember = "Value";
-            comboBoxUserName.ValueMember = "Key";
-
-            // populate userid
-            comboBoxUserID.DataSource = new BindingSource(users, null);
-            comboBoxUserID.DisplayMember = "Key";
-            comboBoxUserID.ValueMember = "Key";
-
-            // show userimage
-            // TODO:: pictureBoxUserImage.Image = get image from db;
+            // Grab Usernames and ID from database and populate staff names and id
+            staffData = DB.getStaffDataBasic();
+            foreach (List<string> staff in staffData)
+            {
+                comboBoxUserID.Items.Add(staff[0]);
+                comboBoxUserName.Items.Add(staff[1]);
+            }
 
             // Register events for syncing UserName and UserID
             this.comboBoxUserName.SelectedIndexChanged += new System.EventHandler(this.comboBoxUserName_SelectedIndexChanged);
             this.comboBoxUserID.SelectedIndexChanged += new System.EventHandler(this.comboBoxUserID_SelectedIndexChanged);
+
+            if (staffData.Count > 0)
+            {
+                // invoke select for first time
+                this.comboBoxUserID.SelectedIndex = 0;
+            }
         }
 
         private void buttonConfirm_Click(object sender, EventArgs e)
@@ -61,7 +56,6 @@ namespace eattendance_desktop
             }
             else
             {
-
                 this.newAttendance = new Attendance(comboBoxUserID.Text, dateTime, "Admin's Terminal", "Manual");
                 DB.insertAttendance(this.newAttendance);
                 MessageBox.Show("Attendance successfully saved.", "Success");
@@ -72,13 +66,16 @@ namespace eattendance_desktop
         private void comboBoxUserName_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxUserID.SelectedIndex = comboBoxUserName.SelectedIndex;
-            // TODO Update userimage here
         }
 
         private void comboBoxUserID_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxUserName.SelectedIndex = comboBoxUserID.SelectedIndex;
-            // TODO Update userimage here
+            string imageName = staffData[comboBoxUserID.SelectedIndex][2];
+            if (imageName.Equals(""))
+                pictureBoxUserImage.Image = Properties.Resources.profile_user_outline;
+            else
+                pictureBoxUserImage.Image = Common.NameToImage(imageName);
         }
     }
 }

@@ -685,6 +685,45 @@ namespace eattendance_desktop
             return staff;
         }
 
+        public List<List<string>> getStaffDataBasic()
+        {
+            List<List<string>> rows = new List<List<string>>();
+            try
+            {
+                DBCONN.Open();
+                String sql = "select accountNumber, name, image from staffs";
+                SQLiteCommand cmd = new SQLiteCommand(sql, DBCONN);
+                SQLiteDataReader r = cmd.ExecuteReader();
+                var columnNames = new List<string>();
+                for (int i = 0; i < r.FieldCount; i++)
+                {
+                    columnNames.Add(r.GetName(i));
+                }
+                List<string> row;
+                while (r.HasRows && r.Read())
+                {
+                    row = new List<string>();
+                    for (int i = 0; i < r.FieldCount; i++)
+                    {
+                        row.Add(r[columnNames[i]].ToString());
+                    }
+                    rows.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                // SQL exception of something. todo: print exception to log
+                System.Diagnostics.Debug.Write(ex.Message);
+                throw;
+            }
+            finally
+            {
+                if (DBCONN != null && DBCONN.State != ConnectionState.Closed)
+                    DBCONN.Close();
+            }
+            return rows;
+        }
+
         public List<List<string>> getStaffData(int? dept_id = null)
         {
             List<List<string>> rows = new List<List<string>>();
