@@ -269,6 +269,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\fingerprint-inactive.png" />
+    <None Include="Resources\fingerprint-active.png" />
     <None Include="Resources\info.png" />
     <None Include="Resources\trashcan.png" />
     <None Include="Resources\browse.png" />
