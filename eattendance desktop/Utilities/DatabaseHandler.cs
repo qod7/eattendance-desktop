@@ -103,7 +103,7 @@ namespace eattendance_desktop
                         accountNumber    INTEGER  NOT NULL UNIQUE,
                         password         INTEGER  NOT NULL,
                         privilege        INTEGER  DEFAULT 0,
-                        cardNumber       INTEGER,
+                        cardNumber       TEXT,
                         fingerprints     TEXT,
                         email            TEXT,
                         pk               INTEGER,
@@ -582,7 +582,7 @@ namespace eattendance_desktop
             }
         }
 
-        public void insertStaff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
+        public void insertStaff(String name, int accountNumber, int password, int privilege = 0, string cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
                                 int? department_id = null, String contact = null, String gender = null,
                                 String address = null, DateTime? dateOfBirth = null, String image = null,
@@ -648,7 +648,7 @@ namespace eattendance_desktop
                         Convert.ToInt32(r["accountNumber"]),
                         Convert.ToInt32(r["password"]),
                         Convert.ToInt32(r["privilege"]),
-                        Convert.ToInt32(r["cardNumber"]),
+                        (String)r["cardNumber"],
                         Common.JSONToDict((String)r["fingerprints"]),
                         (String)r["email"],
                         Convert.ToInt32(r["pk"]),

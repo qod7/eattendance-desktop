@@ -16,10 +16,10 @@ namespace eattendance_desktop.Models
         public int accountNumber;  // also identifies the staff on the device
         public int password;       // only numbers allowed; max length: 8
         public int privilege;      // check Common.UserPrivilege
-        public int? cardNumber;     // the rfid card number
         public Dictionary<string, string> fingerprints = new Dictionary<string, string>();   // key => fingerindex from '0' to '9'
 
         // Passion specific parameters; stored individually in server
+        public string cardNumber;     // office specific identification number
         public String email;
         public int? pk;             // primary key, unique for any staff in any organization
         public int? department_id;  // primary key of the dept of the staff
@@ -45,7 +45,7 @@ namespace eattendance_desktop.Models
         // TODO ENCAPSULTE THE FIELDS ABOVE
 
         // CONSTRUCTORS
-        public Staff(String name, int accountNumber, int password, int privilege = 0, int? cardNumber = null,
+        public Staff(String name, int accountNumber, int password, int privilege = 0, string cardNumber = null,
                                 Dictionary<String, String> fingerprints = null, String email = null, int? pk = null,
                                 int? department_id = null, String contact = null, String gender = null,
                                 String address = null, DateTime? dateOfBirth = null, String image = null,

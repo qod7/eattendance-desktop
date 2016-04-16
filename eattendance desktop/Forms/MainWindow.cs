@@ -139,6 +139,7 @@ namespace eattendance_desktop
             {
                 dataGridAttendances.Rows.Add();
                 dataGridAttendances.Rows[nRow].Cells[0].Value = attendance.userid;
+                dataGridAttendances.Rows[nRow].Cells[1].Value = staff.cardNumber;
                 dataGridAttendances.Rows[nRow].Cells[2].Value = Common.UserPrivilege[staff.privilege];
                 dataGridAttendances.Rows[nRow].Cells[3].Value = staff.name;
                 dataGridAttendances.Rows[nRow].Cells[4].Value = attendance.datetime.ToString("hh:mm tt, MMM d");

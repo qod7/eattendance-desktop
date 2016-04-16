@@ -37,6 +37,7 @@
             this.staffsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageStaffsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timetableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iDGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,14 +75,13 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblInfoStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridAttendances = new System.Windows.Forms.DataGridView();
-            this.AttendanceUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttendanceAccountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendanceAccountNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendanceCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceAccountType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttendanceUserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendanceStaffName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceDevice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceEntryMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -148,15 +148,21 @@
             // manageStaffsToolStripMenuItem
             // 
             this.manageStaffsToolStripMenuItem.Name = "manageStaffsToolStripMenuItem";
-            this.manageStaffsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.manageStaffsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.manageStaffsToolStripMenuItem.Text = "Manage Staffs";
             this.manageStaffsToolStripMenuItem.Click += new System.EventHandler(this.btnStaffs_Click);
             // 
             // timetableToolStripMenuItem
             // 
             this.timetableToolStripMenuItem.Name = "timetableToolStripMenuItem";
-            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.timetableToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.timetableToolStripMenuItem.Text = "Timetable";
+            // 
+            // iDGeneratorToolStripMenuItem
+            // 
+            this.iDGeneratorToolStripMenuItem.Name = "iDGeneratorToolStripMenuItem";
+            this.iDGeneratorToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.iDGeneratorToolStripMenuItem.Text = "ID Generator";
             // 
             // deviceToolStripMenuItem
             // 
@@ -611,10 +617,10 @@
             this.dataGridAttendances.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridAttendances.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAttendances.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AttendanceUserID,
-            this.AttendanceAccountNumber,
+            this.AttendanceAccountNo,
+            this.AttendanceCardNo,
             this.AttendanceAccountType,
-            this.AttendanceUserName,
+            this.AttendanceStaffName,
             this.AttendanceTime,
             this.AttendanceDevice,
             this.AttendanceEntryMethod});
@@ -626,19 +632,19 @@
             this.dataGridAttendances.Size = new System.Drawing.Size(778, 263);
             this.dataGridAttendances.TabIndex = 1;
             // 
-            // AttendanceUserID
+            // AttendanceAccountNo
             // 
-            this.AttendanceUserID.HeaderText = "User ID";
-            this.AttendanceUserID.Name = "AttendanceUserID";
-            this.AttendanceUserID.ReadOnly = true;
+            this.AttendanceAccountNo.HeaderText = "Account No.";
+            this.AttendanceAccountNo.Name = "AttendanceAccountNo";
+            this.AttendanceAccountNo.ReadOnly = true;
             // 
-            // AttendanceAccountNumber
+            // AttendanceCardNo
             // 
-            this.AttendanceAccountNumber.HeaderText = "Account Number";
-            this.AttendanceAccountNumber.Name = "AttendanceAccountNumber";
-            this.AttendanceAccountNumber.ReadOnly = true;
-            this.AttendanceAccountNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AttendanceAccountNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AttendanceCardNo.HeaderText = "Card No.";
+            this.AttendanceCardNo.Name = "AttendanceCardNo";
+            this.AttendanceCardNo.ReadOnly = true;
+            this.AttendanceCardNo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AttendanceCardNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // AttendanceAccountType
             // 
@@ -646,11 +652,11 @@
             this.AttendanceAccountType.Name = "AttendanceAccountType";
             this.AttendanceAccountType.ReadOnly = true;
             // 
-            // AttendanceUserName
+            // AttendanceStaffName
             // 
-            this.AttendanceUserName.HeaderText = "User Name";
-            this.AttendanceUserName.Name = "AttendanceUserName";
-            this.AttendanceUserName.ReadOnly = true;
+            this.AttendanceStaffName.HeaderText = "Staff Name";
+            this.AttendanceStaffName.Name = "AttendanceStaffName";
+            this.AttendanceStaffName.ReadOnly = true;
             // 
             // AttendanceTime
             // 
@@ -670,12 +676,6 @@
             this.AttendanceEntryMethod.HeaderText = "Entry Method";
             this.AttendanceEntryMethod.Name = "AttendanceEntryMethod";
             this.AttendanceEntryMethod.ReadOnly = true;
-            // 
-            // iDGeneratorToolStripMenuItem
-            // 
-            this.iDGeneratorToolStripMenuItem.Name = "iDGeneratorToolStripMenuItem";
-            this.iDGeneratorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iDGeneratorToolStripMenuItem.Text = "ID Generator";
             // 
             // MainWindow
             // 
@@ -735,13 +735,6 @@
         private System.Windows.Forms.DataGridView dataGridDevices;
         private System.Windows.Forms.GroupBox attendancesGroupBox;
         private System.Windows.Forms.DataGridView dataGridAttendances;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceUserID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceAccountNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceAccountType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceUserName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDevice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceEntryMethod;
         private System.Windows.Forms.Button btnDepartments;
         private System.Windows.Forms.Button btnTimetable;
         private System.Windows.Forms.Button btnStaffs;
@@ -767,6 +760,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DevicePort;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceRemark;
         private System.Windows.Forms.ToolStripMenuItem iDGeneratorToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceAccountNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceCardNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceAccountType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceStaffName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDevice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceEntryMethod;
     }
 }
 

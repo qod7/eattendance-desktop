@@ -211,9 +211,7 @@ namespace eattendance_desktop.Forms
                 Convert.ToInt32(this.textPassword.Text));
             // BASIC
             staff.privilege = this.comboPrivilege.SelectedIndex;
-
-            if (textCardNo.Text.Equals("")) staff.cardNumber = null;
-            else staff.cardNumber = Convert.ToInt32(this.textCardNo.Text);
+            staff.cardNumber = this.textCardNo.Text;
 
             Department dept = (Department)this.comboDepartment.SelectedItem;
             if (dept != null)
@@ -338,7 +336,6 @@ namespace eattendance_desktop.Forms
             // validate data first
             int panelAccountNumber;
             int panelPassword;
-            long panelCardNumber;
             if (!int.TryParse(textAccountNo.Text.ToString(), out panelAccountNumber))
             {
                 MessageBox.Show("Account number non-numeric or too long.");
@@ -347,12 +344,6 @@ namespace eattendance_desktop.Forms
             if (!int.TryParse(textPassword.Text.ToString(), out panelPassword) || textPassword.Text.Length > 8)
             {
                 MessageBox.Show("Password has to be numeric and 8 digits or less.");
-                return false;
-            }
-            string cardNo = textCardNo.Text.ToString();
-            if (!cardNo.Equals("") && !long.TryParse(cardNo, out panelCardNumber))
-            {
-                MessageBox.Show("Card number non-numeric or too long.");
                 return false;
             }
             if (textName.Text.ToString().Equals(""))
