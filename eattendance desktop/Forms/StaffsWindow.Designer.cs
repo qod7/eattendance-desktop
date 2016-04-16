@@ -62,11 +62,6 @@
             this.buttonBrowseImage = new System.Windows.Forms.Button();
             this.staffImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonFP1 = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.comboFPDevices = new System.Windows.Forms.ComboBox();
             this.buttonFPConnect = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -125,6 +120,15 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.label21 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.pictureBoxFP1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFP2 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFP3 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFP4 = new System.Windows.Forms.PictureBox();
+            this.buttonFP1 = new System.Windows.Forms.Button();
             this.buttonFP2 = new System.Windows.Forms.Button();
             this.buttonFP3 = new System.Windows.Forms.Button();
             this.buttonFP4 = new System.Windows.Forms.Button();
@@ -150,6 +154,10 @@
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP4)).BeginInit();
             this.SuspendLayout();
             // 
             // tablesSplitContainer
@@ -491,10 +499,14 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Controls.Add(this.buttonFP2);
             this.groupBox2.Controls.Add(this.buttonFP4);
             this.groupBox2.Controls.Add(this.buttonFP3);
-            this.groupBox2.Controls.Add(this.buttonFP2);
             this.groupBox2.Controls.Add(this.buttonFP1);
+            this.groupBox2.Controls.Add(this.pictureBoxFP4);
+            this.groupBox2.Controls.Add(this.pictureBoxFP3);
+            this.groupBox2.Controls.Add(this.pictureBoxFP2);
+            this.groupBox2.Controls.Add(this.pictureBoxFP1);
             this.groupBox2.Controls.Add(this.label24);
             this.groupBox2.Controls.Add(this.label22);
             this.groupBox2.Controls.Add(this.label23);
@@ -508,51 +520,6 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fingerprint";
-            // 
-            // buttonFP1
-            // 
-            this.buttonFP1.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
-            this.buttonFP1.Location = new System.Drawing.Point(61, 53);
-            this.buttonFP1.Name = "buttonFP1";
-            this.buttonFP1.Size = new System.Drawing.Size(60, 60);
-            this.buttonFP1.TabIndex = 3;
-            this.buttonFP1.UseVisualStyleBackColor = true;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(155, 151);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(45, 13);
-            this.label24.TabIndex = 2;
-            this.label24.Text = "Finger 4";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(155, 77);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(45, 13);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "Finger 2";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 151);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(45, 13);
-            this.label23.TabIndex = 2;
-            this.label23.Text = "Finger 3";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 77);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(45, 13);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "Finger 1";
             // 
             // comboFPDevices
             // 
@@ -1297,31 +1264,116 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 60);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(45, 13);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "Finger 1";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(150, 60);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(45, 13);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "Finger 3";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(82, 60);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(45, 13);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "Finger 2";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(218, 60);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(45, 13);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Finger 4";
+            // 
+            // pictureBoxFP1
+            // 
+            this.pictureBoxFP1.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
+            this.pictureBoxFP1.Location = new System.Drawing.Point(6, 87);
+            this.pictureBoxFP1.Name = "pictureBoxFP1";
+            this.pictureBoxFP1.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP1.TabIndex = 3;
+            this.pictureBoxFP1.TabStop = false;
+            // 
+            // pictureBoxFP2
+            // 
+            this.pictureBoxFP2.Image = global::eattendance_desktop.Properties.Resources.fingerprint_active;
+            this.pictureBoxFP2.Location = new System.Drawing.Point(74, 87);
+            this.pictureBoxFP2.Name = "pictureBoxFP2";
+            this.pictureBoxFP2.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP2.TabIndex = 3;
+            this.pictureBoxFP2.TabStop = false;
+            // 
+            // pictureBoxFP3
+            // 
+            this.pictureBoxFP3.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
+            this.pictureBoxFP3.Location = new System.Drawing.Point(142, 87);
+            this.pictureBoxFP3.Name = "pictureBoxFP3";
+            this.pictureBoxFP3.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP3.TabIndex = 3;
+            this.pictureBoxFP3.TabStop = false;
+            // 
+            // pictureBoxFP4
+            // 
+            this.pictureBoxFP4.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
+            this.pictureBoxFP4.Location = new System.Drawing.Point(210, 87);
+            this.pictureBoxFP4.Name = "pictureBoxFP4";
+            this.pictureBoxFP4.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP4.TabIndex = 3;
+            this.pictureBoxFP4.TabStop = false;
+            // 
+            // buttonFP1
+            // 
+            this.buttonFP1.Location = new System.Drawing.Point(6, 162);
+            this.buttonFP1.Name = "buttonFP1";
+            this.buttonFP1.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP1.TabIndex = 4;
+            this.buttonFP1.Text = "Enroll";
+            this.buttonFP1.UseVisualStyleBackColor = true;
+            // 
             // buttonFP2
             // 
-            this.buttonFP2.Image = global::eattendance_desktop.Properties.Resources.fingerprint_active;
-            this.buttonFP2.Location = new System.Drawing.Point(210, 53);
+            this.buttonFP2.Location = new System.Drawing.Point(74, 162);
             this.buttonFP2.Name = "buttonFP2";
-            this.buttonFP2.Size = new System.Drawing.Size(60, 60);
+            this.buttonFP2.Size = new System.Drawing.Size(60, 23);
             this.buttonFP2.TabIndex = 4;
+            this.buttonFP2.Text = "Clear";
             this.buttonFP2.UseVisualStyleBackColor = true;
             // 
             // buttonFP3
             // 
-            this.buttonFP3.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
-            this.buttonFP3.Location = new System.Drawing.Point(61, 127);
+            this.buttonFP3.Location = new System.Drawing.Point(142, 162);
             this.buttonFP3.Name = "buttonFP3";
-            this.buttonFP3.Size = new System.Drawing.Size(60, 60);
-            this.buttonFP3.TabIndex = 5;
+            this.buttonFP3.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP3.TabIndex = 4;
+            this.buttonFP3.Text = "Enroll";
             this.buttonFP3.UseVisualStyleBackColor = true;
             // 
             // buttonFP4
             // 
-            this.buttonFP4.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
-            this.buttonFP4.Location = new System.Drawing.Point(210, 127);
+            this.buttonFP4.Location = new System.Drawing.Point(210, 162);
             this.buttonFP4.Name = "buttonFP4";
-            this.buttonFP4.Size = new System.Drawing.Size(60, 60);
-            this.buttonFP4.TabIndex = 6;
+            this.buttonFP4.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP4.TabIndex = 4;
+            this.buttonFP4.Text = "Enroll";
             this.buttonFP4.UseVisualStyleBackColor = true;
             // 
             // StaffsWindow
@@ -1361,6 +1413,10 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1454,15 +1510,19 @@
         private System.Windows.Forms.Button buttonClearImage;
         private System.Windows.Forms.Button buttonBrowseImage;
         private System.Windows.Forms.Button buttonStaffImageInfo;
-        private System.Windows.Forms.Button buttonFP1;
+        private System.Windows.Forms.ComboBox comboFPDevices;
+        private System.Windows.Forms.Button buttonFPConnect;
+        private System.Windows.Forms.PictureBox pictureBoxFP4;
+        private System.Windows.Forms.PictureBox pictureBoxFP3;
+        private System.Windows.Forms.PictureBox pictureBoxFP2;
+        private System.Windows.Forms.PictureBox pictureBoxFP1;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.ComboBox comboFPDevices;
-        private System.Windows.Forms.Button buttonFPConnect;
+        private System.Windows.Forms.Button buttonFP2;
         private System.Windows.Forms.Button buttonFP4;
         private System.Windows.Forms.Button buttonFP3;
-        private System.Windows.Forms.Button buttonFP2;
+        private System.Windows.Forms.Button buttonFP1;
     }
 }
