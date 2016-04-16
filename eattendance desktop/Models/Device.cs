@@ -107,5 +107,10 @@ namespace eattendance_desktop
             this.bIsConnected = isConnected;
             this.sStatus = isConnected ? "Online" : "Offline";
         }
+
+        public override string ToString()
+        {
+            return this.name;
+        }
     }
 }

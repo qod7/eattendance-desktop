@@ -46,6 +46,14 @@ namespace eattendance_desktop.Forms
             this.comboGender.DataSource = Common.Gender;
             // finally populate staff-table
             fillTable();
+
+            // populate device list for fingerprint entry
+            foreach (Device device in Common.Devices)
+            {
+                this.comboFPDevices.Items.Add(device);
+            }
+            if (Common.Devices.Count > 0)
+                this.comboFPDevices.SelectedIndex = 0;
         }
 
         private void dataGridStaffs_OnEnter(object sender, EventArgs e)

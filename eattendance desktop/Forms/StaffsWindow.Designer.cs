@@ -523,6 +523,7 @@
             // 
             // comboFPDevices
             // 
+            this.comboFPDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboFPDevices.FormattingEnabled = true;
             this.comboFPDevices.Location = new System.Drawing.Point(6, 17);
             this.comboFPDevices.Name = "comboFPDevices";
@@ -631,6 +632,8 @@
             // comboGender
             // 
             this.comboGender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboGender.BackColor = System.Drawing.Color.White;
+            this.comboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
             this.comboGender.FormattingEnabled = true;
             this.comboGender.ItemHeight = 12;
@@ -653,6 +656,8 @@
             // comboDepartment
             // 
             this.comboDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboDepartment.BackColor = System.Drawing.Color.White;
+            this.comboDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
             this.comboDepartment.FormattingEnabled = true;
             this.comboDepartment.ItemHeight = 12;
@@ -721,6 +726,8 @@
             // comboPrivilege
             // 
             this.comboPrivilege.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboPrivilege.BackColor = System.Drawing.Color.White;
+            this.comboPrivilege.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboPrivilege.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
             this.comboPrivilege.FormattingEnabled = true;
             this.comboPrivilege.ItemHeight = 12;
