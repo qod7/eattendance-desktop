@@ -141,6 +141,12 @@
     <Compile Include="Forms\AddDeviceWindow.Designer.cs">
       <DependentUpon>AddDeviceWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FingerprintWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FingerprintWindow.Designer.cs">
+      <DependentUpon>FingerprintWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\StaffsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DevicesWindow.resx">
       <DependentUpon>DevicesWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FingerprintWindow.resx">
+      <DependentUpon>FingerprintWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
@@ -269,6 +278,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\fingerprint-window-progress.png" />
+    <None Include="Resources\fingerprint-window-bg.png" />
     <None Include="Resources\fingerprint-inactive.png" />
     <None Include="Resources\fingerprint-active.png" />
     <None Include="Resources\info.png" />

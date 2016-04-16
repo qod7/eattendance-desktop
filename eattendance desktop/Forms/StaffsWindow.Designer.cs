@@ -56,15 +56,27 @@
             this.homeTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mobile1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mobile2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBoxPhoto = new System.Windows.Forms.GroupBox();
             this.buttonStaffImageInfo = new System.Windows.Forms.Button();
             this.buttonClearImage = new System.Windows.Forms.Button();
             this.buttonBrowseImage = new System.Windows.Forms.Button();
             this.staffImage = new System.Windows.Forms.PictureBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxFingerprint = new System.Windows.Forms.GroupBox();
+            this.buttonFP2 = new System.Windows.Forms.Button();
+            this.buttonFP4 = new System.Windows.Forms.Button();
+            this.buttonFP3 = new System.Windows.Forms.Button();
+            this.buttonFP1 = new System.Windows.Forms.Button();
+            this.pictureBoxFP4 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFP3 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFP2 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFP1 = new System.Windows.Forms.PictureBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.comboFPDevices = new System.Windows.Forms.ComboBox();
             this.buttonFPConnect = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxDetails = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Basic = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelBasic = new System.Windows.Forms.TableLayoutPanel();
@@ -120,18 +132,6 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label21 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.pictureBoxFP1 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxFP2 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxFP3 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxFP4 = new System.Windows.Forms.PictureBox();
-            this.buttonFP1 = new System.Windows.Forms.Button();
-            this.buttonFP2 = new System.Windows.Forms.Button();
-            this.buttonFP3 = new System.Windows.Forms.Button();
-            this.buttonFP4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tablesSplitContainer)).BeginInit();
             this.tablesSplitContainer.Panel1.SuspendLayout();
             this.tablesSplitContainer.Panel2.SuspendLayout();
@@ -139,10 +139,14 @@
             this.panelDepartment.SuspendLayout();
             this.panelDepartmentControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).BeginInit();
-            this.groupBox3.SuspendLayout();
+            this.groupBoxPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.staffImage)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxFingerprint.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP1)).BeginInit();
+            this.groupBoxDetails.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Basic.SuspendLayout();
             this.tableLayoutPanelBasic.SuspendLayout();
@@ -154,10 +158,6 @@
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP4)).BeginInit();
             this.SuspendLayout();
             // 
             // tablesSplitContainer
@@ -179,9 +179,9 @@
             // tablesSplitContainer.Panel2
             // 
             this.tablesSplitContainer.Panel2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.tablesSplitContainer.Panel2.Controls.Add(this.groupBox3);
-            this.tablesSplitContainer.Panel2.Controls.Add(this.groupBox2);
-            this.tablesSplitContainer.Panel2.Controls.Add(this.groupBox1);
+            this.tablesSplitContainer.Panel2.Controls.Add(this.groupBoxPhoto);
+            this.tablesSplitContainer.Panel2.Controls.Add(this.groupBoxFingerprint);
+            this.tablesSplitContainer.Panel2.Controls.Add(this.groupBoxDetails);
             this.tablesSplitContainer.Panel2MinSize = 200;
             this.tablesSplitContainer.Size = new System.Drawing.Size(784, 392);
             this.tablesSplitContainer.SplitterDistance = 188;
@@ -419,20 +419,20 @@
             this.mobile2.Name = "mobile2";
             this.mobile2.ReadOnly = true;
             // 
-            // groupBox3
+            // groupBoxPhoto
             // 
-            this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox3.Controls.Add(this.buttonStaffImageInfo);
-            this.groupBox3.Controls.Add(this.buttonClearImage);
-            this.groupBox3.Controls.Add(this.buttonBrowseImage);
-            this.groupBox3.Controls.Add(this.staffImage);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox3.Location = new System.Drawing.Point(368, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(140, 200);
-            this.groupBox3.TabIndex = 11;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Photo";
+            this.groupBoxPhoto.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxPhoto.Controls.Add(this.buttonStaffImageInfo);
+            this.groupBoxPhoto.Controls.Add(this.buttonClearImage);
+            this.groupBoxPhoto.Controls.Add(this.buttonBrowseImage);
+            this.groupBoxPhoto.Controls.Add(this.staffImage);
+            this.groupBoxPhoto.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBoxPhoto.Location = new System.Drawing.Point(368, 0);
+            this.groupBoxPhoto.Name = "groupBoxPhoto";
+            this.groupBoxPhoto.Size = new System.Drawing.Size(140, 200);
+            this.groupBoxPhoto.TabIndex = 11;
+            this.groupBoxPhoto.TabStop = false;
+            this.groupBoxPhoto.Text = "Photo";
             // 
             // buttonStaffImageInfo
             // 
@@ -496,30 +496,150 @@
             this.staffImage.TabIndex = 0;
             this.staffImage.TabStop = false;
             // 
-            // groupBox2
+            // groupBoxFingerprint
             // 
-            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox2.Controls.Add(this.buttonFP2);
-            this.groupBox2.Controls.Add(this.buttonFP4);
-            this.groupBox2.Controls.Add(this.buttonFP3);
-            this.groupBox2.Controls.Add(this.buttonFP1);
-            this.groupBox2.Controls.Add(this.pictureBoxFP4);
-            this.groupBox2.Controls.Add(this.pictureBoxFP3);
-            this.groupBox2.Controls.Add(this.pictureBoxFP2);
-            this.groupBox2.Controls.Add(this.pictureBoxFP1);
-            this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.label22);
-            this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Controls.Add(this.comboFPDevices);
-            this.groupBox2.Controls.Add(this.buttonFPConnect);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox2.Location = new System.Drawing.Point(508, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(276, 200);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Fingerprint";
+            this.groupBoxFingerprint.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxFingerprint.Controls.Add(this.buttonFP2);
+            this.groupBoxFingerprint.Controls.Add(this.buttonFP4);
+            this.groupBoxFingerprint.Controls.Add(this.buttonFP3);
+            this.groupBoxFingerprint.Controls.Add(this.buttonFP1);
+            this.groupBoxFingerprint.Controls.Add(this.pictureBoxFP4);
+            this.groupBoxFingerprint.Controls.Add(this.pictureBoxFP3);
+            this.groupBoxFingerprint.Controls.Add(this.pictureBoxFP2);
+            this.groupBoxFingerprint.Controls.Add(this.pictureBoxFP1);
+            this.groupBoxFingerprint.Controls.Add(this.label24);
+            this.groupBoxFingerprint.Controls.Add(this.label22);
+            this.groupBoxFingerprint.Controls.Add(this.label23);
+            this.groupBoxFingerprint.Controls.Add(this.label21);
+            this.groupBoxFingerprint.Controls.Add(this.comboFPDevices);
+            this.groupBoxFingerprint.Controls.Add(this.buttonFPConnect);
+            this.groupBoxFingerprint.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBoxFingerprint.Location = new System.Drawing.Point(508, 0);
+            this.groupBoxFingerprint.Name = "groupBoxFingerprint";
+            this.groupBoxFingerprint.Size = new System.Drawing.Size(276, 200);
+            this.groupBoxFingerprint.TabIndex = 10;
+            this.groupBoxFingerprint.TabStop = false;
+            this.groupBoxFingerprint.Text = "Fingerprint";
+            // 
+            // buttonFP2
+            // 
+            this.buttonFP2.Location = new System.Drawing.Point(74, 162);
+            this.buttonFP2.Name = "buttonFP2";
+            this.buttonFP2.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP2.TabIndex = 4;
+            this.buttonFP2.Tag = "2";
+            this.buttonFP2.Text = "Clear";
+            this.buttonFP2.UseVisualStyleBackColor = true;
+            this.buttonFP2.Click += new System.EventHandler(this.buttonFP2_Click);
+            // 
+            // buttonFP4
+            // 
+            this.buttonFP4.Location = new System.Drawing.Point(210, 162);
+            this.buttonFP4.Name = "buttonFP4";
+            this.buttonFP4.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP4.TabIndex = 4;
+            this.buttonFP4.Tag = "4";
+            this.buttonFP4.Text = "Enroll";
+            this.buttonFP4.UseVisualStyleBackColor = true;
+            this.buttonFP4.Click += new System.EventHandler(this.buttonFP4_Click);
+            // 
+            // buttonFP3
+            // 
+            this.buttonFP3.Location = new System.Drawing.Point(142, 162);
+            this.buttonFP3.Name = "buttonFP3";
+            this.buttonFP3.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP3.TabIndex = 4;
+            this.buttonFP3.Tag = "3";
+            this.buttonFP3.Text = "Enroll";
+            this.buttonFP3.UseVisualStyleBackColor = true;
+            this.buttonFP3.Click += new System.EventHandler(this.buttonFP3_Click);
+            // 
+            // buttonFP1
+            // 
+            this.buttonFP1.Location = new System.Drawing.Point(6, 162);
+            this.buttonFP1.Name = "buttonFP1";
+            this.buttonFP1.Size = new System.Drawing.Size(60, 23);
+            this.buttonFP1.TabIndex = 4;
+            this.buttonFP1.Tag = "1";
+            this.buttonFP1.Text = "Enroll";
+            this.buttonFP1.UseVisualStyleBackColor = true;
+            this.buttonFP1.Click += new System.EventHandler(this.buttonFP1_Click);
+            // 
+            // pictureBoxFP4
+            // 
+            this.pictureBoxFP4.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
+            this.pictureBoxFP4.Location = new System.Drawing.Point(210, 87);
+            this.pictureBoxFP4.Name = "pictureBoxFP4";
+            this.pictureBoxFP4.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP4.TabIndex = 3;
+            this.pictureBoxFP4.TabStop = false;
+            // 
+            // pictureBoxFP3
+            // 
+            this.pictureBoxFP3.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
+            this.pictureBoxFP3.Location = new System.Drawing.Point(142, 87);
+            this.pictureBoxFP3.Name = "pictureBoxFP3";
+            this.pictureBoxFP3.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP3.TabIndex = 3;
+            this.pictureBoxFP3.TabStop = false;
+            // 
+            // pictureBoxFP2
+            // 
+            this.pictureBoxFP2.Image = global::eattendance_desktop.Properties.Resources.fingerprint_active;
+            this.pictureBoxFP2.Location = new System.Drawing.Point(74, 87);
+            this.pictureBoxFP2.Name = "pictureBoxFP2";
+            this.pictureBoxFP2.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP2.TabIndex = 3;
+            this.pictureBoxFP2.TabStop = false;
+            // 
+            // pictureBoxFP1
+            // 
+            this.pictureBoxFP1.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
+            this.pictureBoxFP1.Location = new System.Drawing.Point(6, 87);
+            this.pictureBoxFP1.Name = "pictureBoxFP1";
+            this.pictureBoxFP1.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxFP1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxFP1.TabIndex = 3;
+            this.pictureBoxFP1.TabStop = false;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(218, 60);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(45, 13);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Finger 4";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(82, 60);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(45, 13);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "Finger 2";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(150, 60);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(45, 13);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "Finger 3";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 60);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(45, 13);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "Finger 1";
             // 
             // comboFPDevices
             // 
@@ -529,6 +649,7 @@
             this.comboFPDevices.Name = "comboFPDevices";
             this.comboFPDevices.Size = new System.Drawing.Size(183, 21);
             this.comboFPDevices.TabIndex = 1;
+            this.comboFPDevices.SelectedValueChanged += new System.EventHandler(this.comboFPDevices_SelectedValueChanged);
             // 
             // buttonFPConnect
             // 
@@ -539,19 +660,19 @@
             this.buttonFPConnect.Text = "Connect";
             this.buttonFPConnect.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // groupBoxDetails
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.tabControl1);
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(369, 200);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Details";
+            this.groupBoxDetails.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxDetails.Controls.Add(this.tabControl1);
+            this.groupBoxDetails.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxDetails.Name = "groupBoxDetails";
+            this.groupBoxDetails.Size = new System.Drawing.Size(369, 200);
+            this.groupBoxDetails.TabIndex = 9;
+            this.groupBoxDetails.TabStop = false;
+            this.groupBoxDetails.Text = "Details";
             // 
             // tabControl1
             // 
@@ -1271,118 +1392,6 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(14, 60);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(45, 13);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "Finger 1";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(150, 60);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(45, 13);
-            this.label23.TabIndex = 2;
-            this.label23.Text = "Finger 3";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(82, 60);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(45, 13);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "Finger 2";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(218, 60);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(45, 13);
-            this.label24.TabIndex = 2;
-            this.label24.Text = "Finger 4";
-            // 
-            // pictureBoxFP1
-            // 
-            this.pictureBoxFP1.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
-            this.pictureBoxFP1.Location = new System.Drawing.Point(6, 87);
-            this.pictureBoxFP1.Name = "pictureBoxFP1";
-            this.pictureBoxFP1.Size = new System.Drawing.Size(60, 60);
-            this.pictureBoxFP1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxFP1.TabIndex = 3;
-            this.pictureBoxFP1.TabStop = false;
-            // 
-            // pictureBoxFP2
-            // 
-            this.pictureBoxFP2.Image = global::eattendance_desktop.Properties.Resources.fingerprint_active;
-            this.pictureBoxFP2.Location = new System.Drawing.Point(74, 87);
-            this.pictureBoxFP2.Name = "pictureBoxFP2";
-            this.pictureBoxFP2.Size = new System.Drawing.Size(60, 60);
-            this.pictureBoxFP2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxFP2.TabIndex = 3;
-            this.pictureBoxFP2.TabStop = false;
-            // 
-            // pictureBoxFP3
-            // 
-            this.pictureBoxFP3.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
-            this.pictureBoxFP3.Location = new System.Drawing.Point(142, 87);
-            this.pictureBoxFP3.Name = "pictureBoxFP3";
-            this.pictureBoxFP3.Size = new System.Drawing.Size(60, 60);
-            this.pictureBoxFP3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxFP3.TabIndex = 3;
-            this.pictureBoxFP3.TabStop = false;
-            // 
-            // pictureBoxFP4
-            // 
-            this.pictureBoxFP4.Image = global::eattendance_desktop.Properties.Resources.fingerprint_inactive;
-            this.pictureBoxFP4.Location = new System.Drawing.Point(210, 87);
-            this.pictureBoxFP4.Name = "pictureBoxFP4";
-            this.pictureBoxFP4.Size = new System.Drawing.Size(60, 60);
-            this.pictureBoxFP4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxFP4.TabIndex = 3;
-            this.pictureBoxFP4.TabStop = false;
-            // 
-            // buttonFP1
-            // 
-            this.buttonFP1.Location = new System.Drawing.Point(6, 162);
-            this.buttonFP1.Name = "buttonFP1";
-            this.buttonFP1.Size = new System.Drawing.Size(60, 23);
-            this.buttonFP1.TabIndex = 4;
-            this.buttonFP1.Text = "Enroll";
-            this.buttonFP1.UseVisualStyleBackColor = true;
-            // 
-            // buttonFP2
-            // 
-            this.buttonFP2.Location = new System.Drawing.Point(74, 162);
-            this.buttonFP2.Name = "buttonFP2";
-            this.buttonFP2.Size = new System.Drawing.Size(60, 23);
-            this.buttonFP2.TabIndex = 4;
-            this.buttonFP2.Text = "Clear";
-            this.buttonFP2.UseVisualStyleBackColor = true;
-            // 
-            // buttonFP3
-            // 
-            this.buttonFP3.Location = new System.Drawing.Point(142, 162);
-            this.buttonFP3.Name = "buttonFP3";
-            this.buttonFP3.Size = new System.Drawing.Size(60, 23);
-            this.buttonFP3.TabIndex = 4;
-            this.buttonFP3.Text = "Enroll";
-            this.buttonFP3.UseVisualStyleBackColor = true;
-            // 
-            // buttonFP4
-            // 
-            this.buttonFP4.Location = new System.Drawing.Point(210, 162);
-            this.buttonFP4.Name = "buttonFP4";
-            this.buttonFP4.Size = new System.Drawing.Size(60, 23);
-            this.buttonFP4.TabIndex = 4;
-            this.buttonFP4.Text = "Enroll";
-            this.buttonFP4.UseVisualStyleBackColor = true;
-            // 
             // StaffsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1402,11 +1411,15 @@
             this.panelDepartment.ResumeLayout(false);
             this.panelDepartmentControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaffs)).EndInit();
-            this.groupBox3.ResumeLayout(false);
+            this.groupBoxPhoto.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.staffImage)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.groupBoxFingerprint.ResumeLayout(false);
+            this.groupBoxFingerprint.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP1)).EndInit();
+            this.groupBoxDetails.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Basic.ResumeLayout(false);
             this.tableLayoutPanelBasic.ResumeLayout(false);
@@ -1420,10 +1433,6 @@
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFP4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1437,9 +1446,9 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.SplitContainer mainSplitContainer;
         private System.Windows.Forms.DataGridView dataGridStaffs;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxPhoto;
+        private System.Windows.Forms.GroupBox groupBoxFingerprint;
+        private System.Windows.Forms.GroupBox groupBoxDetails;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage Basic;
         private System.Windows.Forms.TabPage Extras;

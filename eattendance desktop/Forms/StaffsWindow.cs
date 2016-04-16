@@ -16,6 +16,7 @@ namespace eattendance_desktop.Forms
         bool onRowValidatingActive = false;
         EventHandler staffSelectionChangedEvent;
         List<Department> departments;
+        List<Button> fpButtons;
 
         public StaffsWindow()
         {
@@ -24,7 +25,10 @@ namespace eattendance_desktop.Forms
 
         private void StaffsWindow_Load(object sender, EventArgs e)
         {
+            // fp buttons list
+            this.fpButtons = new List<Button> { buttonFP1, buttonFP2, buttonFP3, buttonFP4 };
             initElementData();
+            // staffs table events
             this.staffSelectionChangedEvent = new EventHandler(this.dataGridStaffs_SelectionChanged);
             this.dataGridStaffs.SelectionChanged += staffSelectionChangedEvent;
             this.dataGridStaffs.RowValidating += new DataGridViewCellCancelEventHandler(this.dataGridStaffs_OnRowValidating);
@@ -500,6 +504,130 @@ namespace eattendance_desktop.Forms
         {
             // reload the table - will accomodate for the selected dept change
             fillTable();
+        }
+
+        private bool hasFPData(PictureBox fpPictureBox)
+        {
+            if (fpPictureBox.Tag == null) return false;
+            if (!(fpPictureBox.Tag is string)) return false;
+            if (fpPictureBox.Tag.Equals("")) return false;
+            return true;
+        }
+
+        private void comboFPDevices_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Device device = (Device)this.comboFPDevices.SelectedItem;
+            Button fpButton;
+            PictureBox fpPictureBox;
+            if (device.isConnected)
+            {
+                this.buttonFPConnect.Enabled = false;
+                this.buttonFPConnect.Text = "Connected";
+                for (int i=1; i<=4; i++)
+                {
+                    fpButton = (Button)groupBoxFingerprint.Controls[String.Format("buttonFP{0}", i)];
+                    fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
+                    fpButton.Enabled = true;
+                    if (hasFPData(fpPictureBox))
+                        fpButton.Text = "Clear";
+                    else
+                        fpButton.Text = "Enroll";
+                }
+            }
+            else
+            {
+                this.buttonFPConnect.Enabled = true;
+                this.buttonFPConnect.Text = "Connect";
+                for (int i = 1; i <= 4; i++)
+                {
+                    fpButton = (Button)groupBoxFingerprint.Controls[String.Format("buttonFP{0}", i)];
+                    fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
+                    if (hasFPData(fpPictureBox))
+                    {
+                        fpButton.Enabled = true;
+                        fpButton.Text = "Clear";
+                    }
+                    else
+                    {
+                        fpButton.Enabled = false;
+                        fpButton.Text = "Enroll";
+                    }
+                }
+            }
+        }
+
+        private void buttonFP1_Click(object sender, EventArgs e)
+        {
+            this.buttonFP_Click(this.buttonFP1, this.pictureBoxFP1);
+        }
+
+        private void buttonFP2_Click(object sender, EventArgs e)
+        {
+            this.buttonFP_Click(this.buttonFP2, this.pictureBoxFP2);
+        }
+
+        private void buttonFP3_Click(object sender, EventArgs e)
+        {
+            this.buttonFP_Click(this.buttonFP3, this.pictureBoxFP3);
+        }
+
+        private void buttonFP4_Click(object sender, EventArgs e)
+        {
+            this.buttonFP_Click(this.buttonFP4, this.pictureBoxFP4);
+        }
+
+        private void buttonFP_Click(Button fpButton, PictureBox fpPictureBox)
+        {
+            // if hasdata, clear after confirmation
+            if (hasFPData(fpPictureBox))
+            {
+                switch (MessageBox.Show("Are you sure you want to clear the fingerprint?",
+                        "Confirm Clear", MessageBoxButtons.YesNo))
+                {
+                    case DialogResult.Yes:
+                        fpPictureBox.Image = Properties.Resources.fingerprint_inactive;
+                        fpPictureBox.Tag = null;
+                        this.panelDirty = true;
+                        break;
+                    case DialogResult.No:
+                        // nothing to do then
+                        break;
+                }
+            }
+            // else, enroll new
+            else
+            {
+                FingerprintWindow fingerprintWindow = new FingerprintWindow();
+                fingerprintWindow.ShowDialog();
+                return;
+                zkemkeeper.CZKEMClass device = ((Device)this.comboFPDevices.SelectedItem).device;
+                int iMachineNumber = device.MachineNumber;
+                int idwErrorCode = 0;
+                bool bCanSaveTmp = false;
+                string sUserID = this.dataGridStaffs.SelectedRows[0].Cells[0].Value.ToString();
+                int iFingerIndex = Convert.ToInt32(fpButton.Tag);
+                int iFlag = 1;
+
+                device.CancelOperation();
+                //If the specified index of user's templates has existed ,delete it first.(SSR_DelUserTmp is also available sometimes)
+                device.SSR_DelUserTmpExt(iMachineNumber, sUserID, iFingerIndex);
+                if (!device.SSR_SetUserInfo(iMachineNumber, sUserID, "Hari Kumar", "harikumar", 0, true))
+                {
+                    MessageBox.Show("Couldn't write user");
+                    return;
+                }
+                if (device.StartEnrollEx(sUserID, iFingerIndex, iFlag))
+                {
+                    MessageBox.Show("Start to Enroll a new User,UserID=" + sUserID + " FingerID=" + iFingerIndex.ToString() + " Flag=" + iFlag.ToString(), "Start");
+                    bCanSaveTmp = true;
+                    device.StartIdentify();//After enrolling templates,you should let the device into the 1:N verification condition
+                }
+                else
+                {
+                    device.GetLastError(ref idwErrorCode);
+                    MessageBox.Show("Operation failed,ErrorCode=" + idwErrorCode.ToString(), "Error");
+                }
+            }
         }
     }
 }
