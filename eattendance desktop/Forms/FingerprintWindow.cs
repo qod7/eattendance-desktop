@@ -105,6 +105,8 @@ namespace eattendance_desktop.Forms
                     else
                     {
                         MessageBox.Show("Fetch Error!", "Error");
+                        azkemkeeper.CancelOperation();
+                        break;
                     }
                 }
                 // finally delete the temporary user

@@ -90,7 +90,7 @@
             // 
             // fpProgress1
             // 
-            this.fpProgress1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.fpProgress1.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.fpProgress1.ErrorImage = null;
             this.fpProgress1.InitialImage = null;
             this.fpProgress1.Location = new System.Drawing.Point(24, 68);
@@ -102,7 +102,7 @@
             // 
             // fpProgress2
             // 
-            this.fpProgress2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.fpProgress2.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.fpProgress2.ErrorImage = null;
             this.fpProgress2.InitialImage = null;
             this.fpProgress2.Location = new System.Drawing.Point(94, 68);
@@ -114,7 +114,7 @@
             // 
             // fpProgress3
             // 
-            this.fpProgress3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.fpProgress3.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.fpProgress3.ErrorImage = null;
             this.fpProgress3.InitialImage = null;
             this.fpProgress3.Location = new System.Drawing.Point(164, 68);

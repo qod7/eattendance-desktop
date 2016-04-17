@@ -214,6 +214,22 @@ namespace eattendance_desktop.Forms
             this.staffImage.Tag = new List<string> { "old", staff.image };
 
             // FINGERPRINTS
+            for (int i = 1; i<=4; i++)
+            {
+                PictureBox fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
+                if (staff.fingerprints.ContainsKey(i.ToString()))
+                {
+                    string fp = staff.fingerprints[i.ToString()];
+                    if (! fp.Equals(""))
+                        // else fingerprint exists and is valid. probably.
+                        fpPictureBox.Tag = fp;
+                    else
+                        fpPictureBox.Tag = null;
+                }
+                else
+                    fpPictureBox.Tag = null;
+            }
+            this.updateFPPanel();
         }
 
         private Staff panelToStaff()
@@ -274,6 +290,12 @@ namespace eattendance_desktop.Forms
             }
 
             // FINGERPRINTS
+            for (int i = 1; i <= 4; i++)
+            {
+                PictureBox fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
+                if (!hasFPData(fpPictureBox)) continue;
+                staff.fingerprints.Add(i.ToString(), fpPictureBox.Tag.ToString());
+            }
 
             return staff;
         }
@@ -514,46 +536,36 @@ namespace eattendance_desktop.Forms
             return true;
         }
 
+        private void updateFPPanel()
+        {
+            bool deviceConnected = this.labelConnectedIndicator.Text.Equals("Connected");
+            for (int i = 1; i <= 4; i++)
+            {
+                Button fpButton = (Button)groupBoxFingerprint.Controls[String.Format("buttonFP{0}", i)];
+                PictureBox fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
+                if (hasFPData(fpPictureBox))
+                {
+                    fpPictureBox.Image = Properties.Resources.fingerprint_active;
+                    fpButton.Enabled = true;
+                    fpButton.Text = "Clear";
+                }
+                else
+                {
+                    fpPictureBox.Image = Properties.Resources.fingerprint_inactive;
+                    fpButton.Enabled = deviceConnected;
+                    fpButton.Text = "Enroll";
+                }
+            }
+        }
+
         private void comboFPDevices_SelectedValueChanged(object sender, EventArgs e)
         {
             Device device = (Device)this.comboFPDevices.SelectedItem;
-            Button fpButton;
-            PictureBox fpPictureBox;
             if (device.isConnected)
-            {
-                this.buttonFPConnect.Enabled = false;
-                this.buttonFPConnect.Text = "Connected";
-                for (int i=1; i<=4; i++)
-                {
-                    fpButton = (Button)groupBoxFingerprint.Controls[String.Format("buttonFP{0}", i)];
-                    fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
-                    fpButton.Enabled = true;
-                    if (hasFPData(fpPictureBox))
-                        fpButton.Text = "Clear";
-                    else
-                        fpButton.Text = "Enroll";
-                }
-            }
+                this.labelConnectedIndicator.Text = "Connected";
             else
-            {
-                this.buttonFPConnect.Enabled = true;
-                this.buttonFPConnect.Text = "Connect";
-                for (int i = 1; i <= 4; i++)
-                {
-                    fpButton = (Button)groupBoxFingerprint.Controls[String.Format("buttonFP{0}", i)];
-                    fpPictureBox = (PictureBox)groupBoxFingerprint.Controls[String.Format("pictureBoxFP{0}", i)];
-                    if (hasFPData(fpPictureBox))
-                    {
-                        fpButton.Enabled = true;
-                        fpButton.Text = "Clear";
-                    }
-                    else
-                    {
-                        fpButton.Enabled = false;
-                        fpButton.Text = "Enroll";
-                    }
-                }
-            }
+                this.labelConnectedIndicator.Text = "Not Connected";
+            this.updateFPPanel();
         }
 
         private void buttonFP1_Click(object sender, EventArgs e)
