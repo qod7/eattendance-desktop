@@ -597,9 +597,8 @@ namespace eattendance_desktop.Forms
                         "Confirm Clear", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.Yes:
-                        fpPictureBox.Image = Properties.Resources.fingerprint_inactive;
                         fpPictureBox.Tag = null;
-                        fpButton.Text = "Enroll";
+                        this.updateFPPanel();
                         this.panelDirty = true;
                         break;
                     case DialogResult.No:
@@ -616,8 +615,7 @@ namespace eattendance_desktop.Forms
                 if (fingerprintWindow.fpSuccess)
                 {
                     fpPictureBox.Tag = Convert.ToBase64String(fingerprintWindow.fpTmpData);
-                    fpPictureBox.Image = Properties.Resources.fingerprint_active;
-                    fpButton.Text = "Clear";
+                    this.updateFPPanel();
                     this.panelDirty = true;
                 }
                 return;
