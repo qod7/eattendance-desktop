@@ -5,7 +5,7 @@ using System.Text;
 
 namespace eattendance_desktop
 {
-    class Device
+    public class Device
     {
         private zkemkeeper.CZKEMClass axCZKEM;
         public zkemkeeper.CZKEMClass device

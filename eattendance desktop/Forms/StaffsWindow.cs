@@ -587,6 +587,7 @@ namespace eattendance_desktop.Forms
                     case DialogResult.Yes:
                         fpPictureBox.Image = Properties.Resources.fingerprint_inactive;
                         fpPictureBox.Tag = null;
+                        fpButton.Text = "Enroll";
                         this.panelDirty = true;
                         break;
                     case DialogResult.No:
@@ -597,36 +598,18 @@ namespace eattendance_desktop.Forms
             // else, enroll new
             else
             {
-                FingerprintWindow fingerprintWindow = new FingerprintWindow();
+                Device device = ((Device)this.comboFPDevices.SelectedItem);
+                FingerprintWindow fingerprintWindow = new FingerprintWindow(device);
                 fingerprintWindow.ShowDialog();
+                if (fingerprintWindow.fpSuccess)
+                {
+                    fpPictureBox.Tag = Convert.ToBase64String(fingerprintWindow.fpTmpData);
+                    fpPictureBox.Image = Properties.Resources.fingerprint_active;
+                    fpButton.Text = "Clear";
+                    this.panelDirty = true;
+                }
                 return;
-                zkemkeeper.CZKEMClass device = ((Device)this.comboFPDevices.SelectedItem).device;
-                int iMachineNumber = device.MachineNumber;
-                int idwErrorCode = 0;
-                bool bCanSaveTmp = false;
-                string sUserID = this.dataGridStaffs.SelectedRows[0].Cells[0].Value.ToString();
-                int iFingerIndex = Convert.ToInt32(fpButton.Tag);
-                int iFlag = 1;
-
-                device.CancelOperation();
-                //If the specified index of user's templates has existed ,delete it first.(SSR_DelUserTmp is also available sometimes)
-                device.SSR_DelUserTmpExt(iMachineNumber, sUserID, iFingerIndex);
-                if (!device.SSR_SetUserInfo(iMachineNumber, sUserID, "Hari Kumar", "harikumar", 0, true))
-                {
-                    MessageBox.Show("Couldn't write user");
-                    return;
-                }
-                if (device.StartEnrollEx(sUserID, iFingerIndex, iFlag))
-                {
-                    MessageBox.Show("Start to Enroll a new User,UserID=" + sUserID + " FingerID=" + iFingerIndex.ToString() + " Flag=" + iFlag.ToString(), "Start");
-                    bCanSaveTmp = true;
-                    device.StartIdentify();//After enrolling templates,you should let the device into the 1:N verification condition
-                }
-                else
-                {
-                    device.GetLastError(ref idwErrorCode);
-                    MessageBox.Show("Operation failed,ErrorCode=" + idwErrorCode.ToString(), "Error");
-                }
+                
             }
         }
     }

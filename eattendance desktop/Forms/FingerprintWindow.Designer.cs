@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FingerprintWindow));
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.fpProgress1 = new System.Windows.Forms.PictureBox();
@@ -44,25 +45,26 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(20, 120);
+            this.btnCancel.Location = new System.Drawing.Point(20, 115);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 28);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // label1
+            // labelInfo
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(18, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(217, 37);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Please place your finger on the device three times.";
+            this.labelInfo.BackColor = System.Drawing.Color.Transparent;
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfo.ForeColor = System.Drawing.Color.White;
+            this.labelInfo.Location = new System.Drawing.Point(18, 15);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(217, 37);
+            this.labelInfo.TabIndex = 1;
+            this.labelInfo.Text = "Please place your finger on the device three times.";
             // 
             // pictureBox2
             // 
@@ -96,6 +98,7 @@
             this.fpProgress1.Size = new System.Drawing.Size(66, 15);
             this.fpProgress1.TabIndex = 4;
             this.fpProgress1.TabStop = false;
+            this.fpProgress1.Visible = false;
             // 
             // fpProgress2
             // 
@@ -107,6 +110,7 @@
             this.fpProgress2.Size = new System.Drawing.Size(66, 15);
             this.fpProgress2.TabIndex = 4;
             this.fpProgress2.TabStop = false;
+            this.fpProgress2.Visible = false;
             // 
             // fpProgress3
             // 
@@ -118,6 +122,7 @@
             this.fpProgress3.Size = new System.Drawing.Size(66, 15);
             this.fpProgress3.TabIndex = 4;
             this.fpProgress3.TabStop = false;
+            this.fpProgress3.Visible = false;
             // 
             // FingerprintWindow
             // 
@@ -131,11 +136,19 @@
             this.Controls.Add(this.fpProgress1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.btnCancel);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(400, 200);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(400, 200);
             this.Name = "FingerprintWindow";
-            this.Text = "FingerprintWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Fingerprint Entry";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.FingerprintWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fpProgress1)).EndInit();
@@ -148,7 +161,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox fpProgress1;
